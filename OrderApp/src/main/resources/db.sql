@@ -3,12 +3,12 @@ CREATE DATABASE megamega; -- 'megamega' DB 생성
 
 -- 회원 테이블
 DROP TABLE if EXISTS megamega.member;
-CREATE TABLE megamega.member (
-    member_no INT AUTO_INCREMENT NOT NULL PRIMARY KEY, --고유키
-    member_id VARCHAR(255) NOT NULL UNIQUE, --아이디
+CREATE TABLE member (
+    member_no INT AUTO_INCREMENT NOT NULL PRIMARY KEY, -- 고유키
+    member_id VARCHAR(255) NOT NULL UNIQUE, -- 아이디
     member_pw VARCHAR(255) NOT NULL, -- 암호키
     member_name VARCHAR(255) NOT NULL, -- 이름
-    member_birth DATETIME DEFAULT NOW() -- 생년월일
+    member_birth DATETIME DEFAULT NOW(), -- 생년월일
     member_email VARCHAR(255) NOT NULL, -- 이메일
     member_phone VARCHAR(255) NOT NULL, -- 연락처
     pw_question VARCHAR(255) NOT NULL, -- 비밀번호 찾기 질문
@@ -17,7 +17,7 @@ CREATE TABLE megamega.member (
     member_join_datetime  DATETIME DEFAULT NOW(), -- 가입일
     member_stamp INT, -- 스탬프
     
-    member_store_pick INT, --지점 즐겨찾기
+    member_store_pick INT, -- 지점 즐겨찾기
     member_item_pick INT -- 나만의 메뉴
     );
 
@@ -25,14 +25,14 @@ CREATE TABLE megamega.member (
 DROP TABLE if EXISTS megamega.item;
 CREATE TABLE megamega.item (
 item_no INT AUTO_INCREMENT NOT NULL PRIMARY KEY, -- 고유키  
-item_code VARCHAR(255) NOT NULL UNIQUE -- 상품코드
-item_name VARCHAR(255) NOT NULL --상품명
-item_cate VARCHAR(255) NOT NULL -- 카테고리
-item_price INT(255) NOT NULL -- 가격
-item_recommend INT(255) NOT NULL -- 추천메뉴 (추천메뉴 = 1)
-item_new INT(255) NOT NULL -- 신메뉴 (신메뉴 = 1)
-item_image_url TEXT NOT NULL -- 이미지
-item_update_datetime DATETIME DEFAULT NOW() --상품 등록일
+item_code VARCHAR(255) NOT NULL UNIQUE, -- 상품코드
+item_name VARCHAR(255) NOT NULL, -- 상품명
+item_cate VARCHAR(255) NOT NULL, -- 카테고리
+item_price INT NOT NULL, -- 가격
+item_recommend INT DEFAULT(0) NOT NULL, -- 추천메뉴 (추천메뉴 = 1)
+item_new INT DEFAULT(0) NOT NULL, -- 신메뉴 (신메뉴 = 1)
+item_image_url TEXT NOT NULL, -- 이미지
+item_update_datetime DATETIME DEFAULT NOW() -- 상품 등록일
 );
 
 -- 제품 영양정보 테이블
