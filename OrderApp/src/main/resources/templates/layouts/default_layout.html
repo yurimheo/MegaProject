@@ -5,7 +5,7 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-  layout:decorate="~{layout}"
+  layout:decorate="~{default_layout}"
 >
   <head>
     <meta charset="UTF-8" />
@@ -41,7 +41,7 @@
   </head>
   <body>
     <!-- 매 페이지마다 교체될 본문 영역 -->
-    <th:block layout:fragment="content"></th:block>
+    <th:block layout:fragment="layout"></th:block>
     <!-- 하단 네비게이션 바 -->
     <nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
     <!-- 부트스트랩 JS -->
