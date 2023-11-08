@@ -9,3 +9,8 @@
 * {
   font-family: "Pretendard-Regular";
 }
+
+/* 테이블 상단 색 지정 */
+.table thead {
+  background-color: rgb(190, 190, 7);
+}
