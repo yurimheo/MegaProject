@@ -10,13 +10,207 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="./managementOrder.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href=".././static/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href=".././static/css/style_admin.css"
+    />
+    <!-- 사용자 정의 CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../static/css/style_admin.css"
+    />
   </head>
-  <body>
-    <div layout:fragment="admin_layout" class="container-3">
-      <div layout:fragment="admin_layout" class="managementOrder">
-        <h2>하이</h2>
+  <body class="megamega">
+    <div layout:fragment="admin_layout" class="container">
+      <!-- 조회 검색창 -->
+      <div class="row">
+        <select
+          class="form-select w-25 d-inline-block"
+          aria-label="Default select example"
+          style="height: 29%"
+        >
+          <option value="1">주문번호</option>
+          <option value="2">아이디</option>
+        </select>
+        <div class="input-group mb-3 h-25" style="width: 75%">
+          <input
+            type="text"
+            class="form-control"
+            placeholder=""
+            aria-label="Recipient's username"
+            aria-describedby="button-addon2"
+          />
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            id="button-addon2"
+          >
+            검색
+          </button>
+        </div>
+      </div>
+      <hr style="margin-top: 0" />
+      <!-- 조회 캘린더 -->
+      <div class="d-flex justify-content-between">
+        <div class="d-flex">
+          <label for="inputPassword6" class="col-form-label">주문 0건</label>
+          <button type="button" class="btn btn-light">전체</button>
+          <button type="button" class="btn btn-light">1개월</button>
+          <form class="d-flex align-items-center ms-3">
+            <span><input type="date" />~<input type="date" /></span>
+            <span><input class="mx-2" type="submit" value="조회" /></span>
+          </form>
+        </div>
+        <div class="d-flex justify-content-end">
+          <select class="form-select_2" aria-label="Default select example">
+            <option value="1">최신순</option>
+            <option value="2">오래된순</option>
+          </select>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-custom-class="custom-tooltip"
+            data-bs-title="선택한 주문내역들을 모두 삭제 가능합니다."
+          >
+            <img src="../static/images/icons/minus-button.png" alt="" />선택삭제
+          </button>
+        </div>
+      </div>
+
+      <!-- 테이블 -->
+      <div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                />
+              </th>
+              <th scope="col">주문일</th>
+              <th scope="col">주문번호</th>
+              <th scope="col">아이디</th>
+              <th scope="col">총 주문금액</th>
+              <th scope="col">주문상태</th>
+              <th scope="col">주문상세조회</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                />
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <select
+                  class="form-select_2"
+                  aria-label="Default select example"
+                >
+                  <option value="1">결제완료</option>
+                  <option value="2">주문확인</option>
+                  <option value="3">제조완료</option>
+                </select>
+              </td>
+              <td>
+                <button type="button" class="btn btn-primary">상세조회</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                />
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <button type="button" class="btn btn-primary">상세조회</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                />
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <button type="button" class="btn btn-primary">상세조회</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                />
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <button type="button" class="btn btn-primary">상세조회</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
+    <!-- 부트스트랩 JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+      integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      const tooltipTriggerList = document.querySelectorAll(
+        '[data-bs-toggle="tooltip"]'
+      );
+      const tooltipList = [...tooltipTriggerList].map(
+        (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+      );
+    </script>
   </body>
 </html>
