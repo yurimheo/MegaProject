@@ -23,45 +23,74 @@
       href="../static/css/style_admin.css"
     />
   </head>
-  <body>
+  <body class="megamega">
     <div layout:fragment="admin_layout" class="container-fluid">
-      <!-- 카테고리 시작-->
+      <!-- 카테고리 조회 시작-->
       <div class="container">
-        <div class="input-group mb-3">
-          <label class="input-group-text" for="inputGroupSelect01"
-            >카테고리</label
+        <div class="row">
+          <select
+            class="form-select w-25 d-inline-block"
+            aria-label="Default select example"
+            style="height: 29%"
           >
-          <select class="form-select" id="inputGroupSelect01">
             <option value="1">신메뉴</option>
             <option value="2">커피</option>
             <option value="3">티</option>
-            <option value="4">에이드&스무디</option>
+            <option value="">에이드&스무디</option>
           </select>
-          <!-- 카테고리 선택 끝 -->
+          <div class="input-group mb-3 h-25" style="width: 75%">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="상품명이나 상품 코드를 입력하세요."
+              aria-label="Recipient's username"
+              aria-describedby="button-addon2"
+            />
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              id="button-addon2"
+            >
+              검색
+            </button>
+          </div>
         </div>
-        <!-- 카테고리 조회 입력창 시작  -->
-        <div class="input-group mb-3">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="상품명이나 상품 코드를 입력하세요."
-            aria-label="Recipient's username"
-            aria-describedby="button-addon2"
-          />
-          <button
-            class="btn btn-outline-secondary"
-            type="button"
-            id="button-addon2"
-          >
-            조회
-          </button>
-        </div>
+        <hr style="margin-top: 0px; margin-bottom: 0px" />
         <!-- 카테고리 조회 입력창 끝  -->
 
         <br />
 
+        <!--전체삭제 / 상품 등록 버튼 시작 -->
+        <div class="d-flex justify-content-between">
+          <label for="inputPassword6" class="col-form-label">상품 0건</label>
+          <div class="productButton">
+            <button
+              type="button"
+              class="btn btn-light"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-title="신규 상품을 등록할 수 있습니다."
+            >
+              <img src="../static/images/icons/add.png" alt="add_icon" /> 상품
+              신규등록
+            </button>
+            <button
+              type="button"
+              class="btn btn-light"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-title="선택한 항목을 모두 삭제합니다"
+            >
+              <img
+                src="../static/images/icons/minus-button.png"
+                alt="minus_icon"
+              />
+              선택항목 삭제
+            </button>
+          </div>
+        </div>
+        <!-- 전체삭제 / 상품 등록 버튼 끝 -->
         <!-- 상품목록 시작 -->
-        <div>상품 n건</div>
         <table class="table">
           <thead>
             <tr>
@@ -77,8 +106,8 @@
               <th scope="col">상품코드</th>
               <th scope="col">상품명</th>
               <th scope="col">판매가</th>
+              <th scope="col">상품 등록일</th>
               <th scope="col">상품상세조회</th>
-              <th scope="col">삭제</th>
             </tr>
           </thead>
           <tbody>
@@ -95,11 +124,9 @@
               <td>C1</td>
               <td>아메리카노</td>
               <td>3,000</td>
+              <td>2023-11-09</td>
               <td>
                 <button type="button" class="btn btn-primary">상세조회</button>
-              </td>
-              <td class="productDelete">
-                <button type="button" class="btn btn-danger">삭제하기</button>
               </td>
             </tr>
             <tr>
@@ -115,11 +142,9 @@
               <td>T21</td>
               <td>쌍화차</td>
               <td>4,500</td>
+              <td>2023-11-09</td>
               <td>
                 <button type="button" class="btn btn-primary">상세조회</button>
-              </td>
-              <td class="productDelete">
-                <button type="button" class="btn btn-danger">삭제하기</button>
               </td>
             </tr>
             <tr>
@@ -135,11 +160,9 @@
               <td>AS94</td>
               <td>레몬에이드</td>
               <td>4,500</td>
+              <td>2023-11-09</td>
               <td>
                 <button type="button" class="btn btn-primary">상세조회</button>
-              </td>
-              <td class="productDelete">
-                <button type="button" class="btn btn-danger">삭제하기</button>
               </td>
             </tr>
             <tr>
@@ -155,25 +178,14 @@
               <td>C5</td>
               <td>카푸치노</td>
               <td>3,500</td>
+              <td>2023-11-09</td>
               <td>
                 <button type="button" class="btn btn-primary">상세조회</button>
-              </td>
-              <td class="productDelete">
-                <button type="button" class="btn btn-danger">삭제하기</button>
               </td>
             </tr>
           </tbody>
         </table>
         <!-- 상품목록 끝 -->
-
-        <!-- 전체삭제 / 상품 등록 버튼 시작 -->
-        <div class="d-flex justify-content-between">
-          <button type="button" class="btn btn-outline-danger">
-            선택항목 삭제
-          </button>
-          <button type="button" class="btn btn-primary">상품 등록</button>
-        </div>
-        <!-- 전체삭제 / 상품 등록 버튼 끝 -->
       </div>
     </div>
 
@@ -188,5 +200,14 @@
       integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
       crossorigin="anonymous"
     ></script>
+    <!-- 부트스트랩 툴팁 js -->
+    <script>
+      const tooltipTriggerList = document.querySelectorAll(
+        '[data-bs-toggle="tooltip"]'
+      );
+      const tooltipList = [...tooltipTriggerList].map(
+        (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+      );
+    </script>
   </body>
 </html>

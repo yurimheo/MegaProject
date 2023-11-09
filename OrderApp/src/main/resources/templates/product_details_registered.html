@@ -9,7 +9,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>상품정보 수정</title>
+    <title>상품 신규등록</title>
     <!-- 부트스트랩 CSS -->
     <link
       rel="stylesheet"
@@ -27,17 +27,18 @@
     <div layout:fragment="admin_layout" class="container-fluid">
       <div class="container">
         <table class="table">
+          <h2 class="top">상품 등록</h2>
           <!-- 상단 테이블 -->
           <thead>
-            <tr>
+            <tr class="topTable">
               <th scope="col">카테고리</th>
-              <th scope="col">상품 등록일</th>
+              <th scope="col">상품명</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>
-                <div class="input-group mb-3">
+                <div class="input-group mb-3 w-50">
                   <select class="form-select" id="inputGroupSelect01">
                     <option value="1">신메뉴</option>
                     <option value="2">커피</option>
@@ -46,63 +47,93 @@
                   </select>
                 </div>
               </td>
-              <td>2023-11-08</td>
+              <td class="topTable">아메리카노</td>
             </tr>
           </tbody>
         </table>
         <table class="table">
-          <!-- 중단 테이블 -->
-          <thead>
-            <tr>
-              <th scope="col">상품명</th>
-              <th scope="col">상품가격</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><input type="text" /></td>
-              <td><input type="text" /></td>
-            </tr>
-          </tbody>
-        </table>
+         
         <!-- 하단 테이블 -->
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">상품 이미지</th>
-              <th scope="col">상품설명</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="coffeImg">
-                <body>
-                  <form
-                    action="upload.php"
-                    method="post"
-                    enctype="multipart/form-data"
-                  >
-                    <label for="imageUpload">이미지를 선택하세요:</label>
-                    <input type="file" name="image" id="imageUpload" />
-                    <input type="submit" value="업로드" />
-                  </form>
-                </body>
-              </td>
-              <td>
-                <textarea
-                  name="productUpdate"
-                  id=""
-                  cols="40"
-                  rows="6"
-                ></textarea>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="botTable" scope="col">상품 이미지</th>
+                <th class="botTable" scope="col">상품설명</th>
+                
+              </tr>
+            </thead>
+            <!-- 드래그 앤 드롭 시작 -->
+            <tbody>
+              <tr>
+                <td>
+                  <div class="upload-box">
+                    <div id="drop-file" class="drag-file">
+                      <img
+                        src="https://img.icons8.com/pastel-glyph/2x/image-file.png"
+                        alt="파일 아이콘"
+                        class="image"
+                      />
+                      <p class="message">Drag files to upload</p>
+                      <img src="" alt="미리보기 이미지" class="preview" />
+                    </div>
+                    <label class="file-label" for="chooseFile">파일 선택</label>
+                    <input
+                      class="file"
+                      id="chooseFile"
+                      type="file"
+                      onchange="dropFile.handleFiles(this.files)"
+                      accept="image/png, image/jpeg, image/gif"
+                    />
+                  </div>
+                </td>
+                <!-- 드래그 앤 드롭 시작 -->
+                <td>
+                  <textarea
+                    name="productUpdate"
+                    id=""
+                    cols="18"
+                    rows="10"
+                  ></textarea>
+                </td>
+              </tr>
+            </tbody>
+                 <!-- 옆에 붙일 테이블 단위 시작 -->
+                  <thead>
+                    <tr>
+                      <th class="rightTable" scope="col">상품 가격</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><input type="text" name="productPrice1"></td>
+                    </tr>
+                    <tr>
+                      <th class="rightTable" style="background-color: rgb(190, 190, 7)" scope="col">상품 등록일</th>
+                    </tr>
+                    <td><input type="text" name="registrationDate2"></td>
+                  </tbody>
+                  <!-- 옆에 붙일 테이블 단위 끝 -->
+                    
+                 <!-- 신메뉴/추천메뉴 체크박스 시작 -->
+                    <tr>
+                      <td class="rightTable" style="background-color: rgb(190, 190, 7)">신메뉴</td>
+                      <td style="text-align: center;"><input type="checkbox"></td>
+                    </tr>
+                    <tr>
+                      <td class="rightTable" style="background-color: rgb(190, 190, 7)">추천메뉴</td>
+                      <td style="text-align: center;"><input type="checkbox"></td>
+                    </tr>
+                  <!-- 신메뉴/추천메뉴 체크박스 끝 -->
+
+
+            </table>
+        </div>
         <!-- 상품 등록 버튼 -->
         <div class="d-flex justify-content-center">
           <button type="button" class="btn btn-warning">상품 등록</button>
         </div>
+        <!-- 상품 등록 버튼 끝-->
       </div>
     </div>
 
@@ -117,5 +148,74 @@
       integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
       crossorigin="anonymous"
     ></script>
+
+    <!-- 이미지 업로드 js 시작 -->
+    <script>
+      function DropFile(dropAreaId, fileListId) {
+        let dropArea = document.getElementById(dropAreaId);
+        let fileList = document.getElementById(fileListId);
+
+        function preventDefaults(e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+
+        function highlight(e) {
+          preventDefaults(e);
+          dropArea.classList.add("highlight");
+        }
+
+        function unhighlight(e) {
+          preventDefaults(e);
+          dropArea.classList.remove("highlight");
+        }
+
+        function handleDrop(e) {
+          unhighlight(e);
+          let dt = e.dataTransfer;
+          let files = dt.files;
+
+          handleFiles(files);
+
+          const fileList = document.getElementById(fileListId);
+          if (fileList) {
+            fileList.scrollTo({ top: fileList.scrollHeight });
+          }
+        }
+
+        function handleFiles(files) {
+          files = [...files];
+          // files.forEach(uploadFile);
+          files.forEach(previewFile);
+        }
+
+        function previewFile(file) {
+          console.log(file);
+          renderFile(file);
+        }
+
+        function renderFile(file) {
+          let reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onloadend = function () {
+            let img = dropArea.getElementsByClassName("preview")[0];
+            img.src = reader.result;
+            img.style.display = "block";
+          };
+        }
+
+        dropArea.addEventListener("dragenter", highlight, false);
+        dropArea.addEventListener("dragover", highlight, false);
+        dropArea.addEventListener("dragleave", unhighlight, false);
+        dropArea.addEventListener("drop", handleDrop, false);
+
+        return {
+          handleFiles,
+        };
+      }
+
+      const dropFile = new DropFile("drop-file", "files");
+    </script>
+    <!-- 이미지 업로드 js 끝 -->
   </body>
 </html>
