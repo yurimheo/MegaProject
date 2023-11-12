@@ -1,29 +1,49 @@
 /* 공통 CSS */
 
 @font-face {
-  font-family: "Pretendard-Regular";
-  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
-    format("woff");
-  font-weight: 400;
+  font-family: "NanumSquareNeo-Variable";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2")
+    format("woff2");
+  font-weight: normal;
   font-style: normal;
 }
 
 * {
-  font-family: "Pretendard-Regular";
+  font-family: "NanumSquareNeo-Variable";
 }
 
 a {
   text-decoration: none;
 }
 
-/* 공통 네비게이션 탭 */
-.navBox {
-  /* min-width: 100px; */
-  max-width: 150px;
-  min-height: 1080px;
+/* 공통 헤더 */
+.admin-title {
+  color: rgb(82, 82, 82);
+}
+.share-container .border-dark {
+  /* 헤더 - 네비 구분선 색 지정 */
+  border-color: rgb(209, 209, 209) !important;
 }
 
-.nav-link:hover {
-  border-bottom: 3px solid orange;
+/* 공통 네비게이션 탭 */
+.share-nav .nav-link {
+  /* 기본 배경/글자색 지정 */
+  background-color: rgb(209, 209, 209);
+  color: rgb(82, 82, 82);
+  /* 글자 굵기 지정 */
+  font-weight: bold;
+  /* 배경 모양 지정 */
+  border-radius: 10px 10px 0 0;
+}
+.share-nav .nav-link:hover,
+.share-nav .nav-link:active {
+  /* 마우스 올렸을 때의 배경/글자색 지정 */
+  background-color: #ffc107;
   color: white;
+}
+
+/* 네비게이션 탭 1~3번 */
+.share-nav-link {
+  /* 간격 생성 */
+  margin-inline-end: 10px;
 }
