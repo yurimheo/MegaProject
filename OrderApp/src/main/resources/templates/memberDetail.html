@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  layout:decorate="~{admin_layout}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원 관리</title>
+    <!-- 부트스트랩 CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../static/css/bootstrap.min.css"
+    />
+    <!-- 사용자 정의 CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../static/css/style_admin.css"
+    />
+  </head>
+  <body>
+    <div class="share-container container">
+      <!-- 헤더 시작 -->
+      <div
+        class="p-3 d-flex justify-content-between mx-auto p-2 border-bottom border-4 border-dark"
+      >
+        <span class="w-75 d-flex">
+          <span class="fs-1 fw-semibold text-warning">메가MGC커피&nbsp;</span>
+          <span class="admin-title fs-1 fw-semibold">관리자 페이지</span></span
+        >
+        <!-- 페이지 카테고리 확인 문구 -->
+        <span class="d-flex align-content-center flex-wrap">
+          <span class="admin-title fw-bolder">관리자 페이지 &gt;&nbsp;</span>
+          <span
+            th:if="${pageName eq '회원관리 타임리프'}"
+            class="fw-semibold text-warning"
+          >
+            회원 관리
+          </span>
+          <!-- <span
+            th:if="${pageName eq '상품관리 타임리프'}"
+            class="fw-semibold text-warning"
+          >
+            상품 관리
+          </span>
+          <span
+            th:if="${pageName eq '주문관리 타임리프'}"
+            class="fw-semibold text-warning"
+          >
+            주문 관리
+          </span>
+          <span
+            th:if="${pageName eq '공지관리 타임리프'}"
+            class="fw-semibold text-warning"
+          >
+            공지사항 관리
+          </span> -->
+        </span>
+      </div>
+      <!-- 헤더 끝 -->
+
+      <!-- 네비게이션 탭 시작 -->
+      <nav class="share-nav nav nav-fill mt-2">
+        <a class="share-nav-link nav-link" aria-current="page" href="#"
+          >회원 관리</a
+        >
+        <a class="share-nav-link nav-link" href="#">상품 관리</a>
+        <a class="share-nav-link nav-link" href="#">주문 관리</a>
+        <a class="nav-link" href="#">공지 관리</a>
+      </nav>
+      <!-- 네비게이션 탭 끝 -->
+      <!-- 회원 상세 정보 조회 시작 -->
+      <div class="md border p-2">
+        <div class="mt-2">
+          <p class="fs-2 text-center title">회원 상세 정보 조회</p>
+        </div>
+        <div class="d-flex flew-wrap justify-content-center p-3">
+          <table
+            class="member-detail-table table w-75 table-bordered border-outline-white"
+          >
+            <thead>
+              <tr>
+                <th><span>·</span><span>아이디</span></th>
+                <td th:text="${member.member_id}"></td>
+              </tr>
+              <tr>
+                <th><span>·</span><span>이름</span></th>
+                <td th:text="${member.name}"></td>
+              </tr>
+              <tr>
+                <th><span>·</span><span>생년월일</span></th>
+                <td th:text="${member.birthdate}"></td>
+              </tr>
+              <tr>
+                <th><span>·</span><span>이메일</span></th>
+                <td th:text="${member.email}"></td>
+              </tr>
+              <tr>
+                <th><span>·</span><span>연락처</span></th>
+                <td th:text="${member.contact}"></td>
+              </tr>
+              <tr>
+                <th><span>·</span><span>비밀번호</span></th>
+                <td th:text="${member.password}"></td>
+              </tr>
+              <tr>
+                <th><span>·</span><span>비밀번호 찾기 질문</span></th>
+                <td th:text="${member.securityQuestion}"></td>
+              </tr>
+              <tr>
+                <th><span>·</span><span>보유 스탬프</span></th>
+                <td th:text="${member.stampCount}"></td>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+      <!-- 회원 상세 정보 조회 끝 -->
+    </div>
+    <!-- 부트스트랩 JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+      integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+      crossorigin="anonymous"
+    ></script>
+    <!--  사용자 정의 JS -->
+    <script src="../static/js/admin.js"></script>
+  </body>
+</html>

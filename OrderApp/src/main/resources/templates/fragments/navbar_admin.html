@@ -74,6 +74,15 @@
         <a class="nav-link" href="#">공지 관리</a>
       </nav>
       <!-- 네비게이션 탭 끝 -->
+      <!--  타임리프 사용 -->
+      <!-- 네비게이션 탭 시작 
+<nav class="share-nav nav nav-fill mt-2">
+  <a th:class="${pageName eq '회원관리 타임리프'} ? 'share-nav-link nav-link active' : 'share-nav-link nav-link'" href="#">회원 관리</a>
+  <a th:class="${pageName eq '상품관리 타임리프'} ? 'share-nav-link nav-link active' : 'share-nav-link nav-link'" href="#">상품 관리</a>
+  <a th:class="${pageName eq '주문관리 타임리프'} ? 'share-nav-link nav-link active' : 'share-nav-link nav-link'" href="#">주문 관리</a>
+  <a th:class="${pageName eq '공지관리 타임리프'} ? 'share-nav-link nav-link active' : 'share-nav-link nav-link'" href="#">공지 관리</a>
+</nav>
+네비게이션 탭 끝 -->
     </div>
     <!-- 부트스트랩 JS -->
     <script src="../../static/css/bootstrap.min.css"></script>
