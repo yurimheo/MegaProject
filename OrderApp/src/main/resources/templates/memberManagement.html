@@ -80,10 +80,7 @@
           <button
             class="h-25 btn btn-outline-secondary dropdown-toggle"
             type="button"
-            data-bs-toggle="tooltip"
-            data-bs-placement="top"
-            data-bs-custom-class="custom-tooltip"
-            data-bs-title="조회 옵션을 선택해주세요 :>"
+            data-bs-toggle="dropdown"
           >
             조회 옵션 선택
           </button>
@@ -120,11 +117,6 @@
             회원 총 0명
           </p>
           <div class="position-relaltive">
-            <img
-              class="minus-button"
-              src="../static/images/icons/minus-button.png"
-              alt=""
-            />
             <button
               type="button"
               class="mM-delete-btn btn"
@@ -133,6 +125,11 @@
               data-bs-custom-class="custom-tooltip"
               data-bs-title="선택하신 회원 명단을 모두 삭제 가능합니다."
             >
+              <img
+                class="minus-button"
+                src="../static/images/icons/minus-button.png"
+                alt=""
+              />
               선택 삭제
             </button>
           </div>
@@ -200,6 +197,7 @@
       crossorigin="anonymous"
     ></script>
     <!--  사용자 정의 JS -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="../static/js/admin.js"></script>
   </body>
 </html>
