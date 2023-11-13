@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  layout:decorate="~{admin_layout}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원 관리</title>
+    <!-- 부트스트랩 CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../static/css/bootstrap.min.css"
+    />
+    <!-- 사용자 정의 CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../static/css/style_admin.css"
+    />
+  </head>
+  <body>
+    <div class="share-container container">
+      <!-- 헤더 시작 -->
+      <div
+        class="p-3 d-flex justify-content-between mx-auto p-2 border-bottom border-4 border-dark"
+      >
+        <span class="w-75 d-flex">
+          <span class="fs-1 fw-semibold text-warning">메가MGC커피&nbsp;</span>
+          <span class="admin-title fs-1 fw-semibold">관리자 페이지</span></span
+        >
+        <!-- 페이지 카테고리 확인 문구 -->
+        <span class="d-flex align-content-center flex-wrap">
+          <span class="admin-title fw-bolder">관리자 페이지 &gt;&nbsp;</span>
+          <span
+            th:if="${pageName eq '회원관리 타임리프'}"
+            class="fw-semibold text-warning"
+          >
+            회원 관리
+          </span>
+          <!-- <span
+            th:if="${pageName eq '상품관리 타임리프'}"
+            class="fw-semibold text-warning"
+          >
+            상품 관리
+          </span>
+          <span
+            th:if="${pageName eq '주문관리 타임리프'}"
+            class="fw-semibold text-warning"
+          >
+            주문 관리
+          </span>
+          <span
+            th:if="${pageName eq '공지관리 타임리프'}"
+            class="fw-semibold text-warning"
+          >
+            공지사항 관리
+          </span> -->
+        </span>
+      </div>
+      <!-- 헤더 끝 -->
+
+      <!-- 네비게이션 탭 시작 -->
+      <nav class="share-nav nav nav-fill mt-2">
+        <a class="share-nav-link nav-link" aria-current="page" href="#"
+          >회원 관리</a
+        >
+        <a class="share-nav-link nav-link" href="#">상품 관리</a>
+        <a class="share-nav-link nav-link" href="#">주문 관리</a>
+        <a class="nav-link" href="#">공지 관리</a>
+      </nav>
+      <!-- 네비게이션 탭 끝 -->
+      <!-- 멤버 조회 검색창 시작 -->
+      <div class="border p-2">
+        <!-- 멤버 조회 검색창 끝 -->
+        <!-- 구분선 시작 -->
+        <div class="border border-top border-dark"></div>
+        <!-- 구분선 끝 -->
+        <!-- 회원 수 및 선택 삭제 버튼 시작 -->
+        <div class="mt-2 d-flex flex-wrap justify-content-between">
+          <p
+            class="fw-bold"
+            th:text="'회원 총 (' + ${#lists.size(members)} + ')명'"
+          >
+            공지 총 0건
+          </p>
+          <div class="position-relaltive">
+            <button
+              type="button"
+              class="mM-delete-btn btn pe-0 fw-bold new-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="누르시면 새로운 공지를 등록 가능합니다."
+            >
+              <img
+                class="minus-button"
+                src="../static/images/icons/add.png"
+                alt=""
+              />
+              신규 등록
+            </button>
+            <button
+              type="button"
+              class="mM-delete-btn btn ps-0 fw-bold"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="선택한 공지들을 모두 삭제합니다."
+            >
+              <img
+                class="minus-button"
+                src="../static/images/icons/minus-button.png"
+                alt=""
+              />
+              선택 삭제
+            </button>
+          </div>
+        </div>
+        <!-- 회원 수 및 선택 삭제 버튼 끝 -->
+        <!-- 회원 목록 시작 -->
+        <table class="notice-table table table-bordered">
+          <thead class="notice-thead">
+            <tr
+              class="tr text-center"
+              style="background-color: #ffc107; color: white"
+            >
+              <th scope="col"></th>
+              <!-- 체크박스 -->
+              <th scope="col">번호</th>
+              <th scope="col">카테고리</th>
+              <th scope="col">날짜</th>
+              <th scope="col">제목</th>
+              <th scope="col">공지상세조회</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 회원 목록 반복 -->
+            <tr class="text-center" th:each="notice : ${members}">
+              <!-- 체크박스 -->
+              <td>
+                <input
+                  type="checkbox"
+                  th:id="'checkbox_' + ${member.member_id}"
+                />
+              </td>
+              <!-- 아이디, 이름, 이메일, 연락처, 가입일 -->
+              <td></td>
+              <td></td>
+              <td></td>
+
+              <td></td>
+              <!-- 회원상세조회 버튼 -->
+              <td>
+                <button class="notice-detail-btn">
+                  <a
+                    th:href="@{/member/details/{id}(id=${member.member_id})}"
+                    class="p-0 notice-detail"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-custom-class="custom-tooltip"
+                    data-bs-title="클릭하시면 상세조회 페이지로 이동합니다."
+                    >상세조회</a
+                  >
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 회원 목록 끝 -->
+    </div>
+    <!-- 부트스트랩 JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+      integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+      crossorigin="anonymous"
+    ></script>
+    <!--  사용자 정의 JS -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="../static/js/admin.js"></script>
+    <script>
+      const tooltipTriggerList = document.querySelectorAll(
+        '[data-bs-toggle="tooltip"]'
+      );
+      const tooltipList = [...tooltipTriggerList].map(
+        (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+      );
+
+      // 공지 상세조회 페이지로 이동
+      $(document).ready(function () {
+        $(".notice-detail-btn").on("click", function (e) {
+          e.preventDefault();
+
+          window.location.href = "managementNoticeDetailed.html";
+        });
+      });
+      // 공지 등록 페이지 이동
+      $(document).ready(function () {
+        $(".new-btn").on("click", function (e) {
+          e.preventDefault();
+
+          window.location.href = "managementNotice.html";
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,26 +1,91 @@
+/* 공통 CSS */
+
 @font-face {
-  font-family: "Pretendard-Regular";
-  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
-    format("woff");
-  font-weight: 400;
+  font-family: "NanumSquareNeo-Variable";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2")
+    format("woff2");
+  font-weight: normal;
   font-style: normal;
 }
 
 * {
-  font-family: "Pretendard-Regular";
+  font-family: "NanumSquareNeo-Variable";
 }
-.megamega {
-  margin-top: 3%;
+
+a {
+  text-decoration: none;
 }
-.th-pack {
-  text-align: center;
+.order-search {
+  border: 1px solid rgb(209, 209, 209);
 }
-.td-pack {
-  text-align: center;
+
+.order-search:hover {
+  border: 1px solid #ffc107;
+  background-color: white;
+  color: #ffc107;
+  font-weight: bold;
 }
-.pack1 {
-  width: 25%;
+/* 상세 조회 */
+.order-detail-btn,
+.notice-detail-btn {
+  /* 크기 지정 */
+  width: 100px;
+  background-color: rgb(126, 49, 14);
+  border: 2px solid #ffc107;
+  box-shadow: 0px 0px 3px 1px #ffc107;
+  border-radius: 10px;
+  color: #ffc107;
 }
+.order-detail,
+.order-detail:hover,
+.notice-detail,
+.notice-detail:hover {
+  color: #ffc107;
+}
+
+/* 공통 헤더 */
+.share-container {
+  max-width: 1200px;
+}
+.admin-title {
+  color: rgb(82, 82, 82);
+}
+.share-container .border-dark {
+  /* 헤더 - 네비 구분선 색 지정 */
+  border-color: rgb(209, 209, 209) !important;
+}
+
+/* 공통 네비게이션 탭 */
+.share-nav .nav-link {
+  /* 기본 배경/글자색 지정 */
+  background-color: rgb(209, 209, 209);
+  color: rgb(82, 82, 82);
+  /* 글자 굵기 지정 */
+  font-weight: bold;
+  /* 배경 모양 지정 */
+  border-radius: 10px 10px 0 0;
+}
+.btn-orderselect {
+  min-width: 90px;
+  max-width: 90px;
+}
+.btn-orderselect,
+.share-nav .nav-link:hover,
+.share-nav .nav-link:active {
+  /* 마우스 올렸을 때의 배경/글자색 지정 */
+  background-color: #ffc107;
+  color: white;
+}
+.btn-orderselect:hover {
+  background-color: #c49406;
+  color: white;
+}
+/* 네비게이션 탭 1~3번 */
+.share-nav-link {
+  /* 간격 생성 */
+  margin-inline-end: 10px;
+}
+
 .headernotice {
   text-align: center;
 }
@@ -66,11 +131,11 @@
 /* 업로드 버튼 시작 */
 .file-label {
   margin-top: 30px;
-  background-color: #5b975b;
-  color: #fff;
+  background-color: rgb(209, 209, 209);
+  color: rgb(82, 82, 82);
   text-align: center;
   padding: 10px 0;
-  width: 65%;
+  width: 90px;
   border-radius: 6px;
   cursor: pointer;
 }
@@ -78,3 +143,12 @@
   display: none;
 }
 /* 업로드 버튼 끝 */
+
+/* 수정하기 버튼 시작 */
+.submitBtnBox {
+  width: 54.5%;
+}
+.editBtnBox {
+  width: 45%;
+}
+/* 수정하기 버튼 끝 */

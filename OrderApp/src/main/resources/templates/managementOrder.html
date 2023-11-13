@@ -27,10 +27,10 @@
       href="../static/css/style_admin.css"
     />
   </head>
-  <body class="megamega">
+  <body>
     <div layout:fragment="admin_layout" class="container">
       <!-- 조회 검색창 -->
-      <div class="row">
+      <div class="row mt-3">
         <select
           class="form-select w-25 d-inline-block"
           aria-label="Default select example"
@@ -48,7 +48,7 @@
             aria-describedby="button-addon2"
           />
           <button
-            class="btn btn-outline-secondary"
+            class="btn btn-outline-secondary order-search"
             type="button"
             id="button-addon2"
           >
@@ -60,7 +60,9 @@
       <!-- 조회 캘린더 -->
       <div class="d-flex justify-content-between">
         <div class="d-flex">
-          <label for="inputPassword6" class="col-form-label">주문 0건</label>
+          <label for="inputPassword6" class="col-form-label fw-bold"
+            >주문 총 0건</label
+          >
           <button type="button" class="btn btn-light">전체</button>
           <button type="button" class="btn btn-light">1개월</button>
           <form class="d-flex align-items-center ms-3">
@@ -68,47 +70,51 @@
             <span><input class="mx-2" type="submit" value="조회" /></span>
           </form>
         </div>
-        <div class="d-flex justify-content-end">
-          <select class="form-select_2" aria-label="Default select example">
+        <div class="d-flex justify-content-end align-items-center">
+          <select
+            class="form-select_2 h-75"
+            aria-label="Default select example"
+          >
             <option value="1">최신순</option>
             <option value="2">오래된순</option>
           </select>
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-toggle="tooltip"
-            data-bs-placement="top"
-            data-bs-custom-class="custom-tooltip"
-            data-bs-title="선택한 주문내역들을 모두 삭제 가능합니다."
-          >
-            <img src="../static/images/icons/minus-button.png" alt="" />선택삭제
-          </button>
+
+          <div>
+            <button
+              type="button"
+              class="btn fw-bold"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="선택한 주문내역들을 모두 삭제 가능합니다."
+            >
+              <img
+                class="minus-button"
+                src="../static/images/icons/minus-button.png"
+                alt=""
+              />
+              선택 삭제
+            </button>
+          </div>
         </div>
       </div>
 
       <!-- 테이블 -->
       <div>
-        <table class="table">
+        <table class="table table-bordered">
           <thead>
-            <tr>
-              <th scope="col">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-                />
-              </th>
-              <th scope="col">주문일</th>
-              <th scope="col">주문번호</th>
-              <th scope="col">아이디</th>
-              <th scope="col">총 주문금액</th>
-              <th scope="col">주문상태</th>
-              <th scope="col">주문상세조회</th>
+            <tr style="background-color: #ffc107; color: white">
+              <th class="text-center" scope="col"></th>
+              <th class="text-center" scope="col">주문일</th>
+              <th class="text-center" scope="col">주문번호</th>
+              <th class="text-center" scope="col">아이디</th>
+              <th class="text-center" scope="col">총 주문금액</th>
+              <th class="text-center" scope="col">주문상태</th>
+              <th class="text-center" scope="col">주문상세조회</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr class="text-center align-middle">
               <td>
                 <input
                   class="form-check-input"
@@ -117,10 +123,10 @@
                   id="flexCheckDefault"
                 />
               </td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td th:text="${member.}"></td>
+              <td>21</td>
+              <td>21</td>
+              <td>21</td>
               <td>
                 <select
                   class="form-select_2"
@@ -132,61 +138,17 @@
                 </select>
               </td>
               <td>
-                <button type="button" class="btn btn-primary">상세조회</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-                />
-              </td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <button type="button" class="btn btn-primary">상세조회</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-                />
-              </td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <button type="button" class="btn btn-primary">상세조회</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-                />
-              </td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <button type="button" class="btn btn-primary">상세조회</button>
+                <button type="button" class="order-detail-btn">
+                  <a
+                    th:href="@{/member/details/{id}(id=${member.member_id})}"
+                    class="p-0 order-detail"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-custom-class="custom-tooltip"
+                    data-bs-title="클릭하시면 상세조회 페이지로 이동합니다."
+                    >상세조회</a
+                  >
+                </button>
               </td>
             </tr>
           </tbody>
@@ -204,6 +166,8 @@
       integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
       crossorigin="anonymous"
     ></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
       const tooltipTriggerList = document.querySelectorAll(
         '[data-bs-toggle="tooltip"]'
@@ -211,6 +175,14 @@
       const tooltipList = [...tooltipTriggerList].map(
         (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
       );
+      // 공지 상세조회 페이지로 이동
+      $(document).ready(function () {
+        $(".order-detail-btn").on("click", function (e) {
+          e.preventDefault();
+
+          window.location.href = "managementOrderDetailed.html";
+        });
+      });
     </script>
   </body>
 </html>
