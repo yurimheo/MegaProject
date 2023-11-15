@@ -1,0 +1,158 @@
+@font-face {
+  font-family: "NanumSquareNeo-Variable";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: "NanumSquareNeo-Variable";
+}
+
+a {
+  /* 글자 밑줄 제거 */
+  text-decoration: none;
+}
+
+/* 로그인 폼 시작 */
+/* 로고 박스 */
+.logoBox {
+  /* 높이 지정 */
+  height: 55vh;
+}
+
+/* 빈 박스 */
+.emptyBox {
+  height: 5vh;
+}
+
+/* 입력 박스 외부 */
+.formBox {
+  height: 5vh;
+}
+/* 입력 박스 내부 */
+.inputBox {
+  /* 크기 지정 */
+  width: 35vh;
+  height: 5vh;
+  /* 테두리 설정 */
+  border-radius: 15px;
+  border: 1px solid rgb(209, 209, 209);
+  /* 폰트 설정 */
+  color: rgb(82, 82, 82);
+}
+/* 전송 박스 */
+.submitBox {
+  /* 크기 지정 */
+  width: 35vh;
+  height: 5vh;
+  /* 테두리 설정 */
+  border-radius: 15px;
+  /* 색상 지정 */
+  background-color: rgb(83, 48, 31);
+  /* 폰트 설정 */
+  color: white;
+  font-size: 45px;
+}
+
+/* 아이디/비밀번호 찾기 */
+.findBox {
+  margin-top: 0.3vh;
+  padding: 0 5vh 0 26vh;
+  height: 8vh;
+}
+
+/* 회원가입 박스 */
+.signInBox span:nth-child(1) {
+  color: rgb(82, 82, 82);
+}
+.signInBox span:nth-child(2) {
+  color: rgb(5, 5, 5);
+}
+/* 로그인 폼 끝 */
+
+/* 회원가입 폼 시작 */
+/* 회원가입 타이틀 */
+.signInTitleBox {
+  padding: 0 10vh 0 6vh;
+}
+.signInTitle {
+  font-size: 48px;
+}
+.labelTxt {
+  padding: 0 10vh 0 6vh;
+  /* 폰트 설정 */
+  font-size: 40px;
+  font-weight: bold;
+}
+.labelTxt button {
+  border: 0px;
+  background-color: transparent;
+  font-weight: bold;
+  font-size: 40px;
+}
+/* 비밀번호 찾기 질문 */
+.pwFindBox .form-select {
+  width: 35vh;
+  padding: 20px 0 20px 30px;
+  /* 폰트 설정 */
+  color: rgb(100, 100, 100);
+}
+/* 회원가입 완료 페이지 설정 */
+.signInFinishTitleBox {
+  padding: 0 5vh 0 6vh;
+}
+/* 회원가입 폼 끝 */
+
+/* 이용약관 시작 */
+/* 체크박스 간격 설정 */
+.allCheckBox,
+.checkTxtBox {
+  margin-top: 1vh;
+  padding: 0 10vh 0 6vh;
+}
+/* 전체 동의 텍스트 */
+.allCheck {
+  font-size: 45px;
+}
+/* 이용약관 테두리 */
+.touBorder {
+  width: 35vh;
+  margin-left: 5.5vh;
+}
+/* 하부 체크박스 텍스트 */
+.checkTxt {
+  font-size: 33px;
+  font-weight: bold;
+}
+.checkTxt input[type="checkbox"] {
+  /* 체크박스 크기 조절 */
+  width: 30px;
+  height: 30px;
+  /* 다른 스타일 규칙 추가 가능 */
+}
+/* 전체 동의 체크박스 크기 조절 */
+.allCheckBox input[type="checkbox"] {
+  width: 30px;
+  height: 30px;
+}
+.checkTxtBox .checkTxtInBox {
+  width: 34vh;
+}
+/* 부등호 버튼 */
+.gTBtn {
+  background-color: transparent;
+  padding: 5px 10px;
+  border: none;
+}
+.gTBtn:hover {
+  color: #ffc017;
+}
+/* 이용약관 끝 */
+
+/* 데이트 피커 CSS 시작 */
+.ui-datepicker {
+  font-size: 2.73em;
+}
+/* 데이트 피커 CSS 끝 */
