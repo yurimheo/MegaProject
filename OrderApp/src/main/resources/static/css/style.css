@@ -156,3 +156,142 @@ a {
   font-size: 2.73em;
 }
 /* 데이트 피커 CSS 끝 */
+
+/* 아이디 및 비밀번호 찾기 시작 */
+.findHeader {
+  font-size: 40px;
+}
+
+/* 아이디 및 비밀번호 찾기 네비바 */
+.findNav {
+  /* 폰트 설정 */
+  font-size: 38px;
+  padding-bottom: 1vh;
+  width: 50%;
+  text-align: center;
+  border-bottom: 1px solid rgb(97, 97, 97);
+}
+
+.findNav:hover {
+  border-bottom: 3px solid black;
+}
+
+.findNav a {
+  color: #ffc017;
+  font-weight: bold;
+}
+
+/* 찾은 아이디 및 비밀번호 페이지  관련*/
+.findFinishBox {
+  margin: 1vh 5.5vh;
+  padding: 3vh 3vh 3vh 3vh;
+  border-radius: 10px;
+  border: 1px solid rgb(97, 97, 97);
+  text-align: center;
+}
+/* 아이디 찾기 완료 박스 */
+.findFinishBox span {
+  font-size: 50px;
+  font-weight: bold;
+}
+.findFinishBox span:nth-child(1),
+.findFinishBox span:nth-child(3) {
+  font-size: 60px;
+  color: #ffc017;
+}
+/*  하단 버튼 */
+.findBtnBox {
+  padding: 0 5.5vh 0 5.5vh;
+}
+.findBtnBox button:nth-child(1) {
+  background-color: rgb(209, 209, 209) !important;
+  color: rgb(82, 82, 82);
+  margin-right: 1vh;
+}
+/* 아이디 및 비밀번호 찾기 끝 */
+
+/* 스탬프 시작 */
+.stampHeaderBox {
+  margin: 0 2vh;
+}
+.stampHeader {
+  font-size: 40px;
+}
+.stampHeaderBox button {
+  background-color: transparent;
+  border: none;
+}
+
+/* 스탬프 갯수 */
+.stampCountBox {
+  margin: 1vh 2vh;
+}
+
+.stampCountBox p {
+  font-size: 50px;
+  font-weight: bold;
+}
+/* 스탬프 적립내역 */
+.earnStampBox {
+  margin: 2vh;
+  height: 50px;
+  padding: 0 0.5vh;
+  border: 1px solid rgb(82, 82, 82);
+  border-radius: 50px;
+}
+.earnStampBtn {
+  font-size: 30px;
+  height: 50px;
+  /* 버튼 배경 및 테두리 제거 */
+  background-color: transparent;
+  border: none;
+}
+.earnStampBox:hover {
+  border: 1px solid #ffc017;
+}
+.earnStampBtn:hover {
+  color: #ffc017;
+}
+
+/* 스탬프 뷰어 */
+.stamp_detail ul {
+  width: 85%;
+  padding: 20px 20px;
+  border-radius: 5%;
+  background-color: #ffce21;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  height: 500px;
+}
+
+.stamp_detail ul,
+.stamp_detail ul li {
+  list-style: none;
+}
+
+.stamp_detail ul li {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  z-index: 2;
+}
+
+.emptyStamp {
+  width: 80%;
+  height: 50%;
+  border-radius: 50%;
+  background-color: gray;
+  opacity: 0.2;
+  color: black;
+}
+
+.emptyStamp span {
+  color: white;
+  font-size: 20px;
+}
+/* 스탬프 끝 */

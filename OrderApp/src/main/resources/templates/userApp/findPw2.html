@@ -14,7 +14,7 @@
     />
     <!-- 아이폰 노치 커버 -->
     <meta name="viewport" content="viewport-fit=cover" />
-    <title>로그인</title>
+    <title>비밀번호 찾기</title>
     <!-- 부트스트랩 CSS -->
     <link
       rel="stylesheet"
@@ -25,8 +25,59 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/style.css" />
   </head>
   <body>
-    <!-- 로그인 화면 페이지 시작 -->
+    <!-- 회원가입 화면 페이지 시작 -->
     <div class="container-fluid p-0">
+      <!-- 간격 생성 시작 -->
+      <div class="emptyBox"></div>
+      <div class="emptyBox"></div>
+      <!-- 간격 생성 끝 -->
+
+      <!-- 헤더 텍스트 시작 -->
+      <div class="signInFinishTitleBox">
+        <span class="signInTitle fw-bold">
+          고객님의 소중한 개인정보를 위하여 <br />비밀번호를 변경해주세요!
+        </span>
+      </div>
+      <!-- 헤더 텍스트 끝 -->
+
+      <!-- 간격 생성 시작 -->
+      <div class="emptyBox"></div>
+      <!-- 간격 생성 끝 -->
+
+      <!-- 비밀번호 -->
+      <label for="inputMemberPw" class="labelTxt form-label">비밀번호*</label>
+      <div class="formBox mb-3 d-flex justify-content-center">
+        <input
+          type="password"
+          class="inputBox form-control fs-1"
+          id="inputMemberPw"
+          placeholder="&nbsp;&nbsp;비밀번호를 입력해주세요"
+        />
+      </div>
+      <!-- 비밀번호 확인 -->
+      <label for="inputMemberPw2" class="labelTxt form-label"
+        >비밀번호 확인*</label
+      >
+      <div class="formBox mb-3 d-flex justify-content-center">
+        <input
+          type="password"
+          class="inputBox form-control fs-1"
+          id="inputMemberPw2"
+          placeholder="&nbsp;&nbsp;위와 동일한 비밀번호를 입력해주세요"
+        />
+      </div>
+      <!-- 간격 생성 시작 -->
+      <br />
+      <!-- 간격 생성 끝 -->
+      <!-- 확인 -->
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="submitBox btn fw-bold" id="loginBtn">
+          확인
+        </button>
+      </div>
+      <!-- 간격 생성 시작 -->
+      <div style="height: 1.2vh"></div>
+      <!-- 간격 생성 끝 -->
       <!-- 로고 박스 시작-->
       <div
         class="logoBox text-center w-100 d-flex flex-wrap align-content-center justify-content-center"
@@ -39,48 +90,8 @@
         />
       </div>
       <!-- 로고 박스 끝 -->
-
-      <div class="emptyBox"></div>
-      <!-- 입력 폼 시작 -->
-      <div class="formBox mt-3 mb-3 d-flex justify-content-center">
-        <input
-          type="text"
-          class="inputBox form-control fs-1"
-          id="inputMemberId"
-          placeholder="&nbsp;&nbsp;아이디"
-        />
-      </div>
-      <div class="formBox mb-3 d-flex justify-content-center">
-        <input
-          type="password"
-          class="inputBox form-control fs-1"
-          id="memberPw"
-          placeholder="&nbsp;&nbsp;비밀번호"
-        />
-      </div>
-      <div class="d-flex justify-content-center">
-        <button type="submit" class="submitBox btn fw-bold" id="mainBtn">
-          로그인
-        </button>
-      </div>
-      <!-- 입력 폼 끝 -->
-      <!-- 찾기 박스 시작 -->
-      <div class="findBox">
-        <a href="findId.html" class="findLink fs-2 text-dark fw-bold"
-          >아이디/비밀번호 찾기 ></a
-        >
-      </div>
-      <!-- 찾기 박스 끝 -->
-      <!-- 회원가입 박스 시작 -->
-      <div class="signInBox d-flex justify-content-center">
-        <a href="" class="signInLink fs-2" id="signInBtn"
-          ><span>아직 회원이 아니신가요?</span
-          ><span class="fw-bold">회원가입</span></a
-        >
-      </div>
-      <!-- 회원가입 박스 끝 -->
     </div>
-    <!-- 로그인 화면 페이지 끝 -->
+    <!-- 회원가입 화면 페이지 끝 -->
     <!-- 부트스트랩 JS -->
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -97,29 +108,12 @@
     <!--  사용자 정의 JS -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-      //  로그인 후 메인 페이지로 이동 + 관리자인 경우 관리자 페이지로 이동
+      //  로그인 페이지로 이동
       $(document).ready(function () {
-        $("#mainBtn").on("click", function (e) {
+        $("#loginBtn").on("click", function (e) {
           e.preventDefault();
 
-          var enteredUsername = $("#inputMemberId").val();
-          var isAdmin = enteredUsername.toLowerCase() === "admin";
-
-          // 관리자 여부 확인
-          if (isAdmin) {
-            window.location.href = "admin.html"; // 관리자 페이지로 이동
-          } else {
-            window.location.href = "main.html"; // 이용자 페이지로 이동
-          }
-        });
-      });
-
-      //  회원가입 페이지로 이동
-      $(document).ready(function () {
-        $("#signInBtn").on("click", function (e) {
-          e.preventDefault();
-
-          window.location.href = "signInCheckID.html";
+          window.location.href = "loginForm.html";
         });
       });
 
