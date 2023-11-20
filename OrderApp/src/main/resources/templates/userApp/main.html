@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+    />
+    <meta name="viewport" content="viewport-fit=cover" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../static/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="../../static/css/style.css" />
+    <!-- 스와이퍼 -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid p-0">
+      <!-- 슬라이드쇼 -->
+      <div
+        id="carouselExampleSlidesOnly"
+        class="carousel slide maintop z-0 position-absolute"
+        data-bs-ride="carousel"
+        data-bs-touch="false"
+      >
+        <div class="carousel-inner">
+          <div class="carousel-item active" data-bs-interval="2000">
+            <img
+              src="../../static/images/add1.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item" data-bs-interval="2000">
+            <img
+              src="../../static/images/add2.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item" data-bs-interval="2000">
+            <img
+              src="../../static/images/add3.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+        </div>
+      </div>
+      <!-- 슬라이드 쇼 끝 -->
+      <!-- 알림 이미지 -->
+      <button class="bell">
+        <img
+          class="z-n1 position-absolute top-0 end-0 p-4"
+          src="../../static/images/icons/notification.png"
+          alt="알림"
+        />
+      </button>
+      <!-- 알림 이미지 끝 -->
+      <!-- 메인페이지 -->
+      <div
+        class="mainMiddle w-100 z-n1 position-absolute p-5"
+        style="background-color: white"
+      >
+        <!-- 이름 표시 -->
+        <div class="welcomeText fs-1">
+          <span class="fw-bold" id="nickname" th:text="|${loginNickname}|"
+            >홍길동</span
+          >
+          <span>님 </span>
+        </div>
+        <!-- 이름표시 끝 -->
+        <!-- 스템프 -->
+        <div class="stemppage fs-1 p-4 mt-4">
+          <img src="../../static/images/icons/stemp.png" alt="" />
+          스탬프&nbsp<span class="stemp" id="stemp" th:text="|${stemp}|"
+            >0</span
+          >
+        </div>
+        <!-- 스템프 끝 -->
+        <!-- 두번째 슬라이드 -->
+        <div
+          class="carousel slide pt-5 position-relative"
+          data-bs-ride="carousel"
+          id="carouselExampleSlidesOnly2"
+        >
+          <div class="carousel-inner" id="twoslide">
+            <!-- 슬라이드 아이템들 -->
+            <div class="carousel-item active">
+              <img
+                src="../../static/images/add1.jpg"
+                class="d-block w-100"
+                alt="..."
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="../../static/images/add2.jpg"
+                class="d-block w-100"
+                alt="..."
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="../../static/images/add3.jpg"
+                class="d-block w-100"
+                alt="..."
+              />
+            </div>
+          </div>
+          <div class="text-center mt-2 position-absolute" id="slideCount">
+            <label
+              for=""
+              class="fs-3"
+              id="pageNumber"
+              style="color: white"
+            ></label>
+          </div>
+        </div>
+        <!-- 두번째 슬라이드 끝 -->
+        <!-- 두번째이름 표시 -->
+        <div class="twoWelcomeText fs-1">
+          <span class="fw-bold" id="nickname" th:text="|${loginNickname}|"
+            >홍길동</span
+          >
+          <span>님을 위한 추천메뉴 </span>
+        </div>
+        <!-- 두번째 이름표시 끝 -->
+        <!-- 추천메뉴 -->
+        <div class="swiper recommendMenu">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide p-4">
+              <img
+                class="recommendSwiper"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+                src="http://placehold.it/260X260"
+                alt="슬라이드 1"
+              />
+              <span class="fs-1">추천메뉴</span>
+            </div>
+            <div class="swiper-slide p-4">
+              <img
+                class="recommendSwiper"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+                src="http://placehold.it/128X128"
+                alt="슬라이드 1"
+              />
+              <span class="fs-1">추천메뉴</span>
+            </div>
+            <div class="swiper-slide p-4">
+              <img
+                class="recommendSwiper"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+                src="http://placehold.it/128X128"
+                alt="슬라이드 1"
+              />
+              <span class="fs-1">추천메뉴</span>
+            </div>
+            <div class="swiper-slide p-4">
+              <img
+                class="recommendSwiper"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+                src="http://placehold.it/128X128"
+                alt="슬라이드 1"
+              />
+              <span class="fs-1">추천메뉴</span>
+            </div>
+            <div class="swiper-slide p-4">
+              <img
+                class="recommendSwiper"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+                src="http://placehold.it/128X128"
+                alt="슬라이드 1"
+              />
+              <span class="fs-1">추천메뉴</span>
+            </div>
+          </div>
+        </div>
+        <!-- 추천메뉴끝 -->
+        <!-- 세번째이름 표시 -->
+        <!-- <div class="threeWelcomeText fs-1 mt-5">
+          <span class="fw-bold" id="nickname" th:text="|${loginNickname}|"
+            >홍길동</span
+          >
+          <span>님을 위한 나만의 메뉴 </span>
+        </div> -->
+        <!-- 세번째 이름표시 끝 -->
+        <!-- 나만의 메뉴 -->
+        <!-- <div class="swiper choiceMenu">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide p-4">
+              <img
+                class="recommendSwiper"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+                src="http://placehold.it/260X260"
+                alt="슬라이드 1"
+              />
+              <span class="fs-1">나만의 메뉴</span>
+            </div>
+            <div class="swiper-slide p-4">
+              <img
+                class="recommendSwiper"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+                src="http://placehold.it/128X128"
+                alt="슬라이드 1"
+              />
+              <span class="fs-1">나만의 메뉴 </span>
+            </div>
+            <div class="swiper-slide p-4">
+              <img
+                class="recommendSwiper"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+                src="http://placehold.it/128X128"
+                alt="슬라이드 1"
+              />
+              <span class="fs-1">나만의 메뉴 </span>
+            </div>
+            <div class="swiper-slide p-4">
+              <img
+                class="recommendSwiper"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+                src="http://placehold.it/128X128"
+                alt="슬라이드 1"
+              />
+              <span class="fs-1">나만의 메뉴 </span>
+            </div>
+            <div class="swiper-slide p-4">
+              <img
+                class="recommendSwiper"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+                src="http://placehold.it/128X128"
+                alt="슬라이드 1"
+              />
+              <span class="fs-1">나만의 메뉴 </span>
+            </div>
+          </div>
+        </div> -->
+        <!-- 나만의 메뉴 끝 -->
+        <!-- 새소식 -->
+        <div class="newNews w-100">
+          <div class="d-flex justify-content-between">
+            <span class="fs-1 fw-bold">새소식</span>
+            <a class="fs-2" href="#">전체보기</a>
+          </div>
+        </div>
+        <!-- 새소식 스와이프 -->
+        <div class="swiper newnewsSwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide newsSwipe">
+              <a href="#"
+                ><img
+                  class="swiperImg"
+                  src="../../static/images/add1.jpg"
+                  alt="슬라이드 1"
+              /></a>
+              <span class="fs-1">이벤트,공지제목1</span>
+            </div>
+            <div class="swiper-slide newsSwipe">
+              <img
+                class="swiperImg"
+                src="../../static/images/add2.jpg"
+                alt="슬라이드 1"
+              />
+              <span class="fs-1">이벤트,공지제목2</span>
+            </div>
+            <div class="swiper-slide newsSwipe">
+              <img
+                class="swiperImg"
+                src="../../static/images/add3.jpg"
+                alt="슬라이드 1"
+              />
+              <span class="fs-1">이벤트,공지제목3</span>
+            </div>
+          </div>
+        </div>
+        <div class="empty"></div>
+
+        <!-- 새소식 끝 -->
+      </div>
+    </div>
+    <!-- 메인페이지 끝 -->
+    <!-- 부트스트랩 JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+      integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+      crossorigin="anonymous"
+    ></script>
+    <!-- j쿼리 -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!--  사용자 정의 JS -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // J캐러셀을 초기화
+        var myCarousel = new bootstrap.Carousel(
+          document.getElementById("carouselExampleSlidesOnly2")
+        );
+
+        // 캐러셀의 총 개수
+        var items = document.querySelectorAll(
+          "#carouselExampleSlidesOnly2 .carousel-item"
+        );
+        var totalItems = items.length;
+
+        // 현재 활성화된 캐러셀 인덱스와 페이지 번호 표시
+        function updatePageNumber() {
+          var currentIndex;
+
+          items.forEach(function (item, index) {
+            if (item.classList.contains("active")) {
+              currentIndex = index;
+            }
+          });
+
+          document.getElementById("pageNumber").textContent =
+            currentIndex + 1 + "/" + totalItems;
+        }
+
+        // 슬라이드 변경 시 페이지 번호 업데이트
+        myCarousel._element.addEventListener(
+          "slid.bs.carousel",
+          updatePageNumber
+        );
+        // 초기 페이지 번호 설정
+        updatePageNumber();
+      });
+      // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+      const swiper = new Swiper(".newnewsSwiper", {
+        slidesPerView: 1.5, // 한 번에 보여질 슬라이드 개수
+      });
+      const swiper2 = new Swiper(".recommendMenu", {
+        slidesPerView: 3,
+      });
+      const swiper3 = new Swiper(".choiceMenu", {
+        slidesPerView: 3,
+      });
+    </script>
+  </body>
+</html>
