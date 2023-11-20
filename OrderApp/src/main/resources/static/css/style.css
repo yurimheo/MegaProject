@@ -388,3 +388,188 @@ a {
 }
 /* 스탬프 끝 */
 /* ------- yurim CSS 로그인 및 회원가입 등 ------- */
+
+/* 메인 / 장바구니 / 결제 / 더보기 CSS 시작 */
+/* main */
+.mainMiddle {
+  top: 530px;
+  border-radius: 20px;
+}
+.stemppage {
+  background-color: rgba(233, 233, 233, 0.993);
+  border-radius: 20px;
+}
+#twoslide {
+  border-radius: 20px;
+}
+.twoWelcomeText {
+  padding-top: 100px;
+}
+#slideCount {
+  text-align: center;
+  background-color: rgba(49, 49, 49, 0.651);
+  width: 90px;
+  height: 40px;
+  right: 30px;
+  top: 480px;
+  border-radius: 20px;
+}
+.recommendSwiper {
+  width: 100%;
+}
+/* 스와이프 */
+.newNews {
+  margin-top: 150px;
+}
+
+.newsSwipe {
+  margin: 20px;
+}
+.swiperImg {
+  width: 100%;
+  border-radius: 20px;
+}
+.empty {
+  height: 7vh;
+}
+/*  orderPage */
+.backImg {
+  width: 70px;
+}
+.headerTop {
+  background-color: white;
+  position: fixed;
+  width: 100%;
+  height: 120px;
+  top: 0;
+  z-index: 1000;
+}
+.location {
+  background-color: black;
+  color: white;
+  padding: 40px 0 40px 40px;
+  margin-top: 120px;
+}
+.cart-list {
+  padding: 40px 40px 40px 40px;
+}
+.cart-list > img {
+  width: 190px;
+  height: 190px;
+}
+.cart-option > p {
+  margin: 0;
+}
+.cart-list-delete {
+  width: 60px;
+  height: 60px;
+}
+.num-down > img,
+.num-up > img {
+  width: 60px;
+}
+
+.amount-box,
+.amount {
+  display: flex;
+  justify-content: space-between;
+}
+.cart-notice {
+  height: 150px;
+  width: 100%;
+  background-color: #f8fafc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 -1px 0 0 #edf1f3;
+}
+.var7 {
+  color: #464b50;
+}
+
+.order-detail-price {
+  display: flex;
+  justify-content: space-between;
+}
+.order-detail-btn {
+  width: 90%;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  background-color: #462201;
+  border-radius: 20px;
+}
+.more-headerTop {
+  color: #9a9b9b;
+  margin-bottom: 100px;
+}
+.headerTop-content {
+  color: black;
+}
+.moreContent {
+  color: #565757;
+  padding: 5px 0 5px 0;
+}
+.moreContentAnchor {
+  color: black;
+  padding: 10px 0 10px 0;
+}
+.accordion-button:active,
+.accordion-button:focus {
+  color: black !important;
+  box-shadow: none !important;
+  background-color: white;
+}
+.accordion {
+  --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+}
+.accordion-button {
+  height: 120px;
+}
+.accordion-button::after {
+  width: 60px !important;
+  height: 60px !important;
+  background-size: 60px;
+}
+.accordion-content1 {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.requested {
+  margin: 40px;
+}
+.requestedInput {
+  height: 100px;
+  border-radius: 20px;
+}
+.radioBtn {
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
+}
+.radioSelectOption {
+  display: flex;
+  align-items: center;
+  margin: 10px 0 10px 0;
+}
+.backColor {
+  background-color: #eeeeee;
+}
+.paymentSelect {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+.selectPrice {
+  display: flex;
+  justify-content: space-between;
+}
+.totalPrice {
+  display: flex;
+  justify-content: space-between;
+}
+/* 메인 / 장바구니 / 결제 / 더보기 CSS 끝 */
