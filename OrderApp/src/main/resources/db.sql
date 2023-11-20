@@ -17,9 +17,16 @@ CREATE TABLE member (
     member_join_datetime  DATETIME DEFAULT NOW(), -- 가입일
     member_stamp INT, -- 스탬프
     
-    member_store_pick INT, -- 지점 즐겨찾기
-    member_item_pick INT -- 나만의 메뉴
+    member_store_pick INT -- 지점 즐겨찾기 (0, 1)
     );
+
+-- 지점 즐겨찾기 테이블
+DROP TABLE if EXISTS megamega.storepick;
+CREATE TABLE storepick (
+storepick_no INT AUTO_INCREMENT NOT NULL PRIMARY KEY, -- 고유키
+member_store_pick INT, -- 지점 즐겨찾기 (0, 1)
+store_name TEXT NOT NULL, -- 지점명
+);
 
 -- 상품 테이블
 DROP TABLE if EXISTS megamega.item;
@@ -36,14 +43,15 @@ item_update_datetime DATETIME DEFAULT NOW() -- 상품 등록일
 );
 
 -- 지점 테이블
-DROP TABLE if EXISTS store;
+DROP TABLE if EXISTS megamega.store;
 CREATE TABLE store (
+    store_no INT AUTO_INCREMENT NOT NULL PRIMARY KEY, -- 고유키  
 	store_name TEXT NOT NULL, -- 지점명
 	store_address VARCHAR(255) -- 지점주소
 );
 
 -- 장바구니 테이블
-DROP TABLE if EXISTS cart;
+DROP TABLE if EXISTS megamega.cart;
 CREATE TABLE cart (
     cart_no INT AUTO_INCREMENT NOT NULL PRIMARY KEY, -- 장바구니 번호 (고유키)
    cart_code VARCHAR(255) NOT NULL UNIQUE, -- 장바구니 코드(UUID
@@ -78,11 +86,12 @@ CREATE TABLE `order` (
     );
 SELECT * FROM `order`;
 
-DROP TABLE if EXISTS option;
-CREATE TABLE option (
- item_cate VARCHAR(255) NOT NULL,
- option_name VARCHAR(255) ,
- option_code VARCHAR(255) NOT NULL UNIQUE ,
- option_price  VARCHAR(255) NOT NULL
-    );
-SELECT * FROM option;
+-- 공지 테이블
+DROP TABLE if EXISTS megamega.notice;
+CREATE TABLE notice (
+    notice_no INT AUTO_INCREMENT PRIMARY KEY, -- 고유키
+notice_title VARCHAR(255) NOT NULL, -- 공지 이름
+notice_cate  VARCHAR(255) NOT NULL, -- 공지 카테고리
+notice_image_url TEXT NOT NULL, -- 이미지
+notice_datetime DATETIME DEFAULT NOW() -- 공지일시
+);
