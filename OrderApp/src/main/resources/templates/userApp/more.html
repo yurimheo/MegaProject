@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- meta name="viewport" : 뷰포트 설정 -->
+    <!-- content="width=device-width : 디바이스의 가로 넓이에 맞춤 -->
+    <!-- initial-scale = 1.0 : 최초 화면 크기 100% 비율 -->
+    <!-- minimum-scale=1.0 : 최소 화면 크기 100% 비율 -->
+    <!-- maximum-scale=1.0 : 최대 화면 크기 100% 비율 -->
+    <!-- user-scalable=no : 사용자 확대 금지 -->
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+    />
+    <!-- 아이폰 노치 커버 -->
+    <meta name="viewport" content="viewport-fit=cover" />
+    <title>Document</title>
+    <!-- 부트스트랩 CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../static/css/bootstrap.min.css"
+    />
+    <!-- 사용자 정의 CSS -->
+    <link rel="stylesheet" type="text/css" href="../../static/css/style.css" />
+  </head>
+  <body>
+    <div class="container-fluid p-5">
+      <!-- 컨텐츠 시작 -->
+      <div class="more-headerTop fs-2">
+        <span class="headerTop-content">계정설정</span>
+        ㅣ
+        <span class="headerTop-content">고객센터</span>
+      </div>
+      <!-- 이름표시 -->
+      <div class="welcomeText fs-1">
+        <span class="fw-bold" id="nickname" th:text="|${loginNickname}|"
+          >홍길동</span
+        >
+        <span>님 </span>
+      </div>
+      <!-- 슬라이드 -->
+      <div
+        class="carousel slide pt-5 position-relative"
+        data-bs-ride="carousel"
+        id="carouselExampleSlidesOnly2"
+      >
+        <div class="carousel-inner" id="twoslide">
+          <!-- 슬라이드 아이템들 -->
+          <div class="carousel-item active">
+            <img
+              src="../../static/images/add1.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="../../static/images/add2.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="../../static/images/add3.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+        </div>
+        <div class="text-center mt-2 position-absolute" id="slideCount">
+          <label
+            for=""
+            class="fs-3"
+            id="pageNumber"
+            style="color: white"
+          ></label>
+        </div>
+      </div>
+      <!-- text content -->
+      <div class="p-4">
+        <div class="d-flex flex-column">
+          <span class="moreContent fs-2">멤버십</span>
+          <a class="moreContentAnchor fs-1" href="">스탬프</a>
+        </div>
+        <div class="d-flex flex-column">
+          <span class="fs-2 moreContent">주문</span>
+          <a class="moreContentAnchor fs-1" href="">메가 오더</a>
+          <a class="moreContentAnchor fs-1" href="">주문 내역</a>
+        </div>
+        <div class="d-flex flex-column">
+          <span class="fs-2 moreContent">새소식</span>
+          <a class="moreContentAnchor fs-1" href="">이벤트</a>
+          <a class="moreContentAnchor fs-1" href="">공지사항</a>
+        </div>
+        <div class="d-flex flex-column">
+          <span class="fs-2 moreContent">약관 및 정책</span>
+          <a class="moreContentAnchor fs-1" href="">이용약관</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 부트스트랩 JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+      integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+      crossorigin="anonymous"
+    ></script>
+    <!--  사용자 정의 JS -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // J캐러셀을 초기화
+        var myCarousel = new bootstrap.Carousel(
+          document.getElementById("carouselExampleSlidesOnly2")
+        );
+
+        // 캐러셀의 총 개수
+        var items = document.querySelectorAll(
+          "#carouselExampleSlidesOnly2 .carousel-item"
+        );
+        var totalItems = items.length;
+
+        // 현재 활성화된 캐러셀 인덱스와 페이지 번호 표시
+        function updatePageNumber() {
+          var currentIndex;
+
+          items.forEach(function (item, index) {
+            if (item.classList.contains("active")) {
+              currentIndex = index;
+            }
+          });
+
+          document.getElementById("pageNumber").textContent =
+            currentIndex + 1 + "/" + totalItems;
+        }
+
+        // 슬라이드 변경 시 페이지 번호 업데이트
+        myCarousel._element.addEventListener(
+          "slid.bs.carousel",
+          updatePageNumber
+        );
+        // 초기 페이지 번호 설정
+        updatePageNumber();
+      });
+    </script>
+  </body>
+</html>
