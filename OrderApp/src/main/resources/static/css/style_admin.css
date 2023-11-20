@@ -309,3 +309,58 @@ a {
 }
 
 /* 상품관리 CSS 끝 ------------------------ */
+
+/* 주문관리, 공지관리 CSS 시작 ------------------ */
+.order-search {
+  border: 1px solid rgb(209, 209, 209);
+}
+
+.order-search:hover {
+  border: 1px solid #ffc107;
+  background-color: white;
+  color: #ffc107;
+  font-weight: bold;
+}
+/* 상세 조회 */
+.order-detail-btn,
+.notice-detail-btn {
+  /* 크기 지정 */
+  width: 100px;
+  background-color: rgb(126, 49, 14);
+  border: 2px solid #ffc107;
+  box-shadow: 0px 0px 3px 1px #ffc107;
+  border-radius: 10px;
+  color: #ffc107;
+}
+.order-detail,
+.order-detail:hover,
+.notice-detail,
+.notice-detail:hover {
+  color: #ffc107;
+}
+
+.btn-orderselect {
+  min-width: 90px;
+  max-width: 90px;
+  background-color: #ffc107;
+  color: white;
+}
+
+.btn-orderselect:hover {
+  background-color: #c49406;
+  color: white;
+}
+
+.headernotice {
+  text-align: center;
+}
+
+/* 수정하기 버튼 시작 */
+.submitBtnBox {
+  width: 54.5%;
+}
+.editBtnBox {
+  width: 45%;
+}
+/* 수정하기 버튼 끝 */
+/* 주문관리, 공지관리 CSS 끝 ------------------ */
