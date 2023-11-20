@@ -9,7 +9,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>상품 신규등록</title>
+    <title>상품 등록</title>
     <!-- 부트스트랩 CSS -->
     <link
       rel="stylesheet"
@@ -24,118 +24,166 @@
     />
   </head>
   <body>
-    <div layout:fragment="admin_layout" class="container-fluid">
-      <div class="container">
-        <table class="table">
-          <h2 class="top">상품 등록</h2>
-          <!-- 상단 테이블 -->
-          <thead>
-            <tr class="topTable">
-              <th scope="col">카테고리</th>
-              <th scope="col">상품명</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div class="input-group mb-3 w-50">
-                  <select class="form-select" id="inputGroupSelect01">
-                    <option value="1">신메뉴</option>
-                    <option value="2">커피</option>
-                    <option value="3">티</option>
-                    <option value="4">에이드&스무디</option>
-                  </select>
-                </div>
-              </td>
-              <td class="topTable">아메리카노</td>
-            </tr>
-          </tbody>
-        </table>
-        <table class="table">
-         
-        <!-- 하단 테이블 -->
-        <div>
-          <table class="table">
-            <thead>
-              <tr>
-                <th class="botTable" scope="col">상품 이미지</th>
-                <th class="botTable" scope="col">상품설명</th>
-                
-              </tr>
-            </thead>
-            <!-- 드래그 앤 드롭 시작 -->
-            <tbody>
-              <tr>
-                <td>
-                  <div class="upload-box">
-                    <div id="drop-file" class="drag-file">
-                      <img
-                        src="https://img.icons8.com/pastel-glyph/2x/image-file.png"
-                        alt="파일 아이콘"
-                        class="image"
-                      />
-                      <p class="message">Drag files to upload</p>
-                      <img src="" alt="미리보기 이미지" class="preview" />
+    <div class="share-container container">
+      <!-- 헤더 시작 -->
+      <div
+        class="p-3 d-flex justify-content-between mx-auto p-2 border-bottom border-4 border-dark"
+      >
+        <span class="w-75 d-flex">
+          <span class="fs-1 fw-semibold text-warning">메가MGC커피&nbsp;</span>
+          <span class="admin-title fs-1 fw-semibold">관리자 페이지</span></span
+        >
+        <!-- 페이지 카테고리 확인 문구 -->
+        <span class="d-flex align-content-center flex-wrap">
+          <span class="admin-title fw-bolder">관리자 페이지 &gt;&nbsp;</span>
+          <span
+            th:if="${pageName eq '회원관리 타임리프'}"
+            class="fw-semibold text-warning"
+          >
+            회원 관리
+          </span>
+          <!-- <span
+            th:if="${pageName eq '상품관리 타임리프'}"
+            class="fw-semibold text-warning"
+          >
+            상품 관리
+          </span>
+          <span
+            th:if="${pageName eq '주문관리 타임리프'}"
+            class="fw-semibold text-warning"
+          >
+            주문 관리
+          </span>
+          <span
+            th:if="${pageName eq '공지관리 타임리프'}"
+            class="fw-semibold text-warning"
+          >
+            공지사항 관리
+          </span> -->
+        </span>
+      </div>
+      <!-- 헤더 끝 -->
+
+      <!-- 네비게이션 탭 시작 -->
+      <nav class="share-nav nav nav-fill mt-2">
+        <a class="share-nav-link nav-link" aria-current="page" href="#"
+          >상품 관리</a
+        >
+        <a class="share-nav-link nav-link" href="#">상품 등록</a>
+        <a class="share-nav-link nav-link" href="#">상품 수정</a>
+        <a class="nav-link" href="#">상품 상세 정보</a>
+      </nav>
+      <!-- 네비게이션 탭 끝 -->
+
+      <!-- 상품 관리 시작 -->
+      <div class="border p-2">
+        <div class="container mt-3">
+          <div class="d-flex align-items-center justify-content-end">
+            <h2 class="top fw-bold d-flex editTitle">상품 등록</h2>
+            <div class="registered text-end">
+              <!-- 신메뉴/추천메뉴 체크박스 시작 -->
+              <span class="text-end registeredCheckbox">
+                <span class="fs-6">신메뉴&nbsp;<input type="checkbox" /></span>
+                <span class="fs-6">
+                  추천메뉴&nbsp;<input type="checkbox" />
+                </span>
+              </span>
+            </div>
+          </div>
+          <!-- 테이블 -->
+          <div class="row m-0">
+            <table class="table col product-table table-bordered mb-0">
+              <!-- 신메뉴/추천메뉴 체크박스 끝 -->
+              <!-- 카테고리 / 상품명 -->
+              <thead>
+                <tr class="topTable">
+                  <th scope="col" class="title text-center">카테고리</th>
+                  <th scope="col" class="title text-center">상품명</th>
+                  <th class="text-center title" scope="col">상품 가격</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="align-middle">
+                  <td
+                    class="d-flex justify-content-center flex-wrap align-items-center"
+                  >
+                    <div class="input-group w-50">
+                      <select class="form-select" id="inputGroupSelect01">
+                        <option value="1">신메뉴</option>
+                        <option value="2">커피</option>
+                        <option value="3">티</option>
+                        <option value="4">에이드&스무디</option>
+                      </select>
                     </div>
-                    <label class="file-label" for="chooseFile">파일 선택</label>
-                    <input
-                      class="file"
-                      id="chooseFile"
-                      type="file"
-                      onchange="dropFile.handleFiles(this.files)"
-                      accept="image/png, image/jpeg, image/gif"
-                    />
-                  </div>
-                </td>
-                <!-- 드래그 앤 드롭 시작 -->
-                <td>
-                  <textarea
-                    name="productUpdate"
-                    id=""
-                    cols="18"
-                    rows="10"
-                  ></textarea>
-                </td>
-              </tr>
-            </tbody>
-                 <!-- 옆에 붙일 테이블 단위 시작 -->
-                  <thead>
-                    <tr>
-                      <th class="rightTable" scope="col">상품 가격</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><input type="text" name="productPrice1"></td>
-                    </tr>
-                    <tr>
-                      <th class="rightTable" style="background-color: rgb(190, 190, 7)" scope="col">상품 등록일</th>
-                    </tr>
-                    <td><input type="text" name="registrationDate2"></td>
-                  </tbody>
-                  <!-- 옆에 붙일 테이블 단위 끝 -->
-                    
-                 <!-- 신메뉴/추천메뉴 체크박스 시작 -->
-                    <tr>
-                      <td class="rightTable" style="background-color: rgb(190, 190, 7)">신메뉴</td>
-                      <td style="text-align: center;"><input type="checkbox"></td>
-                    </tr>
-                    <tr>
-                      <td class="rightTable" style="background-color: rgb(190, 190, 7)">추천메뉴</td>
-                      <td style="text-align: center;"><input type="checkbox"></td>
-                    </tr>
-                  <!-- 신메뉴/추천메뉴 체크박스 끝 -->
-
-
+                  </td>
+                  <td class="topTable text-center">아메리카노</td>
+                  <td class="text-center">
+                    <input type="text" name="productPrice1" />
+                  </td>
+                </tr>
+              </tbody>
             </table>
+          </div>
+          <!-- 상품 이미지 / 상품 설명 -->
+          <div class="row m-0">
+            <table class="table product-table table-bordered">
+              <thead>
+                <tr>
+                  <th class="text-center title" scope="col">상품 이미지</th>
+                  <th class="text-center title" scope="col">상품 설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="upload-box">
+                      <div id="drop-file" class="drag-file">
+                        <img
+                          src="https://img.icons8.com/pastel-glyph/2x/image-file.png"
+                          alt="파일 아이콘"
+                          class="image"
+                        />
+                        <p class="message">Drag files to upload</p>
+                        <img src="" alt="미리보기 이미지" class="preview" />
+                      </div>
+                      <label class="file-label" for="chooseFile"
+                        >파일 선택</label
+                      >
+                      <input
+                        class="file"
+                        id="chooseFile"
+                        type="file"
+                        onchange="dropFile.handleFiles(this.files)"
+                        accept="image/png, image/jpeg, image/gif"
+                      />
+                    </div>
+                  </td>
+
+                  <td>
+                    <textarea
+                      class="w-100 h-100"
+                      name="productUpdate"
+                      id=""
+                      cols="18"
+                      rows="19"
+                    ></textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <!-- 상품 등록 버튼 -->
-        <div class="d-flex justify-content-center">
-          <button type="button" class="btn btn-warning">상품 등록</button>
+        <!-- 상품 등록/수정 버튼 -->
+        <div class="d-flex registered">
+          <span class="text-end registeredBtn product-registeredBtn">
+            <button type="button" class="btn btn-warning text-white">
+              상품 등록
+            </button>
+          </span>
         </div>
-        <!-- 상품 등록 버튼 끝-->
       </div>
     </div>
+    <!-- 상품 등록/수정 버튼 끝-->
 
     <!-- 부트스트랩 JS -->
     <script
@@ -148,6 +196,9 @@
       integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
       crossorigin="anonymous"
     ></script>
+
+    <!-- 사용자 정의 JS -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <!-- 이미지 업로드 js 시작 -->
     <script>
@@ -215,6 +266,14 @@
       }
 
       const dropFile = new DropFile("drop-file", "files");
+
+      $(document).ready(function () {
+        $(".product-registeredBtn").on("click", function (e) {
+          e.preventDefault();
+
+          window.location.href = "product_management.html";
+        });
+      });
     </script>
     <!-- 이미지 업로드 js 끝 -->
   </body>

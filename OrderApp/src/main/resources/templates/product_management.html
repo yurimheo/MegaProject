@@ -36,7 +36,7 @@
             <option value="1">신메뉴</option>
             <option value="2">커피</option>
             <option value="3">티</option>
-            <option value="">에이드&스무디</option>
+            <option value="4">에이드&스무디</option>
           </select>
           <div class="input-group mb-3 h-25" style="width: 75%">
             <input
@@ -47,7 +47,7 @@
               aria-describedby="button-addon2"
             />
             <button
-              class="btn btn-outline-secondary"
+              class="btn btn-outline-secondary search"
               type="button"
               id="button-addon2"
             >
@@ -62,11 +62,13 @@
 
         <!--전체삭제 / 상품 등록 버튼 시작 -->
         <div class="d-flex justify-content-between">
-          <label for="inputPassword6" class="col-form-label">상품 0건</label>
+          <label for="inputPassword6" class="col-form-label fw-bold"
+            >상품 0건</label
+          >
           <div class="productButton">
             <button
               type="button"
-              class="btn btn-light"
+              class="btn btn-light product-add"
               data-bs-toggle="tooltip"
               data-bs-placement="top"
               data-bs-title="신규 상품을 등록할 수 있습니다."
@@ -91,10 +93,10 @@
         </div>
         <!-- 전체삭제 / 상품 등록 버튼 끝 -->
         <!-- 상품목록 시작 -->
-        <table class="table">
+        <table class="table product-table">
           <thead>
             <tr>
-              <th scope="col">
+              <th scope="col" class="title">
                 <input
                   class="form-check-input"
                   type="checkbox"
@@ -102,12 +104,12 @@
                   id="flexCheckDefault"
                 />
               </th>
-              <th scope="col">카테고리</th>
-              <th scope="col">상품코드</th>
-              <th scope="col">상품명</th>
-              <th scope="col">판매가</th>
-              <th scope="col">상품 등록일</th>
-              <th scope="col">상품상세조회</th>
+              <th scope="col" class="title">카테고리</th>
+              <th scope="col" class="title">상품코드</th>
+              <th scope="col" class="title">상품명</th>
+              <th scope="col" class="title">판매가</th>
+              <th scope="col" class="title">상품 등록일</th>
+              <th scope="col" class="title">상품상세조회</th>
             </tr>
           </thead>
           <tbody>
@@ -126,61 +128,16 @@
               <td>3,000</td>
               <td>2023-11-09</td>
               <td>
-                <button type="button" class="btn btn-primary">상세조회</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-                />
-              </td>
-              <td>티</td>
-              <td>T21</td>
-              <td>쌍화차</td>
-              <td>4,500</td>
-              <td>2023-11-09</td>
-              <td>
-                <button type="button" class="btn btn-primary">상세조회</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-                />
-              </td>
-              <td>에이드&스무디</td>
-              <td>AS94</td>
-              <td>레몬에이드</td>
-              <td>4,500</td>
-              <td>2023-11-09</td>
-              <td>
-                <button type="button" class="btn btn-primary">상세조회</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-                />
-              </td>
-              <td>커피</td>
-              <td>C5</td>
-              <td>카푸치노</td>
-              <td>3,500</td>
-              <td>2023-11-09</td>
-              <td>
-                <button type="button" class="btn btn-primary">상세조회</button>
+                <button
+                  type="button"
+                  class="detailCheck-btn detailCheck"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-custom-class="custom-tooltip"
+                  data-bs-title="상품의 정보를 상세 조회 합니다."
+                >
+                  상세조회
+                </button>
               </td>
             </tr>
           </tbody>
@@ -200,14 +157,34 @@
       integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
       crossorigin="anonymous"
     ></script>
-    <!-- 부트스트랩 툴팁 js -->
+
+    <!-- 사용자 정의 JS -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
+      // 부트스트랩 툴팁 js
       const tooltipTriggerList = document.querySelectorAll(
         '[data-bs-toggle="tooltip"]'
       );
       const tooltipList = [...tooltipTriggerList].map(
         (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
       );
+
+      // 회원상세조회 페이지로 이동
+      $(document).ready(function () {
+        $(".detailCheck").on("click", function (e) {
+          e.preventDefault();
+
+          window.location.href = "product_details.html";
+        });
+      });
+
+      $(document).ready(function () {
+        $(".product-add").on("click", function (e) {
+          e.preventDefault();
+
+          window.location.href = "product_details_registered.html";
+        });
+      });
     </script>
   </body>
 </html>

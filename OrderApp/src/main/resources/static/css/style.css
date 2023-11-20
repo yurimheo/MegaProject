@@ -1,0 +1,101 @@
+/* 공통 css 시작 */
+@font-face {
+  font-family: "NanumSquareNeo-Variable";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: "NanumSquareNeo-Variable";
+}
+/* 공통 css 끝 */
+
+/* ------ store_choice.html 시작------ */
+
+/* 선택시 밑줄 및 볼드 처리 시작 */
+.storeListMenu div {
+  color: grey;
+  text-decoration: none;
+  border-bottom: 2px solid transparent; /* 투명한 밑줄 추가 */
+
+  &:hover {
+    color: black;
+    border-bottom-color: black;
+    font-weight: bold;
+  }
+}
+.storeListMenu-btn1.active,
+.storeListMenu-btn2.active,
+.storeListMenu-btn3.active {
+  color: black;
+  border-bottom-color: black;
+}
+/* 선택시 밑줄 및 볼드 처리 끝 */
+
+/* 하이라이트 반만 긋기 시작  */
+.highlighte {
+  background: linear-gradient(to top, yellow 50%, transparent 50%);
+}
+/* 하이라이트 반만 긋기 끝  */
+
+/* 즐겨찾기 버튼 시작*/
+.storeImg {
+  position: relative;
+}
+.storeImg img {
+}
+.starimgStar {
+  position: absolute;
+  top: 110px;
+  left: 110px;
+}
+/* 즐겨찾기 버튼 끝*/
+
+/* ------ store_choice.html 끝 ------ */
+
+/* ------ menu_choice.html 시작 ------ */
+
+.menuBtn {
+  border-color: rgb(82, 82, 82);
+  padding: 0 47px;
+}
+
+/* ------- menu_choice.html 끝-------- */
+
+.header {
+  position: relative;
+}
+
+.searchBox {
+  position: relative;
+}
+
+/* 입력 요소(form-control)의 밑줄 스타일 및 색상 변경 */
+.form-control {
+  border: none;
+  border-bottom: 2px solid #64696e;
+  border-radius: 1px;
+}
+/* form-control 클래스의 box-shadow 제거 */
+.form-control:focus {
+  box-shadow: none;
+}
+
+.moreBox {
+  display: block;
+  width: 100%;
+  text-align: center;
+  border-radius: 10px;
+  background-color: #f8fafc;
+  box-sizing: border-box;
+  height: 50px;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 50px;
+  letter-spacing: -0.5px;
+  color: #464b50;
+}
+
+/* ------- menu_choice.html 끝-------- */

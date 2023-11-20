@@ -1,40 +1,109 @@
+/*----------- 공통 css 시작 ------------- */
 @font-face {
-  font-family: "Pretendard-Regular";
-  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
-    format("woff");
-  font-weight: 400;
+  font-family: "NanumSquareNeo-Variable";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2")
+    format("woff2");
+  font-weight: normal;
   font-style: normal;
 }
 
 * {
-  font-family: "Pretendard-Regular";
+  font-family: "NanumSquareNeo-Variable";
 }
+
+a {
+  text-decoration: none;
+}
+/*----------- 공통 css 끝------------- */
+
+/* 공통 헤더 */
+.share-container {
+  max-width: 1200px;
+}
+.admin-title {
+  color: rgb(82, 82, 82);
+}
+.share-container .border-dark {
+  /* 헤더 - 네비 구분선 색 지정 */
+  border-color: rgb(209, 209, 209) !important;
+}
+
+/* 공통 네비게이션 탭 */
+.share-nav .nav-link {
+  /* 기본 배경/글자색 지정 */
+  background-color: rgb(209, 209, 209);
+  color: rgb(82, 82, 82);
+  /* 글자 굵기 지정 */
+  font-weight: bold;
+  /* 배경 모양 지정 */
+  border-radius: 10px 10px 0 0;
+}
+.share-nav .nav-link:hover,
+.share-nav .nav-link:active {
+  /* 마우스 올렸을 때의 배경/글자색 지정 */
+  background-color: #ffc107;
+  color: white;
+}
+
+/* 네비게이션 탭 1~3번 */
+.share-nav-link {
+  /* 간격 생성 */
+  margin-inline-end: 10px;
+}
+
+/*-------------------------- 공통 css 끝------------------------------- */
+
 /* 메가메가 바디 클래스 */
 .megamega {
   margin-top: 3%;
 }
 
 .top {
-  color: rgb(190, 190, 7);
+  color: #ffc107;
   text-align: center;
   font-size: 35px;
 }
 
+/* 검색창 */
+.search {
+  border: 1px solid rgb(209, 209, 209);
+}
+
+.search:hover {
+  border: 1px solid #ffc107;
+  background-color: white;
+  color: #ffc107;
+  font-weight: bold;
+}
+
 /* 테이블 상단 색 지정 */
-.table thead {
-  background-color: rgb(190, 190, 7);
+.product-table .title {
+  background-color: #ffc107;
+  color: white;
+}
+
+/* 상세 조회 */
+.detailCheck-btn {
+  /* 크기 지정 */
+  width: 100px;
+  background-color: rgb(126, 49, 14);
+  border: 2px solid #ffc107;
+  box-shadow: 0px 0px 3px 1px #ffc107;
+  border-radius: 10px;
+}
+.detailCheck {
+  /* 글자 색상 변경 및 글자 굵기 지정 */
+  color: #ffc107;
+  font-weight: bold;
+}
+.detailCheck:hover {
+  /* 글자 색 지정 */
+  color: #ffc107;
 }
 
 /* 테이블 상단 */
-.topTable {
-  text-align: center;
-}
 /* 테이블 하단 */
 .botTable {
-  text-align: center;
-}
-/* 오른쪽 그리드용 테이블*/
-.rightTable {
   text-align: center;
 }
 
@@ -86,7 +155,7 @@
 /* 업로드 버튼 시작 */
 .file-label {
   margin-top: 30px;
-  background-color: #5b975b;
+  background-color: #ffc107;
   color: #fff;
   text-align: center;
   padding: 10px 0;
@@ -98,4 +167,36 @@
   display: none;
 }
 /* 업로드 버튼 끝 */
+
+/* 상품 등록 버튼 */
+.registered .registeredBtn {
+  width: 52.5%;
+}
+/* 수정 버튼 */
+.registered .registeredBtnUpdate {
+  width: 52.5%;
+}
+
+/* 신메뉴, 추천메뉴 체크박스 시작 */
+.registered .registeredCheckbox {
+  width: 45%;
+}
+/* 신메뉴, 추천메뉴 체크박스 끝 */
+
+/* 상품 수정 제목 */
+.editTitle {
+  width: 44%;
+}
+
+/* 파일 선택 */
+.file-label {
+  margin-top: 30px;
+  background-color: rgb(209, 209, 209);
+  color: rgb(82, 82, 82);
+  text-align: center;
+  padding: 10px 0;
+  width: 65%;
+  border-radius: 6px;
+  cursor: pointer;
+}
 /* --------------------------------------------------------- */
