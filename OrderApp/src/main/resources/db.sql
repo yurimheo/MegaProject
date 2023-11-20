@@ -5,7 +5,7 @@ CREATE DATABASE megamega; -- 'megamega' DB 생성
 DROP TABLE if EXISTS megamega.member;
 CREATE TABLE member (
     member_no INT AUTO_INCREMENT NOT NULL PRIMARY KEY, -- 고유키
-    sid VARCHAR(255) NOT NULL UNIQUE, -- 아이디
+    member_id VARCHAR(255) NOT NULL UNIQUE, -- 아이디
     member_pw VARCHAR(255) NOT NULL, -- 암호키
     member_name VARCHAR(255) NOT NULL, -- 이름
     member_birth DATETIME DEFAULT NOW(), -- 생년월일
