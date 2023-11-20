@@ -5,7 +5,7 @@ CREATE DATABASE megamega; -- 'megamega' DB 생성
 DROP TABLE if EXISTS megamega.member;
 CREATE TABLE member (
     member_no INT AUTO_INCREMENT NOT NULL PRIMARY KEY, -- 고유키
-    member_id VARCHAR(255) NOT NULL UNIQUE, -- 아이디
+    sid VARCHAR(255) NOT NULL UNIQUE, -- 아이디
     member_pw VARCHAR(255) NOT NULL, -- 암호키
     member_name VARCHAR(255) NOT NULL, -- 이름
     member_birth DATETIME DEFAULT NOW(), -- 생년월일
@@ -33,20 +33,6 @@ item_recommend INT DEFAULT(0) NOT NULL, -- 추천메뉴 (추천메뉴 = 1)
 item_new INT DEFAULT(0) NOT NULL, -- 신메뉴 (신메뉴 = 1)
 item_image_url TEXT NOT NULL, -- 이미지
 item_update_datetime DATETIME DEFAULT NOW() -- 상품 등록일
-);
-
--- 제품 영양정보 테이블
-CREATE TABLE ITEM_FACTS (
-    item_name VARCHAR(255) NOT NULL, -- 상품명
-    item_code VARCHAR(255) NOT NULL UNIQUE, -- 상품 코드
-    facts_no INT AUTO_INCREMENT PRIMARY KEY, -- 고유키
-    kcal INT NOT NULL, -- 칼로리
-    na INT NOT NULL, -- 나트륨
-    sugar INT NOT NULL, -- 당
-    fat INT NOT NULL, -- 포화지방
-    protein INT NOT NULL, -- 단백질
-    caffeine INT NOT NULL, -- 카페인
-    allergy VARCHAR(255) NOT NULL -- 알레르기 유발 성분
 );
 
 -- 지점 테이블

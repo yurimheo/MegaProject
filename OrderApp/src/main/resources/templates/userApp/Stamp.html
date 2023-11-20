@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- meta name="viewport" : 뷰포트 설정 -->
+    <!-- content="width=device-width : 디바이스의 가로 넓이에 맞춤 -->
+    <!-- initial-scale = 1.0 : 최초 화면 크기 100% 비율 -->
+    <!-- minimum-scale=1.0 : 최소 화면 크기 100% 비율 -->
+    <!-- maximum-scale=1.0 : 최대 화면 크기 100% 비율 -->
+    <!-- user-scalable=no : 사용자 확대 금지 -->
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+    />
+    <!-- 아이폰 노치 커버 -->
+    <meta name="viewport" content="viewport-fit=cover" />
+    <title>스탬프</title>
+    <!-- 부트스트랩 CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../static/css/bootstrap.min.css"
+    />
+    <!-- 사용자 정의 CSS -->
+    <link rel="stylesheet" type="text/css" href="../../static/css/style.css" />
+  </head>
+  <body>
+    <!-- 로그인 화면 페이지 시작 -->
+    <div class="container-fluid p-0">
+      <!-- 간격 생성 시작 -->
+      <div class="emptyBox"></div>
+      <br />
+      <!-- 간격 생성 끝 -->
+      <!-- 스탬프 헤더 및 뒤로가기, 새로고침 버튼-->
+      <div>
+        <div class="stampHeaderBox d-flex justify-content-between">
+          <div class="stampBtnBox">
+            <button type="button" class="stampHeader fw-bold m-0" id="backBtn">
+              &lt;
+            </button>
+          </div>
+          <p class="stampHeader fw-bold text-center m-0">스탬프</p>
+          <div class="stampBtnBox">
+            <button type="button" id="refreshBtn">
+              <img
+                src="../../static/images/refresh.png"
+                alt=""
+                style="width: 50px; height: 50px"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+      <br />
+      <!-- 스탬프 갯수 + 적립내역 -->
+      <div class="d-flex justify-content-between">
+        <div class="stampCountBox d-flex">
+          <p>스탬프&nbsp;</p>
+          <p th:text="${member_stamp}" class="text-danger">7</p>
+        </div>
+        <div class="earnStampBox d-flex">
+          <button type="button" class="earnStampBtn" id="earnStamp">
+            적립내역 보기
+          </button>
+        </div>
+      </div>
+      <!-- 스탬프 뷰어 -->
+      <div class="stamp_detail">
+        <ul class="d-flex">
+          <li>
+            <div
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            >
+              <span>1</span>
+            </div>
+          </li>
+          <li>
+            <div
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            >
+              <span>2</span>
+            </div>
+          </li>
+          <li>
+            <div
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            >
+              <span>3</span>
+            </div>
+          </li>
+          <li>
+            <div
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            >
+              <span>4</span>
+            </div>
+          </li>
+          <li>
+            <div
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            >
+              <span>5</span>
+            </div>
+          </li>
+          <li>
+            <div
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            >
+              <span>6</span>
+            </div>
+          </li>
+          <li>
+            <div
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            >
+              <span>7</span>
+            </div>
+          </li>
+          <li>
+            <div
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            >
+              <span>8</span>
+            </div>
+          </li>
+          <li>
+            <div
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            >
+              <span>9</span>
+            </div>
+          </li>
+          <li>
+            <div
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            >
+              <span>10</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 유의사항 -->
+      <!-- 간격 생성 시작 -->
+      <div class="emptyBox"></div>
+      <br />
+      <!-- 간격 생성 끝 -->
+      <div
+        style="background-color: rgb(236, 236, 236); height: 30%"
+        class="p-3"
+      >
+        <p class="fs-1 fw-bold p-3">유의사항</p>
+        <p class="fs-2 p-3">
+          1. 제조 음료 1잔 당 1개의 스탬프를 적립해드립니다. <br />
+          2. 스탬프 유효기간: 적립일 ~ 6개월, 쿠폰 유효기간: 발급일 ~ 1개월
+          (쿠폰의 경우 하단에 유효기간이 표기되어 있으며, 기간이 만료된 스탬프
+          및 쿠폰은 재 발행이 불가합니다.)
+          <br />
+          3. 스탬프 10개를 적립하시면 쿠폰이 자동으로 발행되며, 해당 쿠폰 사용시
+          (HOT/ICE)아메리카노 한 잔 또는 2,000원 할인을 적용해드립니다. <br />
+          4. 스탬프 적립 내역은 최근 6개월, 쿠폰 내역은 최근 3개월까지 확인할 수
+          있습니다. <br />
+          5. 스탬프 적립 및 쿠폰 사용이 불가한 사항은 다음과 같습니다. <br />
+          * 디저트, RTD, MD 상품, 병 음료, 행사 제품(할인 및 프로모션 중복 사용
+          불가), 스탬프 적립 쿠폰 사용 시, 모바일 쿠폰(메뉴권, 금액권) 결제 시,
+          배달 주문 시 <br />
+          6. 쿠폰 사용 시 제조 음료 1잔에 대한 교환 또는 할인이 적용되며, 사용
+          후 잔액은 반환되지 않습니다. <br />
+          7. 결제 당시, 적립을 하지 못했을 경우 영수증과 최초 결제 수단을
+          지참하여 24시간 이내 결제한 매장에 방문하면 추후 적립이 가능합니다.
+        </p>
+      </div>
+    </div>
+    <!-- 로그인 화면 페이지 끝 -->
+    <!-- 부트스트랩 JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+      integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+      crossorigin="anonymous"
+    ></script>
+    <!-- j쿼리 -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!--  사용자 정의 JS -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+      //  뒤로가기 버튼 클릭시 이전 페이지로 이동
+      $(document).ready(function () {
+        $("#backBtn").on("click", function (e) {
+          e.preventDefault();
+
+          window.history.back();
+        });
+      });
+
+      // 새로고침 버튼 클릭시 새로고침
+      $(document).ready(function () {
+        $("#refreshBtn").on("click", function (e) {
+          e.preventDefault();
+
+          window.location.reload();
+        });
+      });
+
+      //  스탬프 적립내역 클릭시 로그인 페이지로 이동
+      $(document).ready(function () {
+        $("#earnStamp").on("click", function (e) {
+          e.preventDefault();
+
+          window.location.href = "Stamp_earnHistory.html";
+        });
+      });
+    </script>
+  </body>
+</html>

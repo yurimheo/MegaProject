@@ -1,4 +1,5 @@
-/*----------- 공통 css 시작 ------------- */
+/* 공통 CSS */
+
 @font-face {
   font-family: "NanumSquareNeo-Variable";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2")
@@ -14,7 +15,6 @@
 a {
   text-decoration: none;
 }
-/*----------- 공통 css 끝------------- */
 
 /* 공통 헤더 */
 .share-container {
@@ -51,8 +51,117 @@ a {
   margin-inline-end: 10px;
 }
 
-/*-------------------------- 공통 css 끝------------------------------- */
+/* 회원관리 CSS 시작 ------------------------ */
+/* 드롭다운 조회 옵션 창 */
+.mM-dropdown .dropdown-toggle {
+  /* 조회 옵션 모서리 둥글게 왼쪽만 효과 지정 */
+  border-radius: 10px 0 0 10px;
+  /* 테두리 색상 지정 */
+  border: 1px solid rgb(209, 209, 209);
+}
+.mM-dropdown .dropdown-toggle:hover {
+  background-color: white;
+  border: 1px solid #ffc107;
+  color: #ffc107;
+  /* 글자 굵기 지정 */
+  font-weight: bold;
+}
+/* 조회 버튼 */
+.mM-dropdown .share-submit-btn {
+  /* 테두리 색상 지정 */
+  border: 1px solid rgb(209, 209, 209);
+}
+.mM-dropdown .share-submit-btn:hover {
+  background-color: white;
+  border: 1px solid #ffc107;
+  color: #ffc107;
+  /* 글자 굵기 지정 */
+  font-weight: bold;
+}
+/* 검색 입력 창 */
+.mM-dropdown input {
+  /* 검색창 모서리 둥글게 효과 제거 */
+  border-radius: 0;
+}
 
+/* 회원 인원수 */
+.member-count {
+  /* 글자 색상 변경 및 글자 굵기 지정 */
+  color: rgb(82, 82, 82);
+  font-weight: bold;
+}
+/* 선택 삭제 */
+/* 아이콘 이미지 */
+.minus-button {
+  width: 16px;
+}
+.mM-delete-btn {
+  /* 패딩 값 제거 */
+  padding: 0;
+  /* 글자 색상 변경 및 글자 굵기 지정 */
+  color: rgb(82, 82, 82);
+  font-weight: bold;
+}
+.mM-delete-btn:focus,
+.mM-delete-btn:active {
+  border: 1px solid #ffc107;
+}
+
+/* 회원 테이블 */
+.member-table .member-thead {
+  /* 배경색 및 글자색 지정 */
+  background-color: #ffc107;
+  color: white;
+}
+/* 상세 조회 */
+.member-detail-btn {
+  /* 크기 지정 */
+  width: 100px;
+  background-color: rgb(126, 49, 14);
+  border: 2px solid #ffc107;
+  box-shadow: 0px 0px 3px 1px #ffc107;
+  border-radius: 10px;
+}
+.member-detail {
+  /* 글자 색상 변경 및 글자 굵기 지정 */
+  color: #ffc107;
+  font-weight: bold;
+}
+.member-detail:hover {
+  /* 글자 색 지정 */
+  color: #ffc107;
+}
+
+/* 회원 상세 정보 조회 CSS 시작 */
+.md .title {
+  /* 글자 색상 변경 및 글자 굵기 지정 */
+  color: #ffc107;
+  font-weight: bold;
+}
+
+/* 회원 상세 정보 테이블 */
+.member-detail-table th {
+  /* 배경색 및 글자색 지정 */
+  background-color: #ffc107;
+  color: white;
+  /* 플렉스 설정 */
+  display: flex;
+  flex-wrap: wrap;
+}
+.member-detail-table td {
+  /* 크기 지정 */
+  width: 50%;
+}
+/* 테이블 th 1번째 span 태그 */
+.member-detail-table span:nth-child(1) {
+  /* 가로 값 지정을 위한 디스플레이 설정 및 가로 값 지정 */
+  display: block;
+  width: 40%;
+}
+
+/* 회원관리 CSS 끝 ------------------------ */
+
+/* 상품관리 CSS 시작 ------------------------ */
 /* 메가메가 바디 클래스 */
 .megamega {
   margin-top: 3%;
@@ -199,4 +308,5 @@ a {
   border-radius: 6px;
   cursor: pointer;
 }
-/* --------------------------------------------------------- */
+
+/* 상품관리 CSS 끝 ------------------------ */

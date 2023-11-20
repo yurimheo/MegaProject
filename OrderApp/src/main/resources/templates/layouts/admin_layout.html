@@ -41,11 +41,12 @@
   </head>
   <body>
     <!-- 테두리 및 네비게이션 바 -->
-    <nav th:replace="~{fragments/navbar_admin :: navbarFragment}"></nav>
+    <div th:replace="~{fragments/navbar_admin :: navbarFragment}"></div>
     <!-- 매 페이지마다 교체될 본문 영역 -->
-    <th:block layout:fragment="admin_layout"></th:block>
+    <th:block layout:fragment="admin_layout"> </th:block>
     <!-- 부트스트랩 JS -->
     <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{../../static/js/admin.js}"></script>
     <!-- 자바스크립트 Start -->
     <th:block layout:fragment="script"></th:block>
   </body>
