@@ -1,5 +1,6 @@
 package com.megacoffee.OrderApp.dto;
 
+import com.megacoffee.OrderApp.entity.CartEntity;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,24 +16,26 @@ public class CartDto {
     private String cartCode;
     private String itemCode;
     private String itemName;
-    private String itemImgUrl;
+    private String itemImageUrl;
     private long itemPrice;
     private long cartItemAmount;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime cartDate;
 
-    private static CartDto toDto(CartDto entity){
+    public static CartDto fromEntity(CartEntity entity){
         return CartDto.builder()
                 .cartNo(entity.getCartNo())
                 .cartCode(entity.getCartCode())
                 .itemCode(entity.getItemCode())
-                .itemName(entity.getItemCode())
-                .itemImgUrl(entity.getItemImgUrl())
+                .itemName(entity.getItemName())
+                .itemImageUrl(entity.getItemImageUrl()) // 수정된 부분
                 .itemPrice(entity.getItemPrice())
                 .cartItemAmount(entity.getCartItemAmount())
                 .cartDate(entity.getCartDate())
                 .build();
     }
-
-
 }
+
+
+
+

@@ -95,5 +95,8 @@ notice_cate  VARCHAR(255) NOT NULL, -- 공지 카테고리
 notice_image_url TEXT NOT NULL, -- 이미지
 notice_datetime DATETIME DEFAULT NOW() -- 공지일시
 );
+INSERT INTO notice VALUES (
+ 0, '메가커피 이벤트', '이벤트', 
+ 'https://megacoffee.coconutatelier.com/images/item/thumb-102556_main_320x0.png', DEFAULT);
 
 
