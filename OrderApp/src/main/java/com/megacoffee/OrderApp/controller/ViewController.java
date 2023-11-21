@@ -14,8 +14,22 @@ public class ViewController {
         return "redirect:/login";
     }
     @GetMapping("/login")
-    public String main(){
+    public String loginForm(){
         return "loginForm";
     }
+
+    // 회원가입 화면으로 이동
+    @GetMapping("/signIn")
+    public String signInForm(){return "signlnForm";}
+
+    // 관리자 화면으로 이동
+    @GetMapping("/admin")
+    public String admin(){return "memberManagement";}
+
+    // 관리자 화면 - 회원 관리 탭으로 이동
+    @GetMapping("/admin/member")
+    public String admin(){return "memberManagement";}
+
+
 
 }

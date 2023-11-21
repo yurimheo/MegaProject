@@ -1,9 +1,11 @@
 package com.megacoffee.OrderApp.entity;
 
+import com.megacoffee.OrderApp.dto.JoinDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,19 +16,53 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberEntity {
+
     @Id  //기본키로 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_no")
-    private Long memberNo;
+    private Long memberNo; // 고유키
+
     @Column(name = "member_id")
-    private String memberId;
+    private String memberId; // 아이디
+
     @Column(name = "member_pw")
-    private String memberPw;
+    private String memberPw; // 비밀번호
+
     @Column(name = "member_name")
-    private String memberName;
-    @Column(name = "member_role")
-    private String memberRole; //권한 "admin" "user"
+    private String memberName; // 이름
+
     @Column(name = "member_birth")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime memberBirth; // 생일
+    private LocalDate memberBirth; // 생일
+
+    @Column(name = "member_email")
+    private String memberEmail; // 이메일
+
+    @Column(name = "member_phone")
+    private String memberPhone; // 연락처
+
+    @Column(name = "member_role")
+    private String memberRole; //권한 "admin" "user"
+
+    @Column(name = "member_join_datetime", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ss")
+    private LocalDateTime memberJoinDatetime = LocalDateTime.now();
+
+    @Column(name = "member_stamp")
+    private Integer memberStamp; // 멤버 스탬프
+
+    public static MemberEntity toJoinEntity(JoinDto dto) {
+        return MemberEntity.builder()
+                .memberNo(0L)
+                .memberId(dto.getLoginId())
+                .memberPw(dto.getLoginPw())
+                .memberName(dto.getUserName())
+                .memberBirth(dto.getUserBirth())
+                .memberEmail(dto.getUserEmail())
+                .memberPhone(dto.getUserPhone())
+                .memberRole("ROLE_USER")
+                .memberJoinDatetime(LocalDateTime.now())
+                .memberStamp(0)
+                .build();
+    }
 }
