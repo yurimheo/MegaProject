@@ -25,7 +25,7 @@ DROP TABLE if EXISTS megamega.storepick;
 CREATE TABLE storepick (
 storepick_no INT AUTO_INCREMENT NOT NULL PRIMARY KEY, -- 고유키
 member_store_pick INT, -- 지점 즐겨찾기 (0, 1)
-store_name TEXT NOT NULL, -- 지점명
+store_name TEXT NOT NULL -- 지점명
 );
 
 -- 상품 테이블
@@ -41,6 +41,11 @@ item_new INT DEFAULT(0) NOT NULL, -- 신메뉴 (신메뉴 = 1)
 item_image_url TEXT NOT NULL, -- 이미지
 item_update_datetime DATETIME DEFAULT NOW() -- 상품 등록일
 );
+INSERT INTO megamega.item VALUES(
+0 , 1 , '아메리카노' , '커피' , 4000 , 0 , 0 , 'stemp.png' , DEFAULT
+)
+SELECT * FROM megamega.item;
+
 
 -- 지점 테이블
 DROP TABLE if EXISTS megamega.store;
