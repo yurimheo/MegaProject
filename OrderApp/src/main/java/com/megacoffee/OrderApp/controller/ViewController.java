@@ -11,10 +11,11 @@ public class ViewController {
     // Localhost:8080 + /login : 로그인 화면으로 이동
     @GetMapping("/")
     public String index(){
-        return "redirect:/login";
+        return "managementAnnouncement";
     }
     @GetMapping("/login")
     public String main(){
         return "loginForm";
     }
+
 }

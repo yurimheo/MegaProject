@@ -25,7 +25,7 @@ DROP TABLE if EXISTS megamega.storepick;
 CREATE TABLE storepick (
 storepick_no INT AUTO_INCREMENT NOT NULL PRIMARY KEY, -- 고유키
 member_store_pick INT, -- 지점 즐겨찾기 (0, 1)
-store_name TEXT NOT NULL, -- 지점명
+store_name TEXT NOT NULL -- 지점명
 );
 
 -- 상품 테이블
@@ -95,3 +95,5 @@ notice_cate  VARCHAR(255) NOT NULL, -- 공지 카테고리
 notice_image_url TEXT NOT NULL, -- 이미지
 notice_datetime DATETIME DEFAULT NOW() -- 공지일시
 );
+
+

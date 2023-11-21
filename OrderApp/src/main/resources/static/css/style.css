@@ -389,7 +389,7 @@ a {
 /* 스탬프 끝 */
 /* ------- yurim CSS 로그인 및 회원가입 등 ------- */
 
-/* 메인 / 장바구니 / 결제 / 더보기 CSS 시작 */
+/* 메인 / 장바구니 / 결제 / 더보기 CSS 시작 /공지*/
 /* main */
 .mainMiddle {
   top: 530px;
@@ -571,5 +571,17 @@ a {
 .totalPrice {
   display: flex;
   justify-content: space-between;
+}
+.eventPage {
+  margin-top: 260px;
+}
+.eventImg {
+  border-radius: 20px;
+}
+.eventText {
+  padding: 30px 0 0 10px;
+}
+.Top2 {
+  background-color: white;
 }
 /* 메인 / 장바구니 / 결제 / 더보기 CSS 끝 */
