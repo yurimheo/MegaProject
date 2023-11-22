@@ -28,7 +28,7 @@ public class ViewController {
 
     // 관리자 화면 - 회원 관리 탭으로 이동
     @GetMapping("/admin/member")
-    public String admin(){return "memberManagement";}
+    public String member(){return "memberManagement";}
 
 
 
