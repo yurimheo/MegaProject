@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/mobile_layout}"
+>
   <head>
     <meta charset="UTF-8" />
     <!-- meta name="viewport" : 뷰포트 설정 -->
@@ -83,7 +86,7 @@
         class="logoBox text-center w-100 d-flex flex-wrap align-content-center justify-content-center"
       >
         <img
-          src="../../static/images/MGC LOGO (7).png"
+          src="./images/MGC LOGO (7).png"
           alt=""
           class="w-50"
           id="megaLogo"

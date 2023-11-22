@@ -15,5 +15,5 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     // select * form member where member_id = ?
     List<MemberEntity> findByMemberId(String id);
 
-
+    boolean existsByMemberId(String id);
 }
