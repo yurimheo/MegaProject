@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/mobile_layout}"
+>
   <head>
     <meta charset="UTF-8" />
     <!-- meta name="viewport" : 뷰포트 설정 -->
@@ -97,7 +100,7 @@
         class="logoBox text-center w-100 d-flex flex-wrap align-content-center justify-content-center"
       >
         <img
-          src="../../static/images/MGC LOGO (7).png"
+          src="./images/MGC LOGO (7).png"
           alt=""
           id="megaLogo"
           class="w-50"
@@ -106,39 +109,5 @@
       <!-- 로고 박스 끝 -->
     </div>
     <!-- 로그인 화면 페이지 끝 -->
-    <!-- 부트스트랩 JS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
-      integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
-      crossorigin="anonymous"
-    ></script>
-    <!-- j쿼리 -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <!--  사용자 정의 JS -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-      //  이용자 아이디 출력 페이지로 이동
-      $(document).ready(function () {
-        $("#findSubmitBtnPw").on("click", function (e) {
-          e.preventDefault();
-
-          window.location.href = "findpw2.html";
-        });
-      });
-
-      //  로고 클릭시 로그인 페이지로 이동
-      $(document).ready(function () {
-        $("#megaLogo").on("click", function (e) {
-          e.preventDefault();
-
-          window.location.href = "loginForm.html";
-        });
-      });
-    </script>
   </body>
 </html>

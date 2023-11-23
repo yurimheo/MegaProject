@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/mobile_layout}"
+>
   <head>
     <meta charset="UTF-8" />
     <!-- meta name="viewport" : 뷰포트 설정 -->
@@ -15,24 +18,16 @@
     <!-- 아이폰 노치 커버 -->
     <meta name="viewport" content="viewport-fit=cover" />
     <title>로그인</title>
-    <!-- 부트스트랩 CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../../static/css/bootstrap.min.css"
-    />
-    <!-- 사용자 정의 CSS -->
-    <link rel="stylesheet" type="text/css" href="../../static/css/style.css" />
   </head>
   <body>
     <!-- 로그인 화면 페이지 시작 -->
-    <div class="container-fluid p-0">
+    <div layout:fragment="mobile" class="container-fluid p-0">
       <!-- 로고 박스 시작-->
       <div
         class="logoBox text-center w-100 d-flex flex-wrap align-content-center justify-content-center"
       >
         <img
-          src="../../static/images/MGC LOGO (7).png"
+          src="./images/MGC LOGO (7).png"
           alt=""
           class="w-50"
           id="megaLogo"
@@ -54,12 +49,18 @@
         <input
           type="password"
           class="inputBox form-control fs-1"
-          id="memberPw"
+          id="inputMemberPw"
           placeholder="&nbsp;&nbsp;비밀번호"
         />
       </div>
       <div class="d-flex justify-content-center">
-        <button type="submit" class="submitBox btn fw-bold" id="mainBtn">
+        <!-- 입력 폼 시작 -->
+        <button
+          type="submit"
+          class="submitBox btn fw-bold"
+          id="mainBtn"
+          onclick="loginAction();"
+        >
           로그인
         </button>
       </div>
@@ -75,62 +76,11 @@
       <div class="signInBox d-flex justify-content-center">
         <a href="" class="signInLink fs-2" id="signInBtn"
           ><span>아직 회원이 아니신가요?</span
-          ><span class="fw-bold">회원가입</span></a
+          ><span class="fw-bold" onclick="signInForm();">회원가입</span></a
         >
       </div>
       <!-- 회원가입 박스 끝 -->
     </div>
     <!-- 로그인 화면 페이지 끝 -->
-    <!-- 부트스트랩 JS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
-      integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
-      crossorigin="anonymous"
-    ></script>
-    <!-- j쿼리 -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <!--  사용자 정의 JS -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-      //  로그인 후 메인 페이지로 이동 + 관리자인 경우 관리자 페이지로 이동
-      $(document).ready(function () {
-        $("#mainBtn").on("click", function (e) {
-          e.preventDefault();
-
-          var enteredUsername = $("#inputMemberId").val();
-          var isAdmin = enteredUsername.toLowerCase() === "admin";
-
-          // 관리자 여부 확인
-          if (isAdmin) {
-            window.location.href = "admin.html"; // 관리자 페이지로 이동
-          } else {
-            window.location.href = "main.html"; // 이용자 페이지로 이동
-          }
-        });
-      });
-
-      //  회원가입 페이지로 이동
-      $(document).ready(function () {
-        $("#signInBtn").on("click", function (e) {
-          e.preventDefault();
-
-          window.location.href = "signInCheckID.html";
-        });
-      });
-
-      //  로고 클릭시 로그인 페이지로 이동
-      $(document).ready(function () {
-        $("#megaLogo").on("click", function (e) {
-          e.preventDefault();
-
-          window.location.href = "loginForm.html";
-        });
-      });
-    </script>
   </body>
 </html>
