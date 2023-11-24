@@ -7,6 +7,7 @@ $(document).ready(function () {
   });
 });
 
+// 1. 로그인 페이지
 // 로그인 버튼 클릭시 로그인 액션 함수 발동
 function loginAction() {
   let idValue = document.getElementById("inputMemberId").value;
@@ -50,6 +51,7 @@ function loginAction() {
     });
 }
 
+// 회원가입 페이지
 //  회원가입 페이지로 이동
 $(document).ready(function () {
   $("#signInBtn").on("click", function (e) {
@@ -59,6 +61,7 @@ $(document).ready(function () {
   });
 });
 
+// 회원가입 1. 중복 ID 값 체크
 // 회원가입시 아이디 중복 확인
 // 아이디 중복 확인 함수
 function checkIdAction() {
@@ -82,7 +85,8 @@ function checkIdAction() {
       if (response.result === 0) {
         alert("아이디가 이미 존재합니다. 다른 아이디를 입력해주세요.");
       } else {
-        window.location.href = "/termsOfUse";
+        // 중복이 아닌 경우에 한하여  상세 입력 페이지로 이동하면서 아이디 전달함
+        window.location.href = "/termsOfUse?username=" + encodeURIComponent(username);
       }
     },
     error: function () {
@@ -90,58 +94,6 @@ function checkIdAction() {
     },
   });
 }
-
-// 전체 동의 체크박스
-var checkAll = document.getElementById("checkAll");
-//  하부 체크박스
-var otherCheckboxes = document.querySelectorAll(".otherCheckbox");
-// 전체 동의 체크박스의 상태가 변경되었을 때 실행되는 함수
-function toggleCheckboxes() {
-  // 전체 동의 체크박스의 상태에 따라 다른 체크박스들의 상태 변경
-  otherCheckboxes.forEach(function (checkbox) {
-    checkbox.checked = checkAll.checked;
-  });
-}
-
-// 전체 동의 체크박스에 이벤트 리스너 추가
-checkAll.addEventListener("change", toggleCheckboxes);
-
-// 멤버십 약관 페이지로 이동
-$(document).ready(function () {
-  $("#membershipTOU").on("click", function (e) {
-    e.preventDefault();
-
-    window.location.href = "/membershipTOU";
-  });
-});
-
-//  개인정보 처리 방침 페이지로 이동
-$(document).ready(function () {
-  $("#userTOU").on("click", function (e) {
-    e.preventDefault();
-
-    window.location.href = "/userTOU";
-  });
-});
-
-document.getElementById("signInForm").addEventListener("click", function () {
-  // (필수) 체크박스의 상태 확인
-  var membershipTOUChecked = document.getElementById(
-    "membershipTOUCheckbox"
-  ).checked;
-  var userTOUChecked = document.getElementById(
-  "userTOUCheckbox"
-  ).checked;
-
-  // (필수) 체크박스가 체크되었는지 확인하고, 체크되지 않았다면 경고 메시지를 표시
-  if (!membershipTOUChecked || !userTOUChecked) {
-    alert("이용약관에 동의해야 합니다.");
-    return; // 다음으로 진행하지 않음
-  }
-
-  // (필수) 체크박스가 체크되었으면 다음 페이지로 이동
-  window.location.href = "/signInForm"; // 회원가입 상세 입력 페이지
-});
 
 //  이용자 아이디 출력 페이지로 이동
 $(document).ready(function () {
