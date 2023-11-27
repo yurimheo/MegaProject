@@ -1,6 +1,7 @@
 package com.megacoffee.OrderApp.controller;
 
 import com.megacoffee.OrderApp.entity.MemberRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/admin")
 public class AdminViewController {
 
+    private final NoticeService noticeService;
+
+    @Autowired
+    public AdminViewController(NoticeService noticeService) {
+        this.noticeService = noticeService;
+    }
     // 의존성 주입
     @Autowired
     private MemberRepository memberRepository; // 회원
@@ -26,6 +33,12 @@ public class AdminViewController {
     public String member2(){return "memberDetail";}
     // 1. 회원 관리 탭 끝 -----------------------------------------------
 
+    @GetMapping("/notices")
+    public String showNotices(HttpServletRequest request) {
+        long noticeCount = noticeService.getNoticeCount();
+        request.setAttribute("noticeCount", noticeCount);
+        return "noticeList";
+    }
 
 
 }

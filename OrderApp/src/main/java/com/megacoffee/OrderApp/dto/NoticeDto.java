@@ -1,5 +1,6 @@
 package com.megacoffee.OrderApp.dto;
 
+import com.megacoffee.OrderApp.entity.NoticeEntity;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,13 +19,13 @@ public class NoticeDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime noticeDatetime;
 
-    public static NoticeDto toDto(NoticeDto entity){
-     return NoticeDto.builder()
-             .noticeNo(entity.getNoticeNo())
-             .noticeTitle(entity.getNoticeTitle())
-             .noticeCate(entity.getNoticeCate())
-             .noticeImgUrl(entity.getNoticeImgUrl())
-             .noticeDatetime(entity.getNoticeDatetime())
-             .build();
+    public static NoticeDto fromEntity(NoticeEntity entity){
+        return NoticeDto.builder()
+                .noticeNo(entity.getNoticeNo())
+                .noticeTitle(entity.getNoticeTitle())
+                .noticeCate(entity.getNoticeCate())
+                .noticeImgUrl(entity.getNoticeImgUrl())
+                .noticeDatetime(entity.getNoticeDateTime())
+                .build();
     }
 }

@@ -20,11 +20,7 @@
         <!-- 구분선 끝 -->
         <!-- 회원 수 및 선택 삭제 버튼 시작 -->
         <div class="mt-2 d-flex flex-wrap justify-content-between">
-          <p
-            class="fw-bold"
-          >
-            공지 총 0건
-          </p>
+          <p class="fw-bold">공지 총 <span th:text="${noticeCount}">0</span>개</p>
           <div class="position-relaltive">
             <button
               type="button"
