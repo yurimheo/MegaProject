@@ -3,7 +3,7 @@ $(document).ready(function () {
   $("#megaLogo").on("click", function (e) {
     e.preventDefault();
 
-    window.location.href = "loginForm.html";
+    window.location.href = "/login";
   });
 });
 
@@ -86,7 +86,8 @@ function checkIdAction() {
         alert("아이디가 이미 존재합니다. 다른 아이디를 입력해주세요.");
       } else {
         // 중복이 아닌 경우에 한하여  상세 입력 페이지로 이동하면서 아이디 전달함
-        window.location.href = "/termsOfUse?username=" + encodeURIComponent(username);
+        window.location.href =
+          "/termsOfUse?username=" + encodeURIComponent(username);
       }
     },
     error: function () {
@@ -94,21 +95,3 @@ function checkIdAction() {
     },
   });
 }
-
-//  이용자 아이디 출력 페이지로 이동
-$(document).ready(function () {
-  $("#findSubmitBtn").on("click", function (e) {
-    e.preventDefault();
-
-    window.location.href = "/resultId";
-  });
-});
-
-//  이용자 비밀번호 출력 페이지로 이동
-$(document).ready(function () {
-  $("#findSubmitBtnPw").on("click", function (e) {
-    e.preventDefault();
-
-    window.location.href = "/resultPw";
-  });
-});

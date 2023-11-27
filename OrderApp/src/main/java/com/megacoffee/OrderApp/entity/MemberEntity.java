@@ -77,4 +77,8 @@ public class MemberEntity {
                 .memberJoinDatetime(dto.getMemberJoinDatetime())
                 .build();
     }
+
+    public void setMemberPassword(String memberPw) {
+        this.memberPw = memberPw;
+    }
 }

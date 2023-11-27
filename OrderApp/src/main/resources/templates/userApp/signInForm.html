@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/mobile_layout}"
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/mobile_layout}"
 >
   <head>
     <meta charset="UTF-8" />
@@ -18,7 +20,7 @@
     <div layout:fragment="mobile" class="container-fluid p-0">
       <div class="emptyBox"></div>
       <div class="emptyBox"></div>
-<br>
+      <br />
       <!-- 입력 폼 시작 -->
       <!-- 이름 -->
       <label for="inputMemberName" class="labelTxt form-label">이름*</label>
@@ -104,7 +106,12 @@
       <!-- 간격 생성 끝 -->
       <!-- 회원가입 -->
       <div class="d-flex justify-content-center">
-        <button type="submit" class="submitBox btn fw-bold" id="signInFinish" onclick="joinAction();">
+        <button
+          type="submit"
+          class="submitBox btn fw-bold"
+          id="signInFinish"
+          onclick="joinAction();"
+        >
           회원가입
         </button>
       </div>
@@ -113,110 +120,57 @@
     </div>
     <!-- 로그인 화면 페이지 끝 -->
 
-    <script  layout:fragment="script">
-        function convertToDateFormat(dateString) {
-   // 사용하는 날짜 형식에 따라 적절한 변환 코드 작성
-    // 예: YYYY-MM-DD 형식을 사용한다면, 다음과 같이 변환
-   const parts = dateString.split("/");
-    const month = parseInt(parts[0], 10) - 1; // JavaScript에서 월은 0부터 시작하므로 1을 빼줍니다.
-    const day = parseInt(parts[1], 10);
-    const year = parseInt(parts[2], 10);
+    <script layout:fragment="script">
+      function convertToDateFormat(dateString) {
+        // 사용하는 날짜 형식에 따라 적절한 변환 코드 작성
+        // 예: YYYY-MM-DD 형식을 사용한다면, 다음과 같이 변환
+        const parts = dateString.split("/");
+        const month = parseInt(parts[0], 10) - 1; // JavaScript에서 월은 0부터 시작하므로 1을 빼줍니다.
+        const day = parseInt(parts[1], 10);
+        const year = parseInt(parts[2], 10);
 
-    // 유효한 날짜인지 확인
-    if (isNaN(month) || isNaN(day) || isNaN(year)) {
-        console.error("Invalid date format:", dateString);
-        return null;
-    }
+        // 유효한 날짜인지 확인
+        if (isNaN(month) || isNaN(day) || isNaN(year)) {
+          console.error("Invalid date format:", dateString);
+          return null;
+        }
 
-    return new Date(year, month, day);
-}
+        return new Date(year, month, day);
+      }
 
-        function joinAction(){
-  let idValue = document.getElementById("inputMemberId").value;
-  let pwValue = document.getElementById("inputMemberPw").value;
-  let nameValue = document.getElementById("inputMemberName").value;
-   let birthValue = convertToDateFormat(document.getElementById("inputMemberBirth").value);
-  let emailValue = document.getElementById("inputMemberEmail").value;
-  let phoneValue = document.getElementById("inputMemberPhone").value;
-  console.log("아이디:" + idValue);
-  console.log("비밀번호:" + pwValue);
-  console.log("이름:" + nameValue);
-  console.log("생일:" + birthValue);
-  console.log("이메일:" + emailValue);
-  console.log("연락처:" + phoneValue);
+      // URL 파라미터에서 아이디 값을 가져와서 설정
+      var urlParams = new URLSearchParams(window.location.search);
+      var username = urlParams.get("username");
+      console.log("Username from URL:", username);
 
-   if (birthValue === null) {
-        alert("올바른 날짜 형식이 아닙니다!");
-        return;
-    }
-
-  let params = {
-    loginId : idValue,
-    loginPw : pwValue,
-    userName : nameValue,
-    userBirth : birthValue,
-    userEmail : emailValue,
-    userPhone : phoneValue
-  };
-  console.log(JSON.stringify(params));
-
-  fetch("/joinAction", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(params),
-  })
-  .then((response) => {
-    console.log("response:"+response);
-    console.log("response:"+JSON.stringify(response));
-    return response.json();
-  }) //HTTP 응답
-  .then((json) => {
-    //{ status: "ok", result: 5 }
-    console.log("json:" + json);
-    console.log("response:"+JSON.stringify(json));
-
-    if( json.result == 1 ){
-        //회원가입 성공
-        //다음페이지로 이동
-         window.location.href = "/signInFinish?memberName=" + encodeURIComponent(nameValue);
-    }else{
-        //회원가입 실패
-        alert('회원가입 실패입니다.');
-    }
-
-  }) //실제 데이타
-    .catch((error) => {
-    console.log(error);
-  });
-}
-
- // URL 파라미터에서 아이디 값을 가져와서 설정
-var urlParams = new URLSearchParams(window.location.search);
-var username = urlParams.get("username");
-console.log("Username from URL:", username);
-
-// 아이디 값을 설정
-$("#inputMemberId").val(username);
-
+      // 아이디 값을 설정
+      $("#inputMemberId").val(username);
 
       //  회원가입 페이지로 이동
       $(document).ready(function () {
         $("#signInFinish").on("click", function (e) {
           e.preventDefault();
 
-// 입력 필드 전부 채워져있는가? 체크
-      var memberName = $("#inputMemberName").val();
-      var password = $("#inputMemberPw").val();
-      var passwordConfirmation = $("#inputMemberPw2").val();
-      var birthDate = $("#inputMemberBirth").val();
-      var email = $("#inputMemberEmail").val();
-      var phone = $("#inputMemberPhone").val();
+          // 입력 필드 전부 채워져있는가? 체크
+          var memberName = $("#inputMemberName").val();
+          var password = $("#inputMemberPw").val();
+          var passwordConfirmation = $("#inputMemberPw2").val();
+          var birthDate = $("#inputMemberBirth").val();
+          var email = $("#inputMemberEmail").val();
+          var phone = $("#inputMemberPhone").val();
 
-if (!memberName || !password || !passwordConfirmation || !birthDate || !email || !phone ) {
-        // 일치하지 않을 경우 경고창
-        alert("모든 필수 항목을 입력해주세요!");
-        return;
-      }
+          if (
+            !memberName ||
+            !password ||
+            !passwordConfirmation ||
+            !birthDate ||
+            !email ||
+            !phone
+          ) {
+            // 일치하지 않을 경우 경고창
+            alert("모든 필수 항목을 입력해주세요!");
+            return;
+          }
 
           // 비밀번호 및 비밀번호 확인 체크
           if (password !== passwordConfirmation) {
@@ -225,17 +179,79 @@ if (!memberName || !password || !passwordConfirmation || !birthDate || !email ||
             return;
           }
 
-           // 이메일 형식이 올바른가? 체크
-      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        // 올바르지 않을 경우 경고창
-        alert("올바른 이메일 형식이 아닙니다!");
-        return;
-      }
+          // 이메일 형식이 올바른가? 체크
+          var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            // 올바르지 않을 경우 경고창
+            alert("올바른 이메일 형식이 아닙니다!");
+            return;
+          }
 
-<!--          // 모든 조건이 맞을 경우 이동-->
-<!--          window.location.href = "/signInFinish";-->
+          // 모든 유효성 검사가 올바른 경우에만 회원가입 진행됨
+          joinAction();
         });
+
+        // 회원가입 액션
+        function joinAction() {
+          let idValue = document.getElementById("inputMemberId").value;
+          let pwValue = document.getElementById("inputMemberPw").value;
+          let nameValue = document.getElementById("inputMemberName").value;
+          let birthValue = convertToDateFormat(
+            document.getElementById("inputMemberBirth").value
+          );
+          let emailValue = document.getElementById("inputMemberEmail").value;
+          let phoneValue = document.getElementById("inputMemberPhone").value;
+          console.log("아이디:" + idValue);
+          console.log("비밀번호:" + pwValue);
+          console.log("이름:" + nameValue);
+          console.log("생일:" + birthValue);
+          console.log("이메일:" + emailValue);
+          console.log("연락처:" + phoneValue);
+
+          if (birthValue === null) {
+            alert("올바른 날짜 형식이 아닙니다!");
+            return;
+          }
+
+          let params = {
+            loginId: idValue,
+            loginPw: pwValue,
+            userName: nameValue,
+            userBirth: birthValue,
+            userEmail: emailValue,
+            userPhone: phoneValue,
+          };
+          console.log(JSON.stringify(params));
+
+          fetch("/joinAction", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(params),
+          })
+            .then((response) => {
+              console.log("response:" + response);
+              console.log("response:" + JSON.stringify(response));
+              return response.json();
+            }) //HTTP 응답
+            .then((json) => {
+              //{ status: "ok", result: 5 }
+              console.log("json:" + json);
+              console.log("response:" + JSON.stringify(json));
+
+              if (json.result == 1) {
+                //회원가입 성공
+                //다음페이지로 이동
+                window.location.href =
+                  "/signInFinish?memberName=" + encodeURIComponent(nameValue);
+              } else {
+                //회원가입 실패
+                alert("회원가입 실패입니다.");
+              }
+            }) //실제 데이타
+            .catch((error) => {
+              console.log(error);
+            });
+        }
 
         // datapicker
         $(".datepicker").datepicker();
