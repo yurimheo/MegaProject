@@ -18,63 +18,55 @@
     <!-- 아이폰 노치 커버 -->
     <meta name="viewport" content="viewport-fit=cover" />
     <title>비밀번호 찾기</title>
-    <!-- 부트스트랩 CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../../static/css/bootstrap.min.css"
-    />
-    <!-- 사용자 정의 CSS -->
-    <link rel="stylesheet" type="text/css" href="../../static/css/style.css" />
   </head>
   <body>
     <!-- 회원가입 화면 페이지 시작 -->
-    <div class="container-fluid p-0">
+    <div  layout:fragment="mobile"  class="container-fluid p-0">
       <!-- 간격 생성 시작 -->
       <div class="emptyBox"></div>
       <div class="emptyBox"></div>
       <!-- 간격 생성 끝 -->
 
       <!-- 헤더 텍스트 시작 -->
-      <div class="signInFinishTitleBox">
-        <span class="signInTitle fw-bold">
-          고객님의 소중한 개인정보를 위하여 <br />비밀번호를 변경해주세요!
+        <div class="signInFinishTitleBox">
+          <span th:text="${member_name}"  class="signInTitle fw-bold">고객</span>
+          <span class="signInTitle fw-bold">님의 소중한 개인정보를 위하여 <br />비밀번호를 변경해주세요!
         </span>
-      </div>
-      <!-- 헤더 텍스트 끝 -->
+        </div>
+        <!-- 헤더 텍스트 끝 -->
 
-      <!-- 간격 생성 시작 -->
-      <div class="emptyBox"></div>
-      <!-- 간격 생성 끝 -->
+        <!-- 간격 생성 시작 -->
+        <div class="emptyBox"></div>
+        <!-- 간격 생성 끝 -->
 
-      <!-- 비밀번호 -->
-      <label for="inputMemberPw" class="labelTxt form-label">비밀번호*</label>
-      <div class="formBox mb-3 d-flex justify-content-center">
-        <input
-          type="password"
-          class="inputBox form-control fs-1"
-          id="inputMemberPw"
-          placeholder="&nbsp;&nbsp;비밀번호를 입력해주세요"
-        />
-      </div>
-      <!-- 비밀번호 확인 -->
-      <label for="inputMemberPw2" class="labelTxt form-label"
+        <!-- 비밀번호 -->
+        <label for="inputNewPassword" class="labelTxt form-label">비밀번호*</label>
+        <div class="formBox mb-3 d-flex justify-content-center">
+          <input
+                  type="password"
+                  class="inputBox form-control fs-1"
+                  id="inputNewPassword"
+                  placeholder="&nbsp;&nbsp;비밀번호를 입력해주세요"
+          />
+        </div>
+        <!-- 비밀번호 확인 -->
+        <label for="inputConfirmPassword" class="labelTxt form-label"
         >비밀번호 확인*</label
-      >
-      <div class="formBox mb-3 d-flex justify-content-center">
-        <input
-          type="password"
-          class="inputBox form-control fs-1"
-          id="inputMemberPw2"
-          placeholder="&nbsp;&nbsp;위와 동일한 비밀번호를 입력해주세요"
-        />
-      </div>
+        >
+        <div class="formBox mb-3 d-flex justify-content-center">
+          <input
+                  type="password"
+                  class="inputBox form-control fs-1"
+                  id="inputConfirmPassword"
+                  placeholder="&nbsp;&nbsp;위와 동일한 비밀번호를 입력해주세요"
+          />
+        </div>
       <!-- 간격 생성 시작 -->
       <br />
       <!-- 간격 생성 끝 -->
       <!-- 확인 -->
       <div class="d-flex justify-content-center">
-        <button type="submit" class="submitBox btn fw-bold" id="loginBtn">
+        <button type="submit" class="submitBox btn fw-bold" id="modifyPasswordBtn">
           확인
         </button>
       </div>
@@ -95,39 +87,51 @@
       <!-- 로고 박스 끝 -->
     </div>
     <!-- 회원가입 화면 페이지 끝 -->
-    <!-- 부트스트랩 JS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
-      integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
-      crossorigin="anonymous"
-    ></script>
-    <!-- j쿼리 -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <!--  사용자 정의 JS -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-      //  로그인 페이지로 이동
+    <script layout:fragment="script">
       $(document).ready(function () {
-        $("#loginBtn").on("click", function (e) {
-          e.preventDefault();
+         $("#modifyPasswordBtn").on("click", function (e) {
+           e.preventDefault();
 
-          window.location.href = "loginForm.html";
-        });
-      });
+           // 입력 필드 값 가져오기
+           var newPassword = $("#inputNewPassword").val();
+           var confirmPassword = $("#inputConfirmPassword").val();
 
-      //  로고 클릭시 로그인 페이지로 이동
-      $(document).ready(function () {
-        $("#megaLogo").on("click", function (e) {
-          e.preventDefault();
+           // 입력 필드가 비어 있으면 경고창 표시
+           if (!newPassword || !confirmPassword) {
+             alert("새로운 비밀번호를 입력해주세요.");
+             return;
+           }
 
-          window.location.href = "loginForm.html";
-        });
-      });
+           // 새로운 비밀번호와 확인 비밀번호가 일치하는지 확인
+           if (newPassword !== confirmPassword) {
+             alert("새로운 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+             return;
+           }
+
+           // 서버에 비밀번호 수정 요청 전송
+           $.ajax({
+             type: "POST",
+             url: "/modifyPasswordAction",
+             contentType: "application/json",
+             data: JSON.stringify({
+               newPassword: newPassword,
+             }),
+             success: function (response) {
+               if (response.status === "ok" && response.result === 1) {
+                 alert("비밀번호가 성공적으로 수정되었습니다.");
+                 window.location.href = "/login"; // 로그인 페이지로 이동
+               } else {
+                 alert("비밀번호 수정에 실패했습니다.");
+               }
+             },
+             error: function () {
+               // 에러 발생 시 처리
+               alert("서버 오류가 발생했습니다.");
+             },
+           });
+         });
+       });
+
     </script>
   </body>
 </html>

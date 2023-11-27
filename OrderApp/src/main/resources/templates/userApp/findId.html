@@ -1,16 +1,12 @@
 <!DOCTYPE html>
-<html lang="ko"   xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/mobile_layout}"
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/mobile_layout}"
 >
   <head>
     <meta charset="UTF-8" />
-    <!-- meta name="viewport" : 뷰포트 설정 -->
-    <!-- content="width=device-width : 디바이스의 가로 넓이에 맞춤 -->
-    <!-- initial-scale = 1.0 : 최초 화면 크기 100% 비율 -->
-    <!-- minimum-scale=1.0 : 최소 화면 크기 100% 비율 -->
-    <!-- maximum-scale=1.0 : 최대 화면 크기 100% 비율 -->
-    <!-- user-scalable=no : 사용자 확대 금지 -->
     <meta
       name="viewport"
       content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
@@ -37,7 +33,7 @@
             <a href="#">아이디 찾기</a>
           </div>
           <div class="findNav">
-            <a href="findPw.html">비밀번호 찾기</a>
+            <a href="/findPw">비밀번호 찾기</a>
           </div>
         </div>
       </div>
@@ -75,7 +71,7 @@
         class="logoBox text-center w-100 d-flex flex-wrap align-content-center justify-content-center"
       >
         <img
-          src="../../static/images/MGC LOGO (7).png"
+          src="./images/MGC LOGO (7).png"
           alt=""
           class="w-50"
           id="megaLogo"
@@ -84,5 +80,52 @@
       <!-- 로고 박스 끝 -->
     </div>
     <!-- 로그인 화면 페이지 끝 -->
+    <script layout:fragment="script">
+      $(document).ready(function () {
+        $("#findSubmitBtn").on("click", function (e) {
+          e.preventDefault();
+
+          // 입력 필드 값 가져오기
+          var memberName = $("#inputMemberName").val();
+          var memberEmail = $("#inputMemberEmail").val();
+
+          // 서버에 전송
+          $.ajax({
+            type: "POST",
+            url: "/findIdAction",
+            contentType: "application/json",
+            data: JSON.stringify({
+              userName: memberName,
+              userEmail: memberEmail,
+            }),
+            success: function (response) {
+              if (response.status === "ok" && response.result === 1) {
+                // 아이디를 찾은 경우
+                var foundId = response.data; // 찾은 아이디
+                var joinDate = response.join_date; // 가입일
+                window.location.href =
+                  "/resultId?member_id=" +
+                  foundId +
+                  "&join_date=" +
+                  joinDate;
+              } else {
+                // 아이디를 찾지 못한 경우
+                alert("입력하신 정보와 일치하는 회원이 없습니다.");
+              }
+            },
+            error: function () {
+              // 서버와 통신 중 에러가 발생한 경우
+              alert("서버와 통신 중 에러가 발생했습니다.");
+            },
+          });
+
+          // 입력 필드가 비어 있으면 경고창 표시
+          if (!memberName || !memberEmail) {
+            alert("모든 필수 항목을 입력해주세요!");
+            return;
+          }
+        });
+      });
+    </script>
   </body>
 </html>

@@ -1,6 +1,7 @@
 package com.megacoffee.OrderApp.entity;
 
 import com.megacoffee.OrderApp.dto.JoinDto;
+import com.megacoffee.OrderApp.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -64,5 +65,20 @@ public class MemberEntity {
                 .memberJoinDatetime(LocalDateTime.now())
                 .memberStamp(0)
                 .build();
+    }
+    public static MemberEntity toMemberEntity(MemberDto dto){
+        return MemberEntity.builder()
+                .memberNo(dto.getMemberNo())
+                .memberId(dto.getMemberId())
+                .memberPw(dto.getMemberPw())
+                .memberName(dto.getMemberName())
+                .memberRole(dto.getMemberRole())
+                .memberStamp(dto.getMemberStamp())
+                .memberJoinDatetime(dto.getMemberJoinDatetime())
+                .build();
+    }
+
+    public void setMemberPassword(String memberPw) {
+        this.memberPw = memberPw;
     }
 }
