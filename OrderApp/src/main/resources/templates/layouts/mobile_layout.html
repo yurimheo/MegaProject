@@ -5,12 +5,11 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-  layout:decorate="~{default_layout}"
 >
   <head>
     <meta charset="UTF-8" />
     <!-- PWA 매너페스트 파일 연결 -->
-    <link rel="manifest" href="manifest.json" />
+<!--    <link rel="manifest" href="manifest.json" />-->
     <!-- 상태바 색상을 흰색으로 변경 -->
     <meta name="theme-color" content="#ffffff" />
     <!-- 모바일 기기 뷰포트 설정-->
@@ -29,6 +28,17 @@
       sizes="32x32"
       href="images/icons/favicon-32x32.png"
     />
+    <!-- 스와이퍼 -->
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <!-- JQuery UI CSS -->
+    <link
+            rel="stylesheet"
+            href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
     <!-- 부트스트랩 CSS -->
     <link
       rel="stylesheet"
@@ -41,11 +51,13 @@
   </head>
   <body>
     <!-- 매 페이지마다 교체될 본문 영역 -->
-    <th:block layout:fragment="layout"></th:block>
-    <!-- 하단 네비게이션 바 -->
-    <nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
+    <th:block layout:fragment="mobile"></th:block>
+    <!-- J Query -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- 부트스트랩 JS -->
-    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/member.js}"></script>
     <!-- 자바스크립트 Start -->
     <th:block layout:fragment="script"></th:block>
   </body>
