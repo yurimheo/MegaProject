@@ -45,6 +45,18 @@ public class ViewController {
         return "/userApp/termsOfUse";
     }
 
+    // 회원가입 화면 2-(1) 멤버십 이용약관
+    @GetMapping("/membershipTOU")
+    public String membershipTOU(){
+        return "/userApp/membershipTOU";
+    }
+
+    // 회원가입 화면 2-(2) 유저 이용약관
+    @GetMapping("/userTOU")
+    public String userTOU(){
+        return "/userApp/userTOU";
+    }
+
     // 회원가입 화면 3 - 상세 입력
     @GetMapping("/signInForm")
     public String signInForm(){return "/userApp/signInForm";}
@@ -65,13 +77,11 @@ public class ViewController {
     @GetMapping("/resultId")
     public String resultId(Model model,
                            @RequestParam(name = "member_id", required = false) String memberId,
-                           @RequestParam(name = "join_date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime joinDate) {
+                           @RequestParam(name = "join_date", required = false) LocalDate joinDate) {
         // 아이디 가져오기
         model.addAttribute("member_id", memberId);
 
-        // 가입일에서 날짜만 추출하여 LocalDate로 변환
-        LocalDate joinDateOnly = joinDate.toLocalDate();
-        model.addAttribute("join_date", joinDateOnly);
+        model.addAttribute("join_date", joinDate);
 
         return "/userApp/findId2";
     }

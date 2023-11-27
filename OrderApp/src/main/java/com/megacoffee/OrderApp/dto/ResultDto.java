@@ -17,5 +17,5 @@ public class ResultDto {
     int result;
     Object data;
     String message;
-    LocalDateTime join_date;
+    LocalDate join_date;
 }

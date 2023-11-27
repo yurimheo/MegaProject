@@ -241,6 +241,10 @@ a {
 .gTBtn:hover {
   color: #ffc017;
 }
+/* 세부 이용약관 */
+.touContainer {
+padding: 50px;
+}
 /* 이용약관 끝 */
 
 /* 데이트 피커 CSS 시작 */

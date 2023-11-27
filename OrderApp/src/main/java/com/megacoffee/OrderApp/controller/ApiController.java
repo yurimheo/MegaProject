@@ -144,7 +144,7 @@ public ResultDto findIdAction(@RequestBody FindIdDto findIdDto) {
                     .status("ok")
                     .result(1)
                     .data(foundMember.getMemberId())
-                    .join_date(foundMember.getMemberJoinDatetime())
+                    .join_date(foundMember.getMemberJoinDate())
                     .build();
         } else {
             // 찾은 회원이 없으면 실패 응답
@@ -193,7 +193,7 @@ public ResultDto findIdAction(@RequestBody FindIdDto findIdDto) {
                         .status("ok")
                         .result(1)
                         .data(foundMember.getMemberId())
-                        .join_date(foundMember.getMemberJoinDatetime())
+                        .join_date(foundMember.getMemberJoinDate())
                         .build();
             } else {
                 resultDto = ResultDto.builder()

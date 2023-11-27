@@ -22,4 +22,7 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
 
     // <조회> 회원 이름 및 이메일, 아이디
     List<MemberEntity> findByMemberNameAndMemberEmailAndMemberId(String userName, String userEmail, String loginId);
+
+    // <삭제> 삭제할 아이디를 찾아서 삭제하기
+    void deleteByMemberId(String memberId);
 }

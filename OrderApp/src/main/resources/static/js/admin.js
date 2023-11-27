@@ -8,14 +8,14 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// 회원관리 CSS 시작
+// 회원관리 CSS 시작 ------------------------------------------
 
 // 회원상세조회 페이지로 이동
 $(document).ready(function () {
   $(".member-detail").on("click", function (e) {
     e.preventDefault();
 
-    window.location.href = "memberDetail.html";
+    window.location.href = "/memberDetail";
   });
 });
 
@@ -24,7 +24,7 @@ $(document).ready(function () {
   $(".md-submit").on("click", function (e) {
     e.preventDefault();
 
-    window.location.href = "memberManagement.html";
+    window.location.href = "/memberManagement";
   });
 });
-// 회원관리 CSS 끝
+// 회원관리 CSS 끝 --------------------------------------------

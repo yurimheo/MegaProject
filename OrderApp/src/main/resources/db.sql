@@ -1,6 +1,8 @@
 DROP DATABASE IF EXISTS megamega; -- 'megamega' DB가 이미 있다면, 삭제함
-CREATE DATABASE megamega; -- 'megamega' DB 생성
-
+megamegaCREATE DATABASE megamega; -- 'megamega' DB 생성
+ALTER DATABASE megamega CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE member CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE member MODIFY member_name VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 -- 회원 테이블
 DROP TABLE if EXISTS megamega.member;
 CREATE TABLE megamega.member (
@@ -12,7 +14,7 @@ CREATE TABLE megamega.member (
     member_email VARCHAR(255) NOT NULL, -- 이메일
     member_phone VARCHAR(20) NOT NULL, -- 연락처
     member_role VARCHAR(255) DEFAULT('ROLE_USER') NOT NULL, -- 권한
-    member_join_datetime  DATETIME DEFAULT NOW(), -- 가입일
+    member_join_date DATE DEFAULT NOW(), -- 가입일
     member_stamp INT -- 스탬프
     );
 SELECT*FROM megamega.member;

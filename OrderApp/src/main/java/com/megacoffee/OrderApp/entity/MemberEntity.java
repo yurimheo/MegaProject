@@ -45,9 +45,9 @@ public class MemberEntity {
     @Column(name = "member_role")
     private String memberRole; //권한 "admin" "user"
 
-    @Column(name = "member_join_datetime", nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ss")
-    private LocalDateTime memberJoinDatetime = LocalDateTime.now();
+    @Column(name = "member_join_date", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate memberJoinDate = LocalDate.now();
 
     @Column(name = "member_stamp")
     private Integer memberStamp; // 멤버 스탬프
@@ -62,7 +62,7 @@ public class MemberEntity {
                 .memberEmail(dto.getUserEmail())
                 .memberPhone(dto.getUserPhone())
                 .memberRole("ROLE_USER")
-                .memberJoinDatetime(LocalDateTime.now())
+                .memberJoinDate(LocalDate.now())
                 .memberStamp(0)
                 .build();
     }
@@ -74,7 +74,7 @@ public class MemberEntity {
                 .memberName(dto.getMemberName())
                 .memberRole(dto.getMemberRole())
                 .memberStamp(dto.getMemberStamp())
-                .memberJoinDatetime(dto.getMemberJoinDatetime())
+                .memberJoinDate(dto.getMemberJoinDate())
                 .build();
     }
 
