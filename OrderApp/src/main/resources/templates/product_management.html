@@ -69,6 +69,7 @@
             <button
               type="button"
               class="btn btn-light"
+              onclick="deleteItems()"
               data-bs-toggle="tooltip"
               data-bs-placement="top"
               data-bs-title="선택한 항목을 모두 삭제합니다"
@@ -76,7 +77,7 @@
               <img
                 class="minus-button"
                 th:src="@{/images/icons/minus-button.png}"
-                alt="minus_icon"
+                alt=""
               />
               선택항목 삭제
             </button>
@@ -92,7 +93,7 @@
                   class="form-check-input"
                   type="checkbox"
                   value=""
-                  id="flexCheckDefault1"
+                  id="selectAll"
                 />
               </th>
               <th scope="col" class="title">카테고리</th>
@@ -156,7 +157,7 @@
         });
       });
 
-      // 상품등록 페이지로 이동
+      // 상품등록 페이지로 이동 js
       $(document).ready(function () {
         $(".product-add").on("click", function (e) {
           e.preventDefault();
@@ -164,6 +165,62 @@
           window.location.href = "/admin/product_details_registered";
         });
       });
+
+      //최상단 체크박스 클릭시 모두 선택 스크립트
+
+      // HTML 문서가 로드되면 실행될 함수
+      document.addEventListener("DOMContentLoaded", function () {
+        // 모든 체크박스 요소를 가져옵니다.
+        const checkboxes = document.querySelectorAll(".form-check-input");
+
+        // 최상단의 체크박스 요소를 가져옵니다.
+        const selectAllCheckbox = document.getElementById("selectAll");
+
+        // 최상단 체크박스가 클릭되었을 때 실행되는 함수
+        selectAllCheckbox.addEventListener("click", function () {
+          // 최상단 체크박스의 상태에 따라 모든 체크박스들의 상태를 변경합니다.
+          checkboxes.forEach(function (checkbox) {
+            checkbox.checked = selectAllCheckbox.checked;
+          });
+        });
+      });
+
+
+      //선택한 항목 삭제 기능 구현
+      function deleteItems() {
+           const checkboxes = document.querySelectorAll(
+             ".delete-checkbox:checked"
+           );
+           const itemName = Array.from(checkboxes).map((checkbox) =>
+             checkbox.id.replace("checkbox_", "")
+           );
+
+           if (itemNames.length === 0) {
+             alert("삭제할 항목을 선택하세요.");
+             return;
+           }
+
+           const result = confirm("선택한 항목을 삭제할까요?");
+           if (!result) {
+             return;
+           }
+
+           const params = { itemNames: itemNames };
+
+           fetch("/admin/product/deleteItems", {
+             method: "POST",
+             headers: { "Content-Type": "application/json" },
+             body: JSON.stringify(params),
+           })
+             .then((response) => response.json())
+             .then((json) => {
+               window.location.reload(); .
+             })
+             .catch((error) => {
+               console.error("Error deleting products:", error);
+             });
+         }
+
     </script>
   </body>
 </html>

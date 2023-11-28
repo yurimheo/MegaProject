@@ -21,21 +21,6 @@ public class AdminViewController {
     private ItemRepository itemRepository;
 
 
-    // <관리자>
-    @GetMapping("/")
-    public String admin(){return "memberManagement";}
-
-    // 1. 회원 관리 탭 시작 ---------------------------------------------
-    // 관리자 화면 - 회원 관리 탭으로 이동
-    @GetMapping("/member")
-    public String member(){return "memberManagement";}
-
-    // 관리자 화면 - 회원 상세 조회 탭으로 이동
-    @GetMapping("/member/check")
-    public String member2(){return "memberDetail";}
-    // 1. 회원 관리 탭 끝 -----------------------------------------------
-
-
 
     // 창 이동 - 화면에 보여지는 GetMapping, requestMapping,,,, 맵핑류
 
@@ -69,12 +54,7 @@ public class AdminViewController {
 
     //상품 상세정보
     @GetMapping("/product_details")
-    public String productDetails() {
+    public String productDetails(Model model) {
         return "product_details";
-
     }
-
-
-
-
 }
