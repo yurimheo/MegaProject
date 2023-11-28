@@ -3,7 +3,7 @@
   lang="ko"
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{admin_layout}"
+  layout:decorate="~{layouts/admin_layout}"
 >
   <head>
     <meta charset="UTF-8" />
@@ -24,46 +24,50 @@
             <thead>
               <tr>
                 <th><span>·</span><span>아이디</span></th>
-                <td th:text="${member.member_id}"></td>
+                <td th:text="${member.memberId}"></td>
               </tr>
               <tr>
                 <th><span>·</span><span>이름</span></th>
-                <td th:text="${member.name}"></td>
+                <td th:text="${member.memberName}"></td>
               </tr>
               <tr>
                 <th><span>·</span><span>생년월일</span></th>
-                <td th:text="${member.birthdate}"></td>
+                <td th:text="${member.memberBirth}"></td>
               </tr>
               <tr>
                 <th><span>·</span><span>이메일</span></th>
-                <td th:text="${member.email}"></td>
+                <td th:text="${member.memberEmail}"></td>
               </tr>
               <tr>
                 <th><span>·</span><span>연락처</span></th>
-                <td th:text="${member.contact}"></td>
+                <td th:text="${member.memberPhone}"></td>
               </tr>
               <tr>
                 <th><span>·</span><span>비밀번호</span></th>
-                <td th:text="${member.password}"></td>
-              </tr>
-              <tr>
-                <th><span>·</span><span>비밀번호 찾기 질문</span></th>
-                <td th:text="${member.securityQuestion}"></td>
+                <td th:text="${member.memberPw}"></td>
               </tr>
               <tr>
                 <th><span>·</span><span>보유 스탬프</span></th>
-                <td th:text="${member.stampCount}"></td>
+                <td th:text="${member.memberStamp}"></td>
               </tr>
             </thead>
           </table>
         </div>
         <div class="d-flex justify-content-center mb-3">
-          <button type="button" class="btn btn-warning text-white md-submit">
+          <button type="button" class="btn btn-warning text-white md-submit" onclick="confirmDetails()">
             확인 완료
           </button>
         </div>
       </div>
       <!-- 회원 상세 정보 조회 끝 -->
     </div>
+  <script layout:fragment="script">
+    // 확인 완료 버튼 - 이동 구현
+    function confirmDetails() {
+    alert("회원 정보 확인이 완료되었습니다!");
+    // 회원 목록 페이지로 이동
+    window.location.href = '/admin/member';
+  }
+  </script>
   </body>
 </html>

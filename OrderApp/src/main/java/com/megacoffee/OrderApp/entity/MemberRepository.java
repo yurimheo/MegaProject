@@ -15,14 +15,28 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     // select * form member where member_id = ?
     List<MemberEntity> findByMemberId(String id);
 
-    boolean existsByMemberId(String id);
+
+    // <조회> 회원 이름
+    List<MemberEntity> findByMemberName(String 검색할_회원명);
 
     // <조회> 회원 이름 및 이메일
     List<MemberEntity> findByMemberNameAndMemberEmail(String userName, String userEmail);
+
+    // <조회> 회원 이름 및 아이디
+    List<MemberEntity> findByMemberNameAndMemberId(String 검색할_회원명, String 검색할_아이디);
 
     // <조회> 회원 이름 및 이메일, 아이디
     List<MemberEntity> findByMemberNameAndMemberEmailAndMemberId(String userName, String userEmail, String loginId);
 
     // <삭제> 삭제할 아이디를 찾아서 삭제하기
     void deleteByMemberId(String memberId);
+
+    // <조회> 회원 이름 (부분 문자열 포함 확인)
+    List<MemberEntity> findByMemberNameContaining(String searchValue);
+
+    // <조회> 회원 아이디 (부분 문자열 포함 확인)
+    List<MemberEntity> findByMemberIdContaining(String searchValue);
+
+    // <조회> 회원 이름이나 아이디 (부분 문자열 포함 확인)
+    List<MemberEntity> findByMemberNameContainingOrMemberIdContaining(String searchValue, String searchValue1);
 }

@@ -38,7 +38,7 @@ a {
   border-radius: 10px 10px 0 0;
 }
 .share-nav .nav-link:hover,
-.share-nav .nav-link:active {
+.share-nav .nav-link:active, .share-nav-link.active {
   /* 마우스 올렸을 때의 배경/글자색 지정 */
   background-color: #ffc107;
   color: white;
