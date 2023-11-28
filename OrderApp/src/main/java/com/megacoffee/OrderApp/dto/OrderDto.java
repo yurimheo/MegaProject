@@ -1,5 +1,6 @@
 package com.megacoffee.OrderApp.dto;
 
+import com.megacoffee.OrderApp.entity.OrderEntity;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
@@ -25,7 +26,7 @@ public class OrderDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime orderDatetime;
 
-    public static OrderDto todto(OrderDto entity){
+    public static OrderDto toOrderDto(OrderEntity entity){
         return OrderDto.builder()
                 .orderNo(entity.getOrderNo())
                 .cartItemCode1(entity.getCartItemCode1())
@@ -38,7 +39,7 @@ public class OrderDto {
                 .orderNumber(entity.getOrderNumber())
                 .orderPayType(entity.getOrderPayType())
                 .orderState(entity.getOrderState())
-                .orderDatetime(entity.getOrderDatetime())
+                .orderDatetime(entity.getOrderDateTime())
                 .build();
     }
 

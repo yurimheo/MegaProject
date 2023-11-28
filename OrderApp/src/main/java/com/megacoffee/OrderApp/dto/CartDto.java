@@ -28,7 +28,7 @@ public class CartDto {
                 .cartCode(entity.getCartCode())
                 .itemCode(entity.getItemCode())
                 .itemName(entity.getItemName())
-                .itemImageUrl(entity.getItemImageUrl()) // 수정된 부분
+                .itemImageUrl(entity.getItemImageUrl())
                 .itemPrice(entity.getItemPrice())
                 .cartItemAmount(entity.getCartItemAmount())
                 .cartDate(entity.getCartDate())

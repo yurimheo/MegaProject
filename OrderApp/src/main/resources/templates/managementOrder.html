@@ -45,9 +45,7 @@
       <!-- 조회 캘린더 -->
       <div class="d-flex justify-content-between">
         <div class="d-flex">
-          <label for="inputPassword6" class="col-form-label fw-bold"
-            >주문 총 0건</label
-          >
+          <span th:text="|주문 총 ${count}개|">0</span>
           <button type="button" class="btn btn-light">전체</button>
           <button type="button" class="btn btn-light">1개월</button>
           <form class="d-flex align-items-center ms-3">
@@ -68,6 +66,7 @@
             <button
               type="button"
               class="btn fw-bold"
+              onclick="deleteSelectedOrder()"
               data-bs-toggle="tooltip"
               data-bs-placement="top"
               data-bs-custom-class="custom-tooltip"
@@ -75,7 +74,7 @@
             >
               <img
                 class="minus-button"
-                src="../static/images/icons/minus-button.png"
+                th:src="@{/images/icons/minus-button.png}"
                 alt=""
               />
               선택 삭제

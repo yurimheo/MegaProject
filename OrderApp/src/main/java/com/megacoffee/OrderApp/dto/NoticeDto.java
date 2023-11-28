@@ -19,7 +19,7 @@ public class NoticeDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime noticeDatetime;
 
-    public static NoticeDto fromEntity(NoticeEntity entity){
+    public static NoticeDto toDto(NoticeEntity entity){
         return NoticeDto.builder()
                 .noticeNo(entity.getNoticeNo())
                 .noticeTitle(entity.getNoticeTitle())

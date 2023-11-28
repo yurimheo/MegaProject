@@ -12,122 +12,134 @@
     <title>공지 관리</title>
   </head>
   <body>
-      <!-- 멤버 조회 검색창 시작 -->
-      <div layout:fragment="contents" class="border p-2">
-        <!-- 멤버 조회 검색창 끝 -->
-        <!-- 구분선 시작 -->
-        <div class="border border-top border-dark"></div>
-        <!-- 구분선 끝 -->
-        <!-- 회원 수 및 선택 삭제 버튼 시작 -->
-        <div class="mt-2 d-flex flex-wrap justify-content-between">
-          <p class="fw-bold">공지 총 <span th:text="${noticeCount}">0</span>개</p>
-          <div class="position-relaltive">
-            <button
-              type="button"
-              class="mM-delete-btn btn pe-0 fw-bold new-btn"
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              data-bs-custom-class="custom-tooltip"
-              data-bs-title="누르시면 새로운 공지를 등록 가능합니다."
-            >
-              <img class="minus-button" th:src="@{/images/icons/add.png}" alt="" />
-              신규 등록
-            </button>
-            <button
-              type="button"
-              class="mM-delete-btn btn ps-0 fw-bold"
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              data-bs-custom-class="custom-tooltip"
-              data-bs-title="선택한 공지들을 모두 삭제합니다."
-            >
-              <img
-                class="minus-button"
-                th:src="@{/images/icons/minus-button.png}"
-                alt=""
-              />
-              선택 삭제
-            </button>
-          </div>
-        </div>
-        <!-- 회원 수 및 선택 삭제 버튼 끝 -->
-        <!-- 회원 목록 시작 -->
-        <table class="notice-table table table-bordered">
-          <thead class="notice-thead">
-            <tr
-              class="tr text-center"
-              style="background-color: #ffc107; color: white"
-            >
-              <th scope="col"></th>
-              <!-- 체크박스 -->
-              <th scope="col">번호</th>
-              <th scope="col">카테고리</th>
-              <th scope="col">날짜</th>
-              <th scope="col">제목</th>
-              <th scope="col">공지상세조회</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- 회원 목록 반복 -->
-            <tr class="text-center" th:each="notice : ${members}">
-              <!-- 체크박스 -->
-              <td>
-                <input
-                  type="checkbox"
-                  th:id="'checkbox_' + ${member.member_id}"
-                />
-              </td>
-              <!-- 아이디, 이름, 이메일, 연락처, 가입일 -->
-              <td></td>
-              <td></td>
-              <td></td>
 
-              <td></td>
-              <!-- 회원상세조회 버튼 -->
-              <td>
-                <button class="notice-detail-btn">
-                  <a
-                    th:href="@{/member/details/{id}(id=${member.member_id})}"
-                    class="p-0 notice-detail"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    data-bs-custom-class="custom-tooltip"
-                    data-bs-title="클릭하시면 상세조회 페이지로 이동합니다."
-                    >상세조회</a
-                  >
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <div layout:fragment="contents" class="border p-2">
+
+      <!-- 구분선 시작 -->
+      <div class="border border-top border-dark"></div>
+      <!-- 구분선 끝 -->
+      <div class="mt-2 d-flex flex-wrap justify-content-between">
+        <span th:text="|공지 총 ${count}개|">0</span>
+        <div class="position-relative">
+          <button
+            type="button"
+            class="mM-delete-btn btn pe-0 fw-bold new-btn"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-custom-class="custom-tooltip"
+            data-bs-title="누르시면 새로운 공지를 등록 가능합니다."
+            onclick="location.href='/admin/managementNotice'"
+          >
+            <img
+              class="minus-button"
+              th:src="@{/images/icons/add.png}"
+              alt=""
+            />
+            신규 등록
+          </button>
+          <button
+            type="button"
+            class="mM-delete-btn btn ps-0 fw-bold"
+            onclick="deleteSelectedNotice()"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-custom-class="custom-tooltip"
+            data-bs-title="선택한 공지들을 모두 삭제합니다."
+          >
+            <img
+              class="minus-button"
+              th:src="@{/images/icons/minus-button.png}"
+              alt=""
+            />
+            선택 삭제
+          </button>
+        </div>
       </div>
+      <!-- 회원 수 및 선택 삭제 버튼 끝 -->
+      <!-- 회원 목록 시작 -->
+      <table class="notice-table table table-bordered">
+        <thead class="notice-thead">
+          <tr
+            class="tr text-center"
+            style="background-color: #ffc107; color: white"
+          >
+            <th scope="col"></th>
+            <!-- 체크박스 -->
+            <th scope="col">번호</th>
+            <th scope="col">카테고리</th>
+            <th scope="col">날짜</th>
+            <th scope="col">제목</th>
+            <th scope="col">공지상세조회</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center" th:each="notice, status:${ list }">
+            <!-- 체크박스 -->
+            <td>
+              <input
+                type="checkbox"
+                th:id="'checkbox_' + ${notice.noticeNo}"
+                class="delete-checkbox"
+              />
+            </td>
+            <td><span th:text="${notice.noticeNo}"></span></td>
+            <td><span th:text="${notice.noticeCate}"></span></td>
+            <td><span th:text="${notice.noticeDatetime}"></span></td>
+            <td><span th:text="${notice.noticeTitle}"></span></td>
+            <!-- 상세조회 버튼 -->
+            <td>
+              <button class="notice-detail-btn">
+                <a
+                  th:href="@{/notice/details/{id}(id=${notice.noticeNo})}"
+                  class="p-0 notice-detail"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-custom-class="custom-tooltip"
+                  data-bs-title="클릭하시면 상세조회 페이지로 이동합니다."
+                  >상세조회</a
+                >
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
       <!-- 회원 목록 끝 -->
     </div>
 
-    <script>
-      const tooltipTriggerList = document.querySelectorAll(
-        '[data-bs-toggle="tooltip"]'
-      );
-      const tooltipList = [...tooltipTriggerList].map(
-        (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
-      );
+    <script layout:fragment="script">
+      //선택한 공지 삭제
+      function deleteSelectedNotice() {
+        const checkboxes = document.querySelectorAll(
+          ".delete-checkbox:checked"
+        );
+        const noticeNos = Array.from(checkboxes).map((checkbox) =>
+          checkbox.id.replace("checkbox_", "")
+        );
+        if (noticeNos.length === 0) {
+          alert("삭제할 항목을 선택하세요.");
+          return;
+        }
+        const result = confirm("선택한 항목을 삭제할까요?");
+        if (!result) {
+          return;
+        }
+        const params = { noticeNos: noticeNos };
+        fetch("/admin/notice/deleteSelectedNotice", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(params),
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            window.location.reload();
+          })
+          .catch((error) => {
+            console.error("Error deleting notice:", error);
+          });
+      }
 
-      // 공지 상세조회 페이지로 이동
-      $(document).ready(function () {
-        $(".notice-detail-btn").on("click", function (e) {
-          e.preventDefault();
 
-          window.location.href = "managementNoticeDetailed.html";
-        });
-      });
-      // 공지 등록 페이지 이동
-      $(document).ready(function () {
-        $(".new-btn").on("click", function (e) {
-          e.preventDefault();
-
-          window.location.href = "managementNotice.html";
-        });
-      });
     </script>
   </body>
 </html>
