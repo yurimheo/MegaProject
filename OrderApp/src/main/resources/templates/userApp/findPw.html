@@ -18,18 +18,10 @@
     <!-- 아이폰 노치 커버 -->
     <meta name="viewport" content="viewport-fit=cover" />
     <title>비밀번호 찾기</title>
-    <!-- 부트스트랩 CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../../static/css/bootstrap.min.css"
-    />
-    <!-- 사용자 정의 CSS -->
-    <link rel="stylesheet" type="text/css" href="../../static/css/style.css" />
   </head>
   <body>
     <!-- 로그인 화면 페이지 시작 -->
-    <div class="container-fluid p-0">
+    <div layout:fragment="mobile" class="container-fluid p-0">
       <!-- 간격 생성 시작 -->
       <div class="emptyBox mt-3 mb-2"></div>
       <br />
@@ -42,7 +34,7 @@
         <br />
         <div class="d-flex border-bottom">
           <div class="findNav">
-            <a href="findId.html">아이디 찾기</a>
+            <a href="/findId">아이디 찾기</a>
           </div>
           <div class="findNav" style="border-bottom: 3px solid black">
             <a href="#">비밀번호 찾기</a>
@@ -53,30 +45,26 @@
       <!-- 입력 폼 시작 -->
       <div class="formBox mt-3 mb-3 d-flex justify-content-center">
         <input
-          type="text"
-          class="inputBox form-control fs-1"
-          id="inputMemberId"
-          placeholder="&nbsp;&nbsp;아이디를 입력해주세요."
+                type="text"
+                class="inputBox form-control fs-1"
+                id="inputMemberName"
+                placeholder="&nbsp;&nbsp;이름을 입력해주세요."
         />
       </div>
-      <!-- 비밀번호 찾기 질문 -->
-      <label for="pwFind" class="labelTxt form-label"
-        >비밀번호 찾기 질문*</label
-      >
-      <div class="pwFindBox mb-1 d-flex justify-content-center">
-        <select class="form-select fs-1" id="pwFind">
-          <option selected></option>
-          <option value="1">기억에 남는 추억의 장소는?</option>
-          <option value="2">자신의 인생 좌우명은?</option>
-          <option value="3">자신에게 가장 소중한 보물은?</option>
-        </select>
-      </div>
-      <div class="formBox mt-3 d-flex justify-content-center">
+      <div class="formBox mt-3 mb-3 d-flex justify-content-center">
         <input
-          type="text"
-          class="inputBox form-control fs-1"
-          id="inputPwAnswer"
-          placeholder="&nbsp;&nbsp;질문의 답을 입력해주세요"
+                type="text"
+                class="inputBox form-control fs-1"
+                id="inputMemberId"
+                placeholder="&nbsp;&nbsp;아이디를 입력해주세요."
+        />
+      </div>
+      <div class="formBox mt-3 mb-3 d-flex justify-content-center">
+        <input
+                type="text"
+                class="inputBox form-control fs-1"
+                id="inputMemberEmail"
+                placeholder="&nbsp;&nbsp;이메일을 입력해주세요."
         />
       </div>
       <!-- 확인 -->
@@ -109,5 +97,51 @@
       <!-- 로고 박스 끝 -->
     </div>
     <!-- 로그인 화면 페이지 끝 -->
+    <script layout:fragment="script">
+      $(document).ready(function () {
+  $("#findSubmitBtnPw").on("click", function (e) {
+    e.preventDefault();
+
+    // 입력 필드 값 가져오기
+    var memberName = $("#inputMemberName").val();
+    var memberId = $("#inputMemberId").val();
+    var memberEmail = $("#inputMemberEmail").val();
+
+    // 입력 필드가 비어 있으면 경고창 표시
+    if (!memberName || !memberId || !memberEmail) {
+      alert("모든 필수 항목을 입력해주세요!");
+      return;
+    }
+
+    // 서버에 전송
+    $.ajax({
+      type: "POST",
+      url: "/findPwAction",
+      contentType: "application/json",
+      data: JSON.stringify({
+        userName: memberName,
+        loginId: memberId,
+        userEmail: memberEmail,
+      }),
+      success: function (response) {
+        console.log("Received response:", response);
+        if (response.status === "ok" && response.result === 1) {
+          // 성공적으로 정보를 찾았을 때
+          alert("회원 정보를 찾았습니다.");
+          window.location.href = "/resultPw?userName=" + memberName; // findPw2.html로 이동
+        } else {
+          // 정보를 찾지 못했을 때
+          alert("정보를 찾을 수 없습니다.");
+          return;
+        }
+      },
+      error: function () {
+        // 에러 발생 시 처리
+        alert("서버 오류가 발생했습니다.");
+      },
+    });
+  });
+});
+    </script>
   </body>
 </html>

@@ -21,6 +21,15 @@ public class AdminViewController {
     private ItemRepository itemRepository;
 
 
+        // DB에 회원이 있는가?
+        if (!members.isEmpty()) {
+            MemberEntity member = members.get(0); // 여러 회원 중 하나를 선택 (첫 번째 회원)
+            model.addAttribute("member", member);
+            return "/memberDetail";  // 회원 상세 정보 조회 페이지로 이동
+        } else {
+            return "redirect:/admin/member";
+        }
+    }
 
     // 창 이동 - 화면에 보여지는 GetMapping, requestMapping,,,, 맵핑류
 
@@ -57,4 +66,10 @@ public class AdminViewController {
     public String productDetails(Model model) {
         return "product_details";
     }
-}
+    
+
+        // 1. 회원 관리 탭 끝 -------------------------------------------
+
+// 4. 공지 관리 시작 -------------------------------------------
+
+

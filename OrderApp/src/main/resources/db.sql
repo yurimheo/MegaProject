@@ -1,24 +1,23 @@
 DROP DATABASE IF EXISTS megamega; -- 'megamega' DB가 이미 있다면, 삭제함
-CREATE DATABASE megamega; -- 'megamega' DB 생성
-
+megamegaCREATE DATABASE megamega; -- 'megamega' DB 생성
+ALTER DATABASE megamega CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE member CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE member MODIFY member_name VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 -- 회원 테이블
 DROP TABLE if EXISTS megamega.member;
-CREATE TABLE member (
+CREATE TABLE megamega.member (
     member_no INT AUTO_INCREMENT NOT NULL PRIMARY KEY, -- 고유키
     member_id VARCHAR(255) NOT NULL UNIQUE, -- 아이디
     member_pw VARCHAR(255) NOT NULL, -- 암호키
     member_name VARCHAR(255) NOT NULL, -- 이름
-    member_birth DATETIME DEFAULT NOW(), -- 생년월일
+    member_birth DATE DEFAULT NULL, -- 생년월일
     member_email VARCHAR(255) NOT NULL, -- 이메일
-    member_phone VARCHAR(255) NOT NULL, -- 연락처
-    pw_question VARCHAR(255) NOT NULL, -- 비밀번호 찾기 질문
-    pw_answer VARCHAR(255) NOT NULL, -- 비밀번호 찾기 답
+    member_phone VARCHAR(20) NOT NULL, -- 연락처
     member_role VARCHAR(255) DEFAULT('ROLE_USER') NOT NULL, -- 권한
-    member_join_datetime  DATETIME DEFAULT NOW(), -- 가입일
-    member_stamp INT, -- 스탬프
-    
-    member_store_pick INT -- 지점 즐겨찾기 (0, 1)
+    member_join_date DATE DEFAULT NOW(), -- 가입일
+    member_stamp INT -- 스탬프
     );
+SELECT*FROM megamega.member;
 
 -- 지점 즐겨찾기 테이블
 DROP TABLE if EXISTS megamega.storepick;
