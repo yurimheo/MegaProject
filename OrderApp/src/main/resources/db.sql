@@ -42,7 +42,10 @@ item_image_url TEXT NOT NULL, -- 이미지
 item_update_datetime DATETIME DEFAULT NOW() -- 상품 등록일
 );
 INSERT INTO megamega.item VALUES(
-0 , 1 , '아메리카노' , '커피' , 4000 , 0 , 0 , 'stemp.png' , DEFAULT
+0 , '123e4567-e89b-12d3-a456-556642440000' , '아메리카노' , '커피' , 2000 , 0 , 0 , 'stemp.png' , DEFAULT
+)
+INSERT INTO megamega.item VALUES(
+0 , '123e4567-e89b-12d3-a456-556642440000' , '카페라떼' , '커피' , 3800 , 0 , 0 , 'stemp.png' , DEFAULT
 )
 SELECT * FROM megamega.item;
 

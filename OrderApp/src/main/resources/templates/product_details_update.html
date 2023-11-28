@@ -125,7 +125,7 @@
 
 
     <!-- 이미지 업로드 js 시작 -->
-    <script>
+    <script layout:fragment="script">
       function DropFile(dropAreaId, fileListId) {
         let dropArea = document.getElementById(dropAreaId);
         let fileList = document.getElementById(fileListId);
@@ -196,7 +196,7 @@
         $(".registeredBtnUpdate").on("click", function (e) {
           e.preventDefault();
 
-          window.location.href = "product_details.html";
+          window.location.href = "/admin/product_details";
         });
       });
     </script>

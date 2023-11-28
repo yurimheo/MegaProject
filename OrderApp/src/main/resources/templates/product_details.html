@@ -45,18 +45,11 @@
                   <td
                     class="d-flex justify-content-center flex-wrap align-items-center"
                   >
-                    <div class="input-group w-50">
-                      <select class="form-select" id="inputGroupSelect01">
-                        <option value="1">신메뉴</option>
-                        <option value="2">커피</option>
-                        <option value="3">티</option>
-                        <option value="4">에이드&스무디</option>
-                      </select>
-                    </div>
+                    커피
                   </td>
                   <td class="topTable text-center">아메리카노</td>
                   <td class="text-center">
-                    <input type="text" name="productPrice1" />
+                    3,000원
                   </td>
                 </tr>
               </tbody>
@@ -97,14 +90,8 @@
                     </div>
                   </td>
 
-                  <td>
-                    <textarea
-                      class="w-100 h-100"
-                      name="productUpdate"
-                      id=""
-                      cols="18"
-                      rows="19"
-                    ></textarea>
+                  <td class="text-center">
+                   시원한 커피입니다.
                   </td>
                 </tr>
               </tbody>
@@ -130,7 +117,7 @@
 
 
     <!-- 이미지 업로드 js 시작 -->
-    <script>
+    <script layout:fragment="script">
       function DropFile(dropAreaId, fileListId) {
         let dropArea = document.getElementById(dropAreaId);
         let fileList = document.getElementById(fileListId);
@@ -200,7 +187,7 @@
         $(".registeredBtn").on("click", function (e) {
           e.preventDefault();
 
-          window.location.href = "product_management.html";
+          window.location.href = "/admin/product_management";
         });
       });
 
@@ -209,7 +196,7 @@
         $(".registeredCheckbox").on("click", function (e) {
           e.preventDefault();
 
-          window.location.href = "product_details_update.html";
+          window.location.href = "/admin/product_details_update";
         });
       });
     </script>

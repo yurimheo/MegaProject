@@ -55,7 +55,7 @@
                       </select>
                     </div>
                   </td>
-                  <td class="topTable text-center">아메리카노</td>
+                  <td class="topTable text-center"><input type="text" name="productName"></td>
                   <td class="text-center">
                     <input type="text" name="productPrice1" />
                   </td>
@@ -125,7 +125,7 @@
     <!-- 상품 등록/수정 버튼 끝-->
 
     <!-- 이미지 업로드 js 시작 -->
-    <script>
+    <script layout:fragment="script">
       function DropFile(dropAreaId, fileListId) {
         let dropArea = document.getElementById(dropAreaId);
         let fileList = document.getElementById(fileListId);
@@ -191,11 +191,12 @@
 
       const dropFile = new DropFile("drop-file", "files");
 
+       //상품 등록 버튼 클릭시 등록완료
       $(document).ready(function () {
         $(".product-registeredBtn").on("click", function (e) {
           e.preventDefault();
 
-          window.location.href = "product_management.html";
+          window.location.href = "/admin/product_management";
         });
       });
     </script>

@@ -23,8 +23,9 @@ public class ItemDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime itemUpdateDatetime;
 
-    public static ItemEntity toDto(ItemEntity entity){
-        return ItemEntity.builder()
+
+    public static ItemDto fromEntity(ItemEntity entity){
+        return ItemDto.builder()
                 .itemNo(entity.getItemNo())
                 .itemCode(entity.getItemCode())
                 .itemName(entity.getItemName())
@@ -36,4 +37,6 @@ public class ItemDto {
                 .itemUpdateDatetime(entity.getItemUpdateDatetime())
                 .build();
     }
+
+
 }

@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/mobile_layout}"
+>
   <head>
     <meta charset="UTF-8" />
     <!-- meta name="viewport" : 뷰포트 설정 -->
@@ -15,23 +18,15 @@
     <!-- 아이폰 노치 커버 -->
     <meta name="viewport" content="viewport-fit=cover" />
     <title>주문하기</title>
-    <!-- 부트스트랩 CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../../static/css/bootstrap.min.css"
-    />
-    <!-- 사용자 정의 CSS -->
-    <link rel="stylesheet" type="text/css" href="../../static/css/style.css" />
   </head>
   <body>
     <!-- 상단 메뉴선택 & 돋보기 버튼 시작 -->
-    <div class="container-fluid p-0">
+    <div layout:fragment="mobile" class="container-fluid p-0">
       <div class="choiceAndSearch d-flex justify-content-between">
         <button class="backBtn border-0 bg-white">
           <img
             id="backBtnImg"
-            src="../../static/images/icons/back.png"
+            src="./images/icons/back.png"
             alt="back"
           />
         </button>
@@ -41,13 +36,13 @@
         <button class="searchBtn text-end bg-transparent text-body border-0">
           <img
             id="search"
-            src="/MegaProject/OrderApp/src/main/resources/static/images/icons/search.png"
+            src="./images/icons/search.png"
             alt="search"
           />
           <img
             class="cartImg"
             style="width: 50px"
-            src="/MegaProject/OrderApp/src/main/resources/static/images/icons/online-shopping.png"
+            src="./images/icons/online-shopping.png"
             alt=""
           />
         </button>
@@ -130,13 +125,13 @@
     <!--  사용자 정의 JS -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    <script>
+    <script layout:fragment="script">
       // < 버튼 클릭시 매장 선택 화면으로 이동
       $(document).ready(function () {
         $("#backBtnImg").on("click", function (e) {
           e.preventDefault();
 
-          window.location.href = "store_choice.html";
+          window.location.href = "/store_choice";
         });
       });
 
@@ -145,7 +140,7 @@
         $("#search").on("click", function (e) {
           e.preventDefault();
 
-          window.location.href = "menu_search.html";
+          window.location.href = "/menu_search";
         });
       });
     </script>
