@@ -26,12 +26,8 @@ public class ViewController {
 
     @GetMapping("/")
     public String index(){
-        return "redirect:/loading";
+        return "redirect:/login";
     } //추후 로딩화면으로 수정
-
-    @GetMapping("/loading")
-    public String loading(){return "/userApp/loading";}
-
     @GetMapping("/login")
     public String loginForm(){
         return "/userApp/loginForm";
