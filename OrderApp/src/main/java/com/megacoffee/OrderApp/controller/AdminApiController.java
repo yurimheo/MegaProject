@@ -29,35 +29,52 @@ import java.util.stream.Collectors;
 @RequestMapping("/admin")
 public class AdminApiController {
 
+  
+   // 의존성 주입
     @Autowired
-    ItemRepository itemRepository;
+    private MemberRepository memberRepository; // 회원
 
-    @PostMapping("/product/deleteItems")
-    @Transactional
-    public ResultDto deleteItems(@RequestBody Map<String, List<String>> params) {
-        List<String> itemNames = params.get("itemNames");
+    @Autowired
+    private ItemRepository itemRepository;
 
-        try {
+ // 1-(1) 회원 관리 - 회원 조회 ---------------------------------
+    @PostMapping("/member/search")
+    public List<MemberDto> searchMembers(@RequestBody Map<String, String> params) {
+        String searchOption = params.get("searchOption");
+        String searchValue = params.get("searchValue");
+        List<MemberEntity> resultList;
+        switch (searchOption) {
+            case "1":
+                resultList = memberRepository.findByMemberNameContaining(searchValue);
+                break;
+            case "2":
+                resultList = memberRepository.findByMemberIdContaining(searchValue);
+                break;
+            case "3":
+                resultList = memberRepository.findByMemberNameContainingOrMemberIdContaining(searchValue, searchValue);
+                break;
+            default:
+                resultList = memberRepository.findAll();
+                break;
+        }
+        return resultList.stream()
+                .map(MemberDto::toDto)
+                .collect(Collectors.toList());
+    }
+    // 1-(2). 회원 관리 - 회원 삭제 --------------------------------
+    @PostMapping("/member/deleteSelectedMembers")
+     @Transactional
+    public ResultDto deleteSelectedMembers(@RequestBody Map<String, List<String>> params) {
+        List<String> memberIds = params.get("memberIds");
+           try {
             // 회원 아이디에 해당하는 회원을 삭제
-            for (String itemName : itemNames) {
-                itemRepository.deleteByItemName(itemName);
-            }
-
+            for (String memberId : memberIds) {
+                memberRepository.deleteByMemberId(memberId);
+                  }
             // 삭제 후 결과를 응답
-            return ResultDto.builder()
-                    .status("ok")
-                    .result(1)
-                    .build();
-        } catch (Exception e) {
-            // 예외가 발생한 경우
-            String errorMessage = "삭제 중 오류가 발생했습니다.";
-            if (e.getMessage() != null) {
-                errorMessage += " 원인: " + e.getMessage();
-            }
-            return ResultDto.builder()
-                    .status("error")
-                    .message("삭제 중 오류가 발생했습니다.")
                     .build();
         }
     }
+    // 1. 회원 관리 관련 끝! ---------------------------------------
+    // 4. 공지 관리 시작 -----------------------------------------
 }
