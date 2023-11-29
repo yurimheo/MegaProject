@@ -1,9 +1,6 @@
 package com.megacoffee.OrderApp.controller;
 
-import com.megacoffee.OrderApp.dto.FindIdDto;
-import com.megacoffee.OrderApp.entity.MemberEntity;
 import com.megacoffee.OrderApp.entity.MemberRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -12,10 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Controller
-public class ViewController {
+public class ViewControllerJMJ {
 
     // <이용자>
     // 1. 로그인 및 회원 가입 시작 -------------------------------------

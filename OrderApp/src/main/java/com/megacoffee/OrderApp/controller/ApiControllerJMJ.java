@@ -5,21 +5,14 @@ import com.megacoffee.OrderApp.entity.MemberEntity;
 import com.megacoffee.OrderApp.entity.MemberRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Member;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 // @RestController : 해당 클래스가 'RESTfulAPI'를 제공하는 컨트롤러임을 나타내는 어노테이션
 @RestController
-public class ApiController {
+public class ApiControllerJMJ {
     // 기능 구현
 
     // <이용자>

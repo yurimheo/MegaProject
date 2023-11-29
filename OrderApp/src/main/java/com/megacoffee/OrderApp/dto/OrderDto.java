@@ -21,6 +21,7 @@ public class OrderDto {
     private long orderTotalPrice;
     private long orderTotalCount;
     private long orderNumber;
+    private String memberId;
     private long orderPayType;
     private String orderState;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -37,6 +38,7 @@ public class OrderDto {
                 .orderTotalPrice(entity.getOrderTotalPrice())
                 .orderTotalCount(entity.getOrderTotalCount())
                 .orderNumber(entity.getOrderNumber())
+                .memberId(entity.getMemberId())
                 .orderPayType(entity.getOrderPayType())
                 .orderState(entity.getOrderState())
                 .orderDatetime(entity.getOrderDateTime())
