@@ -12,67 +12,68 @@
     <title>회원 관리</title>
   </head>
   <body>
-    <!-- 멤버 조회 검색창 시작 -->
-    <div layout:fragment="contents" class="border p-2">
-      <div class="mt-1 d-flex dropdown mM-dropdown">
-        <select
-          class="w-25 h-25 form-select"
-          id=searchOption
-        >
-          <option selected>조회 옵션</option>
-          <option value="1">회원명</option>
-          <option value="2">아이디</option>
-          <option value="3">회원명 + 아이디</option>
-        </select>
-        <div class="input-group mb-3">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="검색하실 회원의 이름이나 아이디를 입력해주세요."
-            aria-label="회원의 이름이나 아이디를 입력하세요"
-            id=searchValue
-          />
-          <button
-            class="share-submit-btn btn btn-outline-secondary"
-            type="submit"
-            onclick="searchMemberAction();"
+      <!-- 멤버 조회 검색창 시작 -->
+      <div layout:fragment="contents" class="border p-2">
+        <div class="mt-1 d-flex dropdown mM-dropdown">
+          <select
+                  class="w-25 h-25 form-select"
+                  id=searchOption
           >
-            조회
-          </button>
-        </div>
-      </div>
-      <!-- 멤버 조회 검색창 끝 -->
-      <!-- 구분선 시작 -->
-      <div class="border border-top border-dark"></div>
-      <!-- 구분선 끝 -->
-      <!-- 회원 수 및 선택 삭제 버튼 시작 -->
-      <div class="mt-2 d-flex flex-wrap justify-content-between">
-        <p class="member-count" id="memberCount" th:text="|회원 총 ${count}명|">
-          회원 총 0명
-        </p>
-        <div class="position-relaltive">
-          <button
-            type="button"
-            class="mM-delete-btn btn"
-            onclick="deleteSelectedMembers()"
-            data-bs-toggle="tooltip"
-            data-bs-placement="top"
-            data-bs-custom-class="custom-tooltip"
-            data-bs-title="선택하신 회원 명단을 모두 삭제 가능합니다."
-          >
-            <img
-              class="minus-button"
-              th:src="@{/images/icons/minus-button.png}"
-              alt=""
+            <option selected>조회 옵션</option>
+            <option value="1">회원명</option>
+            <option value="2">아이디</option>
+            <option value="3">회원명 + 아이디</option>
+          </select>
+          <div class="input-group mb-3">
+            <input
+                    type="text"
+                    class="form-control"
+                    placeholder="검색하실 회원의 이름이나 아이디를 입력해주세요."
+                    aria-label="회원의 이름이나 아이디를 입력하세요"
+                    id=searchValue
             />
-            선택 삭제
-          </button>
+            <button
+              class="share-submit-btn btn btn-outline-secondary"
+              type="button"
+              onclick="searchMemberAction();"
+
+            >
+              조회
+            </button>
+          </div>
         </div>
-      </div>
-      <!-- 회원 수 및 선택 삭제 버튼 끝 -->
-      <!-- 회원 목록 시작 -->
-      <table class="member-table table table-bordered">
-        <thead class="member-thead">
+        <!-- 멤버 조회 검색창 끝 -->
+        <!-- 구분선 시작 -->
+        <div class="border border-top border-dark"></div>
+        <!-- 구분선 끝 -->
+        <!-- 회원 수 및 선택 삭제 버튼 시작 -->
+        <div class="mt-2 d-flex flex-wrap justify-content-between">
+          <p class="member-count" id="memberCount" th:text="|회원 총 ${count}명|">
+            회원 총 0명
+          </p>
+          <div class="position-relaltive">
+            <button
+                    type="button"
+                    class="mM-delete-btn btn"
+                    onclick="deleteSelectedMembers()"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-custom-class="custom-tooltip"
+                    data-bs-title="선택하신 회원 명단을 모두 삭제 가능합니다."
+            >
+              <img
+                class="minus-button"
+                th:src="@{/images/icons/minus-button.png}"
+                alt=""
+              />
+              선택 삭제
+            </button>
+          </div>
+        </div>
+        <!-- 회원 수 및 선택 삭제 버튼 끝 -->
+        <!-- 회원 목록 시작 -->
+        <table class="member-table table table-bordered">
+          <thead class="member-thead">
           <tr class="tr text-center">
             <th scope="col"></th>
             <!-- 체크박스 -->
@@ -84,16 +85,16 @@
             <th scope="col">가입일</th>
             <th scope="col">회원상세조회</th>
           </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
           <!-- 회원 목록 반복 -->
           <tr class="text-center" th:each="member, status:${ list }">
             <!-- 체크박스 -->
             <td>
               <input
-                type="checkbox"
-                th:id="'checkbox_' + ${member.memberId}"
-                class="delete-checkbox"
+                      type="checkbox"
+                      th:id="'checkbox_' + ${member.memberId}"
+                      class="delete-checkbox"
               />
             </td>
             <!-- 아이디, 이름, 이메일, 연락처, 가입일 -->
@@ -109,85 +110,74 @@
                 <a th:href="@{/admin/member/detail/{id}(id=${member.memberId})}" class="p-0 member-detail"
                    data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
                    data-bs-title="클릭하시면 상세조회 페이지로 이동합니다.">상세조회</a>
-
               </button>
             </td>
           </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- 회원 목록 끝 -->
+          </tbody>
+        </table>
+      </div>
+      <!-- 회원 목록 끝 -->
     <!--  사용자 정의 JS -->
-    <script layout:fragment="script">
-      // 회원 조회
-      function searchMemberAction() {
-      // 검색 옵션 및 검색값 가져오기
-    const searchOption = document.getElementById('searchOption').value;
-    const searchValue = document.getElementById('searchValue').value;
-
+      <script layout:fragment="script">
+        // 회원 조회
+    function searchMemberAction() {
+    // 검색 옵션 및 검색값 가져오기
+  const searchOption = document.getElementById('searchOption').value;
+  const searchValue = document.getElementById('searchValue').value;
 // 파라미터 보내기
-    const params = { searchOption, searchValue };
-
-    fetch('/admin/member/search', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(params),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        updateTable(data); // 테이블 업데이트
-    })
-    .catch(error => {
-        console.error('회원 검색 실페:', error);
-    });
+  const params = { searchOption, searchValue };
+  fetch('/admin/member/search', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
+  })
+  .then(response => response.json())
+  .then(data => {
+      console.log(data);
+      updateTable(data); // 테이블 업데이트
+  })
+  .catch(error => {
+      console.error('회원 검색 실페:', error);
+  });
 }
-
-      // 테이블 업데이트
-      function updateTable(data) {
-        const tableBody = document.querySelector(".member-table tbody");
-        tableBody.innerHTML = ""; // 기존 내용 삭제
-
-        // 받은 데이터로 테이블 행 추가
-        data.forEach((member, index) => {
-          const row = document.createElement("tr");
-          row.classList.add("text-center");
-
-          // 체크박스
-          const checkboxCell = document.createElement("td");
-          checkboxCell.innerHTML = `<input type="checkbox" id="checkbox_${member.memberId}" class="delete-checkbox" />`;
-          row.appendChild(checkboxCell);
-
-          // 번호
-          const numberCell = document.createElement("td");
-          numberCell.innerHTML = `<span>${index + 1}</span>`;
-          row.appendChild(numberCell);
-
-          // 아이디, 이름, 이메일, 연락처, 가입일
-          const cells = ["memberId", "memberName", "memberEmail", "memberPhone", "memberJoinDate"];
-          cells.forEach((cell) => {
-            const cellContent = document.createElement("td");
-            cellContent.innerHTML = `<span>${member[cell]}</span>`;
-            row.appendChild(cellContent);
-          });
-
-          // 회원상세조회 버튼
-          const detailCell = document.createElement("td");
-          detailCell.innerHTML = `<button class="member-detail-btn">
-            <a href="/member/details/${member.memberId}" class="p-0 member-detail"
-              data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
-              data-bs-title="클릭하시면 상세조회 페이지로 이동합니다.">상세조회</a>
-          </button>`;
-          row.appendChild(detailCell);
-
-          // 행 추가
-          tableBody.appendChild(row);
+    // 테이블 업데이트
+    function updateTable(data) {
+      const tableBody = document.querySelector(".member-table tbody");
+      tableBody.innerHTML = ""; // 기존 내용 삭제
+      // 받은 데이터로 테이블 행 추가
+      data.forEach((member, index) => {
+        const row = document.createElement("tr");
+        row.classList.add("text-center");
+        // 체크박스
+        const checkboxCell = document.createElement("td");
+        checkboxCell.innerHTML = `<input type="checkbox" id="checkbox_${member.memberId}" class="delete-checkbox" />`;
+        row.appendChild(checkboxCell);
+        // 번호
+        const numberCell = document.createElement("td");
+        numberCell.innerHTML = `<span>${index + 1}</span>`;
+        row.appendChild(numberCell);
+        // 아이디, 이름, 이메일, 연락처, 가입일
+        const cells = ["memberId", "memberName", "memberEmail", "memberPhone", "memberJoinDate"];
+        cells.forEach((cell) => {
+          const cellContent = document.createElement("td");
+          cellContent.innerHTML = `<span>${member[cell]}</span>`;
+          row.appendChild(cellContent);
         });
-      }
-
-      // 선택한 회원 삭제 기능 구현
+        // 회원상세조회 버튼
+        const detailCell = document.createElement("td");
+        detailCell.innerHTML = `<button class="member-detail-btn">
+          <a href="/member/details/${member.memberId}" class="p-0 member-detail"
+            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+            data-bs-title="클릭하시면 상세조회 페이지로 이동합니다.">상세조회</a>
+        </button>`;
+        row.appendChild(detailCell);
+        // 행 추가
+        tableBody.appendChild(row);
+      });
+    }
+    // 선택한 회원 삭제 기능 구현
          function deleteSelectedMembers() {
            const checkboxes = document.querySelectorAll(
              ".delete-checkbox:checked"
@@ -195,19 +185,15 @@
            const memberIds = Array.from(checkboxes).map((checkbox) =>
              checkbox.id.replace("checkbox_", "")
            );
-
            if (memberIds.length === 0) {
              alert("삭제할 항목을 선택하세요.");
              return;
            }
-
            const result = confirm("선택한 항목을 삭제할까요?");
            if (!result) {
              return;
            }
-
            const params = { memberIds: memberIds };
-
            fetch("/admin/member/deleteSelectedMembers", {
              method: "POST",
              headers: { "Content-Type": "application/json" },
@@ -215,12 +201,12 @@
            })
              .then((response) => response.json())
              .then((json) => {
-               window.location.reload(); .
+               window.location.reload();
              })
              .catch((error) => {
                console.error("Error deleting members:", error);
              });
          }
-    </script>
+      </script>
   </body>
 </html>

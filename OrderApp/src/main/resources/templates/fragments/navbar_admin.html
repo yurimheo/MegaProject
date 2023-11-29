@@ -3,7 +3,6 @@
   lang="ko"
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
   <head>
     <meta charset="UTF-8" />
@@ -21,7 +20,7 @@
       type="text/css"
       th:href="@{/css/style_admin.css}" />
   </head>
-  <body>navbarFragment
+  <body>
   <div th:fragment="navbarFragment">
     <!-- 헤더 시작 -->
     <div
@@ -40,24 +39,24 @@
           >
             회원 관리
           </span>
-        <!-- <span
+<span
           th:if="${pageName eq '상품관리'}"
           class="fw-semibold text-warning"
         >
           상품 관리
         </span>
         <span
-          th:if="${pageName eq '주문관리 타임리프'}"
+          th:if="${pageName eq '주문관리'}"
           class="fw-semibold text-warning"
         >
           주문 관리
         </span>
         <span
-          th:if="${pageName eq '공지관리 타임리프'}"
+          th:if="${pageName eq '공지관리'}"
           class="fw-semibold text-warning"
         >
           공지사항 관리
-        </span> -->
+        </span>
         </span>
     </div>
     <!-- 헤더 끝 -->
@@ -68,7 +67,7 @@
 <a th:class="${pageName eq '주문관리'} ? 'share-nav-link nav-link active' : 'share-nav-link nav-link'" href="#">주문 관리</a>
 <a th:class="${pageName eq '공지관리'} ? 'share-nav-link nav-link active' : 'share-nav-link nav-link'" href="#">공지 관리</a>
 </nav>
-<!--네비게이션 탭 끝 -->
+    <!-- 네비게이션 탭 끝 -->
   </div>
     <!-- 부트스트랩 JS -->
     <script th:src="@{/js/bootstrap.min.js}"></script>

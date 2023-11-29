@@ -25,9 +25,13 @@ public class ViewController {
     private MemberRepository memberRepository;
 
     @GetMapping("/")
-    public String index(){
-        return "redirect:/login";
-    } //추후 로딩화면으로 수정
+    public String index() {
+        return "redirect:/loading";
+    }
+
+    @GetMapping("/loading")
+    public String loading(){return "/userApp/loading";}
+
     @GetMapping("/login")
     public String loginForm(){
         return "/userApp/loginForm";
@@ -101,6 +105,7 @@ public class ViewController {
         model.addAttribute("member_name", userName);
         return  "/userApp/findPw2";
     }
+
 
     // 1. 로그인 및 회원 가입 끝 -------------------------------------
 }
