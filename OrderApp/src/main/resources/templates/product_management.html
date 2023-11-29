@@ -20,11 +20,14 @@
             class="form-select w-25 d-inline-block"
             aria-label="Default select example"
             style="height: 29%"
+            id="searchOption"
           >
+            <option selected>조회 옵션</option>
             <option value="1">신메뉴</option>
             <option value="2">커피</option>
             <option value="3">티</option>
             <option value="4">에이드&스무디</option>
+            <option value="5">전체</option>
           </select>
           <div class="input-group mb-3 h-25" style="width: 75%">
             <input
@@ -33,11 +36,13 @@
               placeholder="상품명이나 상품 코드를 입력하세요."
               aria-label="Recipient's username"
               aria-describedby="button-addon2"
+              id="searchValue"
             />
             <button
               class="btn btn-outline-secondary search"
               type="button"
               id="button-addon2"
+              onclick="searchItemAction();"
             >
               검색
             </button>
@@ -109,10 +114,9 @@
             <tr th:each="item : ${items}">
               <td>
                 <input
-                  class="form-check-input"
                   type="checkbox"
-                  value=""
-                  id="flexCheckDefault2"
+                  th:id="'checkbox_' + ${item.itemName}"
+                  class="delete-checkbox"
                 />
               </td>
               <td th:text="${item.itemCate}"></td>
@@ -140,14 +144,6 @@
     </div>
 
     <script layout:fragment="script">
-      // 부트스트랩 툴팁 js
-      const tooltipTriggerList = document.querySelectorAll(
-        '[data-bs-toggle="tooltip"]'
-      );
-      const tooltipList = [...tooltipTriggerList].map(
-        (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
-      );
-
       // 상세조회 페이지로 이동
       $(document).ready(function () {
         $(".detailCheck").on("click", function (e) {
@@ -168,59 +164,130 @@
 
       //최상단 체크박스 클릭시 모두 선택 스크립트
 
-      // HTML 문서가 로드되면 실행될 함수
-      document.addEventListener("DOMContentLoaded", function () {
-        // 모든 체크박스 요소를 가져옵니다.
-        const checkboxes = document.querySelectorAll(".form-check-input");
-
-        // 최상단의 체크박스 요소를 가져옵니다.
-        const selectAllCheckbox = document.getElementById("selectAll");
-
-        // 최상단 체크박스가 클릭되었을 때 실행되는 함수
-        selectAllCheckbox.addEventListener("click", function () {
-          // 최상단 체크박스의 상태에 따라 모든 체크박스들의 상태를 변경합니다.
-          checkboxes.forEach(function (checkbox) {
-            checkbox.checked = selectAllCheckbox.checked;
-          });
-        });
-      });
-
-
       //선택한 항목 삭제 기능 구현
       function deleteItems() {
-           const checkboxes = document.querySelectorAll(
-             ".delete-checkbox:checked"
-           );
-           const itemName = Array.from(checkboxes).map((checkbox) =>
-             checkbox.id.replace("checkbox_", "")
-           );
+        const checkboxes = document.querySelectorAll(
+          ".delete-checkbox:checked"
+        );
+        console.log(checkboxes);
+        const itemNames = Array.from(checkboxes).map((checkbox) =>
+          checkbox.id.replace("checkbox_", "")
+        );
 
-           if (itemNames.length === 0) {
-             alert("삭제할 항목을 선택하세요.");
-             return;
-           }
+        console.log("itemnames:" + itemNames);
 
-           const result = confirm("선택한 항목을 삭제할까요?");
-           if (!result) {
-             return;
-           }
+        if (itemNames.length === 0) {
+          alert("삭제할 항목을 선택하세요.");
+          return;
+        }
 
-           const params = { itemNames: itemNames };
+        const result = confirm("선택한 항목을 삭제할까요?");
+        if (!result) {
+          console.log("삭제가 안돼");
+          return;
+        }
 
-           fetch("/admin/product/deleteItems", {
-             method: "POST",
-             headers: { "Content-Type": "application/json" },
-             body: JSON.stringify(params),
-           })
-             .then((response) => response.json())
-             .then((json) => {
-               window.location.reload(); .
-             })
-             .catch((error) => {
-               console.error("Error deleting products:", error);
-             });
-         }
+        const params = { itemNames: itemNames };
 
+        fetch("/admin/product/deleteItems", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(params),
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            window.location.reload();
+          })
+          .catch((error) => {
+            console.error("Error deleting products:", error);
+          });
+      }
+
+      // 검색기능
+      // 회원 조회
+      function searchItemAction() {
+        // 검색 옵션 및 검색값 가져오기
+        const searchOption = document.getElementById("searchOption").value;
+        const searchValue = document.getElementById("searchValue").value;
+
+        // 파라미터 보내기
+        const params = { searchOption, searchValue };
+
+        fetch("/admin/product/search", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(params),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            updateTable(data); // 테이블 업데이트
+          })
+          .catch((error) => {
+            console.error("상품 검색 실페:", error);
+          });
+      }
+
+      // 데이터로 테이블 업데이트하는 함수
+      function updateTable(data) {
+        const tableBody = document.querySelector("tbody"); // 테이블의 tbody 가져오기
+
+        // 테이블 초기화
+        tableBody.innerHTML = "";
+
+        // 받아온 데이터로 테이블 업데이트
+        data.forEach((item) => {
+          const row = document.createElement("tr"); // 새로운 테이블 행 생성
+
+          // 각 항목에 대한 열 추가
+          const checkboxCell = document.createElement("td");
+          const categoryNameCell = document.createElement("td");
+          const itemCodeCell = document.createElement("td");
+          const itemNameCell = document.createElement("td");
+          const itemPriceCell = document.createElement("td");
+          const updateDateCell = document.createElement("td");
+          const detailButtonCell = document.createElement("td");
+
+          // 체크박스 열 추가
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.id = `checkbox_${item.itemName}`;
+          checkbox.className = "delete-checkbox";
+          checkboxCell.appendChild(checkbox);
+
+          // 각 열에 데이터 할당
+          categoryNameCell.textContent = item.itemCate;
+          itemCodeCell.textContent = item.itemCode;
+          itemNameCell.textContent = item.itemName;
+          itemPriceCell.textContent = item.itemPrice;
+          updateDateCell.textContent = item.itemUpdateDatetime;
+
+          // "상세조회" 버튼 열 추가
+          const detailButton = document.createElement("button");
+          detailButton.type = "button";
+          detailButton.className = "detailCheck-btn detailCheck";
+          detailButton.dataset.bsToggle = "tooltip";
+          detailButton.dataset.bsPlacement = "top";
+          detailButton.dataset.bsCustomClass = "custom-tooltip";
+          detailButton.dataset.bsTitle = "상품의 정보를 상세 조회합니다.";
+          detailButton.textContent = "상세조회";
+          detailButtonCell.appendChild(detailButton);
+
+          // 각 열을 행에 추가
+          row.appendChild(checkboxCell);
+          row.appendChild(categoryNameCell);
+          row.appendChild(itemCodeCell);
+          row.appendChild(itemNameCell);
+          row.appendChild(itemPriceCell);
+          row.appendChild(updateDateCell);
+          row.appendChild(detailButtonCell);
+
+          // 테이블에 행 추가
+          tableBody.appendChild(row);
+        });
+      }
     </script>
   </body>
 </html>

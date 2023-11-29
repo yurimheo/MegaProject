@@ -1,6 +1,5 @@
 package com.megacoffee.OrderApp.entity;
 
-import com.megacoffee.OrderApp.dto.JoinDto;
 import com.megacoffee.OrderApp.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -52,20 +51,6 @@ public class MemberEntity {
     @Column(name = "member_stamp")
     private Integer memberStamp; // 멤버 스탬프
 
-    public static MemberEntity toJoinEntity(JoinDto dto) {
-        return MemberEntity.builder()
-                .memberNo(0L)
-                .memberId(dto.getLoginId())
-                .memberPw(dto.getLoginPw())
-                .memberName(dto.getUserName())
-                .memberBirth(dto.getUserBirth())
-                .memberEmail(dto.getUserEmail())
-                .memberPhone(dto.getUserPhone())
-                .memberRole("ROLE_USER")
-                .memberJoinDate(LocalDate.now())
-                .memberStamp(0)
-                .build();
-    }
     public static MemberEntity toMemberEntity(MemberDto dto){
         return MemberEntity.builder()
                 .memberNo(dto.getMemberNo())

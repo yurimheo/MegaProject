@@ -44,7 +44,7 @@ INSERT INTO megamega.item VALUES(
 0 , '123e4567-e89b-12d3-a456-556642440000' , '아메리카노' , '커피' , 2000 , 0 , 0 , 'stemp.png' , DEFAULT
 )
 INSERT INTO megamega.item VALUES(
-0 , '123e4567-e89b-12d3-a456-556642440000' , '카페라떼' , '커피' , 3800 , 0 , 0 , 'stemp.png' , DEFAULT
+0 , '323e4567-e89b-12d3-a456-556642440000' , '카페라떼' , '커피' , 3800 , 0 , 0 , 'stemp.png' , DEFAULT
 )
 SELECT * FROM megamega.item;
 

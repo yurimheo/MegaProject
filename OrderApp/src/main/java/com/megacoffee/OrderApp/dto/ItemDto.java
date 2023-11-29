@@ -38,5 +38,19 @@ public class ItemDto {
                 .build();
     }
 
+    public static ItemDto toDto(ItemEntity entity){
+        return ItemDto.builder()
+                .itemNo(entity.getItemNo())
+                .itemCode(entity.getItemCode())
+                .itemName(entity.getItemName())
+                .itemCate(entity.getItemCate())
+                .itemPrice(entity.getItemPrice())
+                .itemRecommend(entity.getItemRecommend())
+                .itemNew(entity.getItemNew())
+                .itemImageUrl(entity.getItemImageUrl())
+                .itemUpdateDatetime(entity.getItemUpdateDatetime())
+                .build();
+    }
+
 
 }

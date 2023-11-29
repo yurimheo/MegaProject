@@ -225,49 +225,45 @@
       });
 
       // 상품등록액션
-      document.addEventListener("DOMContentLoaded", function () {
-        // 등록 버튼 클릭 시
-        document
-          .getElementById("itemAdd")
-          .addEventListener("click", function () {
-            // 사용자가 입력한 정보 수집
-            const category = document.getElementById("inputCategory").value;
-            const itemName = document.getElementById("inputItemName").value;
-            const itemPrice = document.getElementById("inputItemPrice").value;
-            const itemExplan = document.getElementById("inputItemExplan").value;
-            //const itemImageValue = document.getElementById("drop-file").value;
+      document.getElementById("itemAdd").addEventListener("click", function () {
+        // 사용자가 입력한 정보 수집
+        const category = document.getElementById("inputCategory").value;
+        const itemName = document.getElementById("inputItemName").value;
+        const itemPrice = document.getElementById("inputItemPrice").value;
+        const itemExplan = document.getElementById(
+          "inputItemExplanation"
+        ).value;
 
-            // 수집된 정보를 객체에 담기
-            const productData = {
-              category: category,
-              itemName: itemName,
-              itemPrice: itemPrice,
-              itemExplan: itemExplan,
-              // 이미지 파일 등 다른 정보도 추가할 수 있어요
-            };
+        // 수집된 정보를 객체에 담기
+        const productData = {
+          category: category,
+          itemName: itemName,
+          itemPrice: itemPrice,
+          itemExplan: itemExplan,
+          // 여기에 필요한 다른 정보 추가 가능
+        };
 
-            // 서버로 데이터 전송 (Ajax 또는 Fetch API 사용)
-            fetch("/admin/product_details_registered", {
-              method: "POST", // POST 방식으로 전송
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(productData), // 객체를 JSON 문자열로 변환하여 전송
-            })
-              .then((response) => {
-                if (response.ok) {
-                  // 등록 성공 시 작업 수행
-                  window.location.href = "/admin/product_management"; // 원하는 페이지로 이동
-                } else {
-                  // 등록 실패 시 예외 처리
-                  alert("상품 등록에 실패했습니다.");
-                }
-              })
-              .catch((error) => {
-                // 네트워크 오류 등의 예외 처리
-                console.error("Error:", error);
-                alert("상품 등록 중 오류가 발생했습니다.");
-              });
+        // 서버로 데이터 전송 (Ajax 또는 Fetch API 사용)
+        fetch("/admin/addItems", {
+          method: "POST", // POST 방식으로 전송
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(productData), // 객체를 JSON 문자열로 변환하여 전송
+        })
+          .then((response) => {
+            if (response.ok) {
+              // 등록 성공 시 작업 수행
+              window.location.href = "/admin/product_management"; // 원하는 페이지로 이동
+            } else {
+              // 등록 실패 시 예외 처리
+              alert("상품 등록에 실패했습니다.");
+            }
+          })
+          .catch((error) => {
+            // 네트워크 오류 등의 예외 처리
+            console.error("Error:", error);
+            alert("상품 등록 중 오류가 발생했습니다.");
           });
       });
     </script>
