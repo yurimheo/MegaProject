@@ -1,8 +1,10 @@
 package com.megacoffee.OrderApp.controller;
 
+import com.megacoffee.OrderApp.dto.ItemDto;
 import com.megacoffee.OrderApp.dto.MemberDto;
-import com.megacoffee.OrderApp.entity.MemberEntity;
-import com.megacoffee.OrderApp.entity.MemberRepository;
+import com.megacoffee.OrderApp.dto.NoticeDto;
+import com.megacoffee.OrderApp.dto.OrderDto;
+import com.megacoffee.OrderApp.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,12 @@ public class AdminViewController {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private NoticeRepository noticeRepository;
 
     @GetMapping("/member")
     public String member(Model model){
@@ -54,6 +62,83 @@ public class AdminViewController {
             return "redirect:/admin/member";
         }
     }
-}
         // 1. 회원 관리 탭 끝 -------------------------------------------
-// 4. 공지 관리 시작 -------------------------------------------
+
+    // 2. 상품 관리 ---------------------------------------------
+
+    @Autowired
+    private ItemRepository itemRepository;
+
+    // 창 이동 - 화면에 보여지는 GetMapping, requestMapping,,,, 맵핑류
+
+    //관리자 페이지
+    @GetMapping("/product_management")
+    public String productManagement(Model model) {
+        List<ItemEntity> listEntity = itemRepository.findAll();
+
+        // ItemEntity 리스트를 ItemDto 리스트로 변환
+        List<ItemDto> listDto = listEntity.stream()
+                .map(ItemDto::fromEntity) // ItemEntity를 ItemDto로             변환
+                .collect(Collectors.toList());
+
+        model.addAttribute("pageName", "상품관리");
+        model.addAttribute("count", listDto.size());
+        model.addAttribute("items", listDto); // items라는 이름으로 listDto를 모델에 추가
+
+        return "product_management";
+    }
+
+    //상품수정
+    @GetMapping("/product_details_update")
+    public String productDetailsUpdate() {
+        return "product_details_update";
+    }
+
+    //상품신규등록
+    @GetMapping("/product_details_registered")
+    public String productDetailsRegistered() {
+        return "product_details_registered";
+    }
+
+    //상품 상세정보
+    @GetMapping("/product_details")
+    public String productDetails(Model model) {
+        return "product_details";
+    }
+
+
+
+// 3+4. 주문 및 공지 관리 시작 -------------------------------------------
+@GetMapping("/notice")
+public String notices(Model model){
+    List<NoticeEntity> listEntity = noticeRepository.findAll();
+
+    List<NoticeDto> listDto = listEntity
+            .stream()
+            .map(NoticeDto::toDto)
+            .collect(Collectors.toList());
+
+    model.addAttribute("pageName", "공지관리");
+    model.addAttribute("count", listDto.size());
+    model.addAttribute("list", listDto);
+
+    return "managementAnnouncement";
+}
+
+    @GetMapping("/order")
+    public String orders(Model model){
+        List<OrderEntity> listEntity = orderRepository.findAll();
+
+        List<OrderDto> listDto = listEntity
+                .stream()
+                .map(OrderDto::toOrderDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("pageName","주문관리");
+        model.addAttribute("count",listDto.size());
+        model.addAttribute("list",listDto);
+
+
+        return "managementOrder";
+    }
+}

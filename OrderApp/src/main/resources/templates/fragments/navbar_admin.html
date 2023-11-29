@@ -62,10 +62,10 @@
     <!-- 헤더 끝 -->
     <!-- 네비게이션 탭 시작 -->
 <nav class="share-nav nav nav-fill mt-2">
-<a th:class="${pageName eq '회원관리'} ? 'share-nav-link nav-link active' : 'share-nav-link nav-link'" href="#">회원 관리</a>
-<a th:class="${pageName eq '상품관리'} ? 'share-nav-link nav-link active' : 'share-nav-link nav-link'" href="#">상품 관리</a>
-<a th:class="${pageName eq '주문관리'} ? 'share-nav-link nav-link active' : 'share-nav-link nav-link'" href="#">주문 관리</a>
-<a th:class="${pageName eq '공지관리'} ? 'share-nav-link nav-link active' : 'share-nav-link nav-link'" href="#">공지 관리</a>
+<a th:class="${pageName eq '회원관리'} ? 'share-nav-link nav-link active' : 'share-nav-link nav-link'" href="/admin/member">회원 관리</a>
+<a th:class="${pageName eq '상품관리'} ? 'share-nav-link nav-link active' : 'share-nav-link nav-link'" href="/admin/product_management">상품 관리</a>
+<a th:class="${pageName eq '주문관리'} ? 'share-nav-link nav-link active' : 'share-nav-link nav-link'" href="/admin/order">주문 관리</a>
+<a th:class="${pageName eq '공지관리'} ? 'share-nav-link nav-link active' : 'share-nav-link nav-link'" href="/admin/notice">공지 관리</a>
 </nav>
     <!-- 네비게이션 탭 끝 -->
   </div>

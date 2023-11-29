@@ -9,6 +9,6 @@ import java.util.List;
 public interface NoticeRepository extends JpaRepository<NoticeEntity,Long> {
     List<NoticeEntity> findByNoticeCate(String noticeCate);
 
+    void deleteByNoticeNo(long noticeNo);
 
-    void deleteByNoticeNo(int noticeNo);
 }

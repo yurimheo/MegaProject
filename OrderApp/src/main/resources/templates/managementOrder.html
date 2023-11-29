@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html
-        lang="ko"
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-        layout:decorate="~{layouts/admin_layout}"
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  layout:decorate="~{layouts/admin_layout}"
 >
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-
   </head>
   <body>
-  <div layout:fragment="contents" class="border p-2">
+    <div layout:fragment="contents" class="border p-2">
       <!-- 조회 검색창 -->
       <div class="row mt-3 d-flex ms-2">
         <select
@@ -24,7 +23,7 @@
           <option value="1">주문번호</option>
           <option value="2">아이디</option>
         </select>
-        <div class="input-group mb-3 h-25 "  style="width: 70%">
+        <div class="input-group mb-3 h-25" style="width: 70%">
           <input
             type="text"
             class="form-control"
@@ -44,7 +43,7 @@
       <hr style="margin-top: 0" />
       <!-- 조회 캘린더 -->
       <div class="d-flex justify-content-between">
-        <div class="d-flex">
+        <div class="d-flex flex-wrap align-items-center">
           <span th:text="|주문 총 ${count}개|">0</span>
           <button type="button" class="btn btn-light">전체</button>
           <button type="button" class="btn btn-light">1개월</button>
@@ -70,7 +69,7 @@
               data-bs-toggle="tooltip"
               data-bs-placement="top"
               data-bs-custom-class="custom-tooltip"
-              data-bs-title="선택한 주문내역들을 모두 삭제 가능합니다."
+              data-bs-title="선택한 주문내역들을 모두 삭제 합니다."
             >
               <img
                 class="minus-button"
@@ -98,23 +97,23 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="text-center align-middle">
+            <tr class="text-center align-middle"  th:each="order, status:${ list }">
               <td>
                 <input
-                  class="form-check-input"
                   type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
+                  th:id="'checkbox_' + ${order.orderNo}"
+                  class="delete-checkbox form-check-input"
                 />
               </td>
-              <td >21</td>
-              <td>21</td>
-              <td>21</td>
-              <td>21</td>
+              <td><span th:text="${order.orderDatetime}"></span></td>
+              <td><span th:text="${order.orderNo}"></span></td>
+              <td><span th:text="${order.memberId}"></span></td>
+              <td><span th:text="${order.orderTotalPrice}"></span></td>
               <td>
                 <select
                   class="form-select_2"
                   aria-label="Default select example"
+
                 >
                   <option value="1">결제완료</option>
                   <option value="2">주문확인</option>
@@ -124,7 +123,7 @@
               <td>
                 <button type="button" class="order-detail-btn">
                   <a
-
+                          th:href="@{/order/details/{id}(id=${order.orderNo})}"
                     class="p-0 order-detail"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
@@ -140,22 +139,37 @@
       </div>
     </div>
 
-
-    <script>
-      const tooltipTriggerList = document.querySelectorAll(
-        '[data-bs-toggle="tooltip"]'
-      );
-      const tooltipList = [...tooltipTriggerList].map(
-        (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
-      );
-      // 공지 상세조회 페이지로 이동
-      $(document).ready(function () {
-        $(".order-detail-btn").on("click", function (e) {
-          e.preventDefault();
-
-          window.location.href = "managementOrderDetailed.html";
-        });
-      });
+    <script layout:fragment="script">
+     //선택한 주문 삭제
+      function deleteSelectedOrder() {
+        const checkboxes = document.querySelectorAll(
+          ".delete-checkbox:checked"
+        );
+        const orderNos = Array.from(checkboxes).map((checkbox) =>
+          checkbox.id.replace("checkbox_", "")
+        );
+        if (orderNos.length === 0) {
+          alert("삭제할 항목을 선택하세요.");
+          return;
+        }
+        const result = confirm("선택한 항목을 삭제할까요?");
+        if (!result) {
+          return;
+        }
+        const params = { orderNos: orderNos };
+        fetch("/admin/order/deleteSelectedOrder", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(params),
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            window.location.reload();
+          })
+          .catch((error) => {
+            console.error("Error deleting order:", error);
+          });
+      }
     </script>
   </body>
 </html>

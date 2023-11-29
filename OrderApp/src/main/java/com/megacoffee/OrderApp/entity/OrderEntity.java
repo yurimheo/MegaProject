@@ -8,7 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="order")
+@Table(name="`order`")
 @Builder
 @Getter
 @Setter
@@ -35,6 +35,8 @@ public class OrderEntity {
     private long orderTotalCount;
     @Column(name = "order_number")
     private long orderNumber;
+    @Column(name = "member_id")
+    private String memberId;
     @Column(name = "order_pay_type")
     private long orderPayType;
     @Column(name = "order_state")
@@ -43,7 +45,7 @@ public class OrderEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime orderDateTime;
 
-    private static OrderEntity toEntity(OrderDto dto){
+    private static OrderEntity toOrderEntity(OrderDto dto){
         return OrderEntity.builder()
                 .orderNo(dto.getOrderNo())
                 .cartItemCode1(dto.getCartItemCode1())
@@ -54,6 +56,7 @@ public class OrderEntity {
                 .orderTotalPrice(dto.getOrderTotalPrice())
                 .orderTotalCount(dto.getOrderTotalCount())
                 .orderNumber(dto.getOrderNumber())
+                .memberId(dto.getMemberId())
                 .orderPayType(dto.getOrderPayType())
                 .orderState(dto.getOrderState())
                 .orderDateTime(dto.getOrderDatetime())

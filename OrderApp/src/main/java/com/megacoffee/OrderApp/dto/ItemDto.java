@@ -1,6 +1,6 @@
 package com.megacoffee.OrderApp.dto;
 
-import com.megacoffee.OrderApp.Entity.ItemEntity;
+import com.megacoffee.OrderApp.entity.ItemEntity;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,6 +25,20 @@ public class ItemDto {
 
 
     public static ItemDto fromEntity(ItemEntity entity){
+        return ItemDto.builder()
+                .itemNo(entity.getItemNo())
+                .itemCode(entity.getItemCode())
+                .itemName(entity.getItemName())
+                .itemCate(entity.getItemCate())
+                .itemPrice(entity.getItemPrice())
+                .itemRecommend(entity.getItemRecommend())
+                .itemNew(entity.getItemNew())
+                .itemImageUrl(entity.getItemImageUrl())
+                .itemUpdateDatetime(entity.getItemUpdateDatetime())
+                .build();
+    }
+
+    public static ItemDto toDto(ItemEntity entity){
         return ItemDto.builder()
                 .itemNo(entity.getItemNo())
                 .itemCode(entity.getItemCode())
