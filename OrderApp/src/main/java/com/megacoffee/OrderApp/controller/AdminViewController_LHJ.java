@@ -1,7 +1,7 @@
 package com.megacoffee.OrderApp.controller;
 
-import com.megacoffee.OrderApp.Entity.ItemEntity;
-import com.megacoffee.OrderApp.Entity.ItemRepository;
+import com.megacoffee.OrderApp.entity.ItemEntity;
+import com.megacoffee.OrderApp.entity.ItemRepository;
 import com.megacoffee.OrderApp.dto.ItemDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class AdminViewController_LHJ {
 
         // ItemEntity 리스트를 ItemDto 리스트로 변환
         List<ItemDto> listDto = listEntity.stream()
-                .map(ItemDto::fromEntity) // ItemEntity를 ItemDto로 변환
+                .map(ItemDto::fromEntity) // ItemEntity를 ItemDto로             변환
                 .collect(Collectors.toList());
 
         model.addAttribute("count", listDto.size());

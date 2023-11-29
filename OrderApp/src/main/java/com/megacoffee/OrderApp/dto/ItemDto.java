@@ -1,6 +1,6 @@
 package com.megacoffee.OrderApp.dto;
 
-import com.megacoffee.OrderApp.Entity.ItemEntity;
+import com.megacoffee.OrderApp.entity.ItemEntity;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 

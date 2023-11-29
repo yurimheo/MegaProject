@@ -1,4 +1,4 @@
-package com.megacoffee.OrderApp.Entity;
+package com.megacoffee.OrderApp.entity;
 
 import com.megacoffee.OrderApp.dto.ItemDto;
 import jakarta.persistence.*;

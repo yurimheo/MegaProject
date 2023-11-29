@@ -1,8 +1,8 @@
 package com.megacoffee.OrderApp.controller;
 
 
-import com.megacoffee.OrderApp.Entity.ItemEntity;
-import com.megacoffee.OrderApp.Entity.ItemRepository;
+import com.megacoffee.OrderApp.entity.ItemEntity;
+import com.megacoffee.OrderApp.entity.ItemRepository;
 
 import com.megacoffee.OrderApp.dto.ItemDto;
 import com.megacoffee.OrderApp.dto.ResultDto;
@@ -79,7 +79,7 @@ public class AdminApiController_LHJ {
         }
     }
 
-    // 1-(1) 회원 관리 - 회원 조회 ---------------------------------
+    //상품 관리페이지 - 상품검색 기능 구현
     @PostMapping("/product/search")
     public List<ItemDto> searchItems(@RequestBody Map<String, String> params) {
         String searchOption = params.get("searchOption");
