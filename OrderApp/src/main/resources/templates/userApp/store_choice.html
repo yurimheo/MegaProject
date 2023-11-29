@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/mobile_layout}"
+>
   <head>
     <meta charset="UTF-8" />
     <!-- meta name="viewport" : 뷰포트 설정 -->
@@ -15,18 +18,10 @@
     <!-- 아이폰 노치 커버 -->
     <meta name="viewport" content="viewport-fit=cover" />
     <title>매장 선택</title>
-    <!-- 부트스트랩 CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../../static/css/bootstrap.min.css"
-    />
-    <!-- 사용자 정의 CSS -->
-    <link rel="stylesheet" type="text/css" href="../../static/css/style.css" />
-  </head>
+
   <body>
     <!-- 상단 메장선택 & 돋보기 버튼 시작 -->
-    <div class="container-fluid p-0">
+    <div layout:fragment="mobile" class="container-fluid p-0">
       <div class="choiceAndSearch d-flex">
         <div class="choiceStore text-end p-4" style="width: 60%">
           <div class="fw-bold fs-1">매장 선택</div>
@@ -35,11 +30,7 @@
           class="search text-end bg-transparent text-body border-0"
           style="width: 40%"
         >
-          <img
-            id="search"
-            src="/MegaProject/OrderApp/src/main/resources/static/images/icons/search.png"
-            alt="search"
-          />
+          <img id="search" src="./images/icons/search.png" alt="search" />
         </button>
       </div>
       <br />
@@ -78,15 +69,15 @@
         <div class="storeImg">
           <div>
             <img
-              src="/MegaProject/OrderApp/src/main/resources/static/images/icons/apple-touch-icon-152x152.png"
-              alt=""
+              src="./images/icons/apple-touch-icon-152x152.png"
+              alt="매장사진"
             />
           </div>
           <img
             id="firef"
             class="starimgStar"
             style="width: 60px"
-            src="/MegaProject/OrderApp/src/main/resources/static/images/icons/myStoreIcon.png"
+            src="./images/icons/myStoreIcon.png"
             onclick="hover1()"
             alt=""
           />
@@ -109,7 +100,7 @@
     <!--  사용자 정의 JS -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    <script>
+    <script layout:fragment="script">
       //메뉴 리스트 선택 js 시작
       $(document).ready(function () {
         $(".storeListMenu span").click(function () {
@@ -139,7 +130,7 @@
         $("#search").on("click", function (e) {
           e.preventDefault();
 
-          window.location.href = "store_search.html";
+          window.location.href = "/store_search";
         });
       });
 
@@ -148,7 +139,7 @@
         $("#storeList").on("click", function (e) {
           e.preventDefault();
 
-          window.location.href = "order_choice.html";
+          window.location.href = "/order_choice";
         });
       });
     </script>

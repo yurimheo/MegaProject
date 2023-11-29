@@ -40,6 +40,14 @@ item_new INT DEFAULT(0) NOT NULL, -- 신메뉴 (신메뉴 = 1)
 item_image_url TEXT NOT NULL, -- 이미지
 item_update_datetime DATETIME DEFAULT NOW() -- 상품 등록일
 );
+INSERT INTO megamega.item VALUES(
+0 , '123e4567-e89b-12d3-a456-556642440000' , '아메리카노' , '커피' , 2000 , 0 , 0 , 'stemp.png' , DEFAULT
+)
+INSERT INTO megamega.item VALUES(
+0 , '123e4567-e89b-12d3-a456-556642440000' , '카페라떼' , '커피' , 3800 , 0 , 0 , 'stemp.png' , DEFAULT
+)
+SELECT * FROM megamega.item;
+
 
 -- 지점 테이블
 DROP TABLE if EXISTS megamega.store;

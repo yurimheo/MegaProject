@@ -4,102 +4,47 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-  layout:decorate="~{admin_layout}"
+  layout:decorate="~{layouts/admin_layout}"
 >
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>상품 등록</title>
-    <!-- 부트스트랩 CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../static/css/bootstrap.min.css"
-    />
-    <!-- 사용자 정의 CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../static/css/style_admin.css"
-    />
   </head>
   <body>
-    <div class="share-container container">
-      <!-- 헤더 시작 -->
-      <div
-        class="p-3 d-flex justify-content-between mx-auto p-2 border-bottom border-4 border-dark"
-      >
-        <span class="w-75 d-flex">
-          <span class="fs-1 fw-semibold text-warning">메가MGC커피&nbsp;</span>
-          <span class="admin-title fs-1 fw-semibold">관리자 페이지</span></span
-        >
-        <!-- 페이지 카테고리 확인 문구 -->
-        <span class="d-flex align-content-center flex-wrap">
-          <span class="admin-title fw-bolder">관리자 페이지 &gt;&nbsp;</span>
-          <span
-            th:if="${pageName eq '회원관리 타임리프'}"
-            class="fw-semibold text-warning"
-          >
-            회원 관리
-          </span>
-          <!-- <span
-            th:if="${pageName eq '상품관리 타임리프'}"
-            class="fw-semibold text-warning"
-          >
-            상품 관리
-          </span>
-          <span
-            th:if="${pageName eq '주문관리 타임리프'}"
-            class="fw-semibold text-warning"
-          >
-            주문 관리
-          </span>
-          <span
-            th:if="${pageName eq '공지관리 타임리프'}"
-            class="fw-semibold text-warning"
-          >
-            공지사항 관리
-          </span> -->
-        </span>
-      </div>
-      <!-- 헤더 끝 -->
-
-      <!-- 네비게이션 탭 시작 -->
-      <nav class="share-nav nav nav-fill mt-2">
-        <a class="share-nav-link nav-link" aria-current="page" href="#"
-          >상품 관리</a
-        >
-        <a class="share-nav-link nav-link" href="#">상품 등록</a>
-        <a class="share-nav-link nav-link" href="#">상품 수정</a>
-        <a class="nav-link" href="#">상품 상세 정보</a>
-      </nav>
-      <!-- 네비게이션 탭 끝 -->
-
-      <!-- 상품 관리 시작 -->
+    <div layout:fragment="contents" class="border p-2">
       <div class="border p-2">
         <div class="container mt-3">
+          <!-- 상품등록 타이틀/신메뉴/추천메뉴 체크박스 시작 -->
           <div class="d-flex align-items-center justify-content-end">
             <h2 class="top fw-bold d-flex editTitle">상품 등록</h2>
             <div class="registered text-end">
-              <!-- 신메뉴/추천메뉴 체크박스 시작 -->
               <span class="text-end registeredCheckbox">
-                <span class="fs-6">신메뉴&nbsp;<input type="checkbox" /></span>
-                <span class="fs-6">
+                <span class="fs-6" id="itemNewMenu">
+                  신메뉴&nbsp;<input type="checkbox" />
+                </span>
+                <span class="fs-6" id="itemRecommended">
                   추천메뉴&nbsp;<input type="checkbox" />
                 </span>
               </span>
             </div>
           </div>
-          <!-- 테이블 -->
+          <!-- 신메뉴/추천메뉴 체크박스 끝 -->
+
+          <!-- 테이블 시작 -->
           <div class="row m-0">
             <table class="table col product-table table-bordered mb-0">
-              <!-- 신메뉴/추천메뉴 체크박스 끝 -->
-              <!-- 카테고리 / 상품명 -->
               <thead>
                 <tr class="topTable">
-                  <th scope="col" class="title text-center">카테고리</th>
-                  <th scope="col" class="title text-center">상품명</th>
-                  <th class="text-center title" scope="col">상품 가격</th>
+                  <th scope="col" class="title text-center" id="category">
+                    카테고리
+                  </th>
+                  <th scope="col" class="title text-center" id="itemName">
+                    상품명
+                  </th>
+                  <th scope="col" class="title text-center" id="itemPrice">
+                    상품 가격
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -108,7 +53,7 @@
                     class="d-flex justify-content-center flex-wrap align-items-center"
                   >
                     <div class="input-group w-50">
-                      <select class="form-select" id="inputGroupSelect01">
+                      <select class="form-select" id="inputCategory">
                         <option value="1">신메뉴</option>
                         <option value="2">커피</option>
                         <option value="3">티</option>
@@ -116,21 +61,33 @@
                       </select>
                     </div>
                   </td>
-                  <td class="topTable text-center">아메리카노</td>
+                  <td class="topTable text-center">
+                    <input type="text" id="inputItemName" name="productName" />
+                  </td>
                   <td class="text-center">
-                    <input type="text" name="productPrice1" />
+                    <input
+                      type="text"
+                      id="inputItemPrice"
+                      name="productPrice1"
+                    />
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <!-- 상품 이미지 / 상품 설명 -->
+          <!-- 테이블 끝 -->
+
+          <!-- 상품 이미지 / 상품 설명 시작 -->
           <div class="row m-0">
             <table class="table product-table table-bordered">
               <thead>
                 <tr>
-                  <th class="text-center title" scope="col">상품 이미지</th>
-                  <th class="text-center title" scope="col">상품 설명</th>
+                  <th scope="col" class="text-center title" id="itemImage">
+                    상품 이미지
+                  </th>
+                  <th scope="col" class="text-center title" id="itemExplan">
+                    상품 설명
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -158,12 +115,11 @@
                       />
                     </div>
                   </td>
-
                   <td>
                     <textarea
                       class="w-100 h-100"
                       name="productUpdate"
-                      id=""
+                      id="inputItemExplanation"
                       cols="18"
                       rows="19"
                     ></textarea>
@@ -173,10 +129,16 @@
             </table>
           </div>
         </div>
-        <!-- 상품 등록/수정 버튼 -->
+        <!-- 상품 이미지 / 상품 설명 끝 -->
+
+        <!-- 상품 등록/수정 버튼 시작-->
         <div class="d-flex registered">
           <span class="text-end registeredBtn product-registeredBtn">
-            <button type="button" class="btn btn-warning text-white">
+            <button
+              type="button"
+              class="btn btn-warning text-white"
+              id="itemAdd"
+            >
               상품 등록
             </button>
           </span>
@@ -185,23 +147,8 @@
     </div>
     <!-- 상품 등록/수정 버튼 끝-->
 
-    <!-- 부트스트랩 JS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
-      integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
-      crossorigin="anonymous"
-    ></script>
-
-    <!-- 사용자 정의 JS -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-    <!-- 이미지 업로드 js 시작 -->
-    <script>
+    <script layout:fragment="script">
+      //이미지 업로드 js 시작
       function DropFile(dropAreaId, fileListId) {
         let dropArea = document.getElementById(dropAreaId);
         let fileList = document.getElementById(fileListId);
@@ -266,15 +213,63 @@
       }
 
       const dropFile = new DropFile("drop-file", "files");
+      //이미지 업로드 js 끝
 
+      // 상품등록 버튼 클릭시 상품관리 페이지로 이동 js
       $(document).ready(function () {
-        $(".product-registeredBtn").on("click", function (e) {
+        $(".btn").on("click", function (e) {
           e.preventDefault();
 
-          window.location.href = "product_management.html";
+          window.location.href = "/admin/product_management";
         });
       });
+
+      // 상품등록액션
+      document.addEventListener("DOMContentLoaded", function () {
+        // 등록 버튼 클릭 시
+        document
+          .getElementById("itemAdd")
+          .addEventListener("click", function () {
+            // 사용자가 입력한 정보 수집
+            const category = document.getElementById("inputCategory").value;
+            const itemName = document.getElementById("inputItemName").value;
+            const itemPrice = document.getElementById("inputItemPrice").value;
+            const itemExplan = document.getElementById("inputItemExplan").value;
+            //const itemImageValue = document.getElementById("drop-file").value;
+
+            // 수집된 정보를 객체에 담기
+            const productData = {
+              category: category,
+              itemName: itemName,
+              itemPrice: itemPrice,
+              itemExplan: itemExplan,
+              // 이미지 파일 등 다른 정보도 추가할 수 있어요
+            };
+
+            // 서버로 데이터 전송 (Ajax 또는 Fetch API 사용)
+            fetch("/admin/product_details_registered", {
+              method: "POST", // POST 방식으로 전송
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(productData), // 객체를 JSON 문자열로 변환하여 전송
+            })
+              .then((response) => {
+                if (response.ok) {
+                  // 등록 성공 시 작업 수행
+                  window.location.href = "/admin/product_management"; // 원하는 페이지로 이동
+                } else {
+                  // 등록 실패 시 예외 처리
+                  alert("상품 등록에 실패했습니다.");
+                }
+              })
+              .catch((error) => {
+                // 네트워크 오류 등의 예외 처리
+                console.error("Error:", error);
+                alert("상품 등록 중 오류가 발생했습니다.");
+              });
+          });
+      });
     </script>
-    <!-- 이미지 업로드 js 끝 -->
   </body>
 </html>
