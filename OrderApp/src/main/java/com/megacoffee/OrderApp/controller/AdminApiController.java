@@ -1,6 +1,5 @@
 package com.megacoffee.OrderApp.controller;
-import com.megacoffee.OrderApp.dto.ItemDto;
-import com.megacoffee.OrderApp.dto.ResultDto;
+import com.megacoffee.OrderApp.dto.*;
 import com.megacoffee.OrderApp.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import com.megacoffee.OrderApp.dto.MemberDto;
+
 import com.megacoffee.OrderApp.dto.ResultDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -225,7 +224,7 @@ public class AdminApiController {
 
         try {
             //
-            for (long orderNo : orderNos ) {
+            for (int orderNo : orderNos ) {
                 orderRepository.deleteByOrderNo(orderNo);
             }
 
@@ -245,5 +244,29 @@ public class AdminApiController {
                     .message("삭제 중 오류가 발생했습니다.")
                     .build();
         }
+    }
+    @PostMapping("/order/search")
+    public List<OrderDto> searchOrders(@RequestBody Map<String, String> params) {
+        String searchOption = params.get("searchOption");
+        String searchValue = params.get("searchValue");
+
+        List<OrderEntity> resultList;
+        switch (searchOption) {
+            case "1":
+                int searchIntValue = Integer.parseInt(searchValue);
+                resultList = orderRepository.findByOrderNo(searchIntValue);
+                break;
+
+            case "2":
+                resultList = orderRepository.findByMemberIdContaining(searchValue);
+                break;
+            default:
+                resultList = orderRepository.findAll();
+                break;
+        }
+
+        return resultList.stream()
+                .map(OrderDto::toOrderDto)
+                .collect(Collectors.toList());
     }
 }

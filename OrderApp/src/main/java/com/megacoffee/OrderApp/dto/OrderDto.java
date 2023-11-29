@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDto {
-    private long orderNo;
+    private Integer orderNo;
     private String cartItemCode1;
     private String cartItemCode2;
     private String cartItemCode3;
