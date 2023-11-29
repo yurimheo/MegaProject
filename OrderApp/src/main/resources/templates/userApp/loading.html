@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/mobile_layout}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- meta name="viewport" : 뷰포트 설정 -->
+    <!-- content="width=device-width : 디바이스의 가로 넓이에 맞춤 -->
+    <!-- initial-scale = 1.0 : 최초 화면 크기 100% 비율 -->
+    <!-- minimum-scale=1.0 : 최소 화면 크기 100% 비율 -->
+    <!-- maximum-scale=1.0 : 최대 화면 크기 100% 비율 -->
+    <!-- user-scalable=no : 사용자 확대 금지 -->
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+    />
+    <!-- 아이폰 노치 커버 -->
+    <meta name="viewport" content="viewport-fit=cover" />
+    <title>로딩</title>
+  </head>
+  <body>
+    <!-- 로딩 화면 페이지 시작 -->
+    <div layout:fragment="mobile" class="container-fluid p-0">
+      <div class="loading-container container-fluid">
+        <img
+          src="./images/MGC LOGO (2).png"
+          alt="Loading Image"
+          class="loading-image"
+          id="loadingImage"
+        />
+      </div>
+    </div>
+    <!-- 로딩 화면 페이지 끝 -->
+    <script layout:fragment="script">
+      document.addEventListener("DOMContentLoaded", function () {
+        const loadingImage = document.getElementById("loadingImage");
+
+        // 로딩 프로세스
+        setTimeout(function () {
+          // 이미지 위로 가는 효과 및 페이드 아웃
+          loadingImage.style.animation = "moveUp 2s ease-in-out forwards";
+
+          // 페이지 이동
+          setTimeout(function () {
+            window.location.href = "/login";
+          }, 1000); // 애니메이션 시간과 동일하게 맞추거나 조절
+        }, 3000);
+      });
+    </script>
+  </body>
+</html>
