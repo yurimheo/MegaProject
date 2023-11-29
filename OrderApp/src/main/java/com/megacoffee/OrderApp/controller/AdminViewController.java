@@ -17,9 +17,14 @@ import java.util.stream.Collectors;
 @RequestMapping("/admin")
 public class AdminViewController {
 
-    // 의존성 주입
+
+
     @Autowired
-    private MemberRepository memberRepository; // 회원
+    private NoticeRepository noticeRepository;
+    private MemberRepository memberRepository;
+    private OrderRepository orderRepository;
+
+
 
     // <관리자>
     // 1. 회원 관리 탭 시작 ---------------------------------------------
