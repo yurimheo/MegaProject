@@ -10,7 +10,7 @@
       content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
     />
     <meta name="viewport" content="viewport-fit=cover" />
-    <title>Document</title>
+    <title>메인</title>
   </head>
   <body>
     <div layout:fragment="mobile" class="container-fluid p-0">
@@ -24,21 +24,21 @@
         <div class="carousel-inner">
           <div class="carousel-item active" data-bs-interval="2000">
             <img
-              src="../../static/images/add1.jpg"
+              src="./images/add1.jpg"
               class="d-block w-100"
               alt="..."
             />
           </div>
           <div class="carousel-item" data-bs-interval="2000">
             <img
-              src="../../static/images/add2.jpg"
+              src="./images/add2.jpg"
               class="d-block w-100"
               alt="..."
             />
           </div>
           <div class="carousel-item" data-bs-interval="2000">
             <img
-              src="../../static/images/add3.jpg"
+              src="./images/add3.jpg"
               class="d-block w-100"
               alt="..."
             />
@@ -50,7 +50,7 @@
       <button class="bell">
         <img
           class="z-n1 position-absolute top-0 end-0 p-4"
-          src="../../static/images/icons/notification.png"
+          src="./images/icons/notification.png"
           alt="알림"
         />
       </button>
@@ -62,7 +62,7 @@
       >
         <!-- 이름 표시 -->
         <div class="welcomeText fs-1">
-          <span class="fw-bold" id="nickname" th:text="|${loginNickname}|"
+          <span class="fw-bold" id="nickname" th:text="|${loginName}|"
             >홍길동</span
           >
           <span>님 </span>
@@ -70,8 +70,8 @@
         <!-- 이름표시 끝 -->
         <!-- 스템프 -->
         <div class="stemppage fs-1 p-4 mt-4">
-          <img src="../../static/images/icons/stemp.png" alt="" />
-          스탬프&nbsp<span class="stemp" id="stemp" th:text="|${stemp}|"
+          <img src="./images/icons/stemp.png" alt="" />
+          스탬프&nbsp<span class="stemp" id="stemp" th:text="|${stamp}|"
             >0</span
           >
         </div>
@@ -86,21 +86,21 @@
             <!-- 슬라이드 아이템들 -->
             <div class="carousel-item active">
               <img
-                src="../../static/images/add1.jpg"
+                src="./images/add1.jpg"
                 class="d-block w-100"
                 alt="..."
               />
             </div>
             <div class="carousel-item">
               <img
-                src="../../static/images/add2.jpg"
+                src="./images/add2.jpg"
                 class="d-block w-100"
                 alt="..."
               />
             </div>
             <div class="carousel-item">
               <img
-                src="../../static/images/add3.jpg"
+                src="./images/add3.jpg"
                 class="d-block w-100"
                 alt="..."
               />
@@ -108,7 +108,7 @@
           </div>
           <div class="text-center mt-2 position-absolute" id="slideCount">
             <label
-              for=""
+              for="pageNumber"
               class="fs-3"
               id="pageNumber"
               style="color: white"
@@ -118,7 +118,7 @@
         <!-- 두번째 슬라이드 끝 -->
         <!-- 두번째이름 표시 -->
         <div class="twoWelcomeText fs-1">
-          <span class="fw-bold" id="nickname2" th:text="|${loginNickname}|"
+          <span class="fw-bold" id="nickname2" th:text="|${loginName}|"
             >홍길동</span
           >
           <span>님을 위한 추천메뉴 </span>
@@ -288,7 +288,7 @@
               <a href="#"
                 ><img
                   class="swiperImg"
-                  src="../../static/images/add1.jpg"
+                  src="./images/add1.jpg"
                   alt="슬라이드 1"
               /></a>
               <span class="fs-1">이벤트,공지제목1</span>
@@ -296,7 +296,7 @@
             <div class="swiper-slide newsSwipe">
               <img
                 class="swiperImg"
-                src="../../static/images/add2.jpg"
+                src="./images/add2.jpg"
                 alt="슬라이드 1"
               />
               <span class="fs-1">이벤트,공지제목2</span>
@@ -304,7 +304,7 @@
             <div class="swiper-slide newsSwipe">
               <img
                 class="swiperImg"
-                src="../../static/images/add3.jpg"
+                src="./images/add3.jpg"
                 alt="슬라이드 1"
               />
               <span class="fs-1">이벤트,공지제목3</span>

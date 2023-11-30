@@ -119,6 +119,7 @@
       <!-- 회원 목록 끝 -->
     <!--  사용자 정의 JS -->
       <script layout:fragment="script">
+
         // 회원 조회
     function searchMemberAction() {
     // 검색 옵션 및 검색값 가져오기
@@ -176,6 +177,7 @@
         // 행 추가
         tableBody.appendChild(row);
       });
+      updateMemberCount(data.length);
     }
     // 선택한 회원 삭제 기능 구현
          function deleteSelectedMembers() {
@@ -207,6 +209,11 @@
                console.error("Error deleting members:", error);
              });
          }
+
+        function updateMemberCount(count) {
+  const memberCountElement = document.getElementById('memberCount');
+  memberCountElement.textContent = `회원 총 ${count || 0}명`;
+}
       </script>
   </body>
 </html>
