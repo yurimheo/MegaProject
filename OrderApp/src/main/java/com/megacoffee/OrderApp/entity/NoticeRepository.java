@@ -11,4 +11,5 @@ public interface NoticeRepository extends JpaRepository<NoticeEntity,Long> {
 
     void deleteByNoticeNo(long noticeNo);
 
+    List<NoticeEntity> findByNoticeNo(long no);
 }

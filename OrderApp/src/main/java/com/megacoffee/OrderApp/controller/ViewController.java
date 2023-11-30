@@ -1,8 +1,9 @@
 package com.megacoffee.OrderApp.controller;
 
+import com.megacoffee.OrderApp.dto.CartDto;
 import com.megacoffee.OrderApp.dto.FindIdDto;
-import com.megacoffee.OrderApp.entity.MemberEntity;
-import com.megacoffee.OrderApp.entity.MemberRepository;
+import com.megacoffee.OrderApp.dto.NoticeDto;
+import com.megacoffee.OrderApp.entity.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ViewController {
@@ -105,8 +107,30 @@ public class ViewController {
         model.addAttribute("member_name", userName);
         return  "/userApp/findPw2";
     }
-
-
     // 1. 로그인 및 회원 가입 끝 -------------------------------------
+
+    // 3. 장바구니
+    @Autowired
+    private CartRepository cartRepository;
+    @GetMapping("/cart")
+    public String carts(Model model){
+        List<CartEntity> listEntity = cartRepository.findAll();
+
+        List<CartDto> listDto = listEntity
+                .stream()
+                .map(CartDto::toCartDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("count", listDto.size());
+        model.addAttribute("list", listDto);
+
+        return "/userApp/orderPage";
+    }
+    // 4. 결제
+    @GetMapping("/order")
+    public String order(Model model){
+        return "/userApp/orderPage2";
+    }
+
 }
 

@@ -69,6 +69,10 @@ CREATE TABLE cart (
     cart_item_amount INT(255) NOT NULL, -- 구매갯수
     cart_date DATETIME DEFAULT NOW() -- 주문일시
 );
+INSERT INTO cart VALUES (
+ 0, '8b3f1h05-991c-4807-83be-8c30e54257c7', '8b3s1b05-991c-4807-83be-8c30e54257c7',
+ '초코 뭐시기', 'https://megacoffee.coconutatelier.com/images/item/thumb-102556_main_320x0.png',
+ '150000','2', DEFAULT);
 
 -- 결제 테이블
 DROP TABLE if EXISTS `order`;
@@ -92,6 +96,12 @@ CREATE TABLE `order` (
     order_datetime DATETIME DEFAULT NOW() -- 결제일시
     );
 SELECT * FROM `order`;
+INSERT INTO `order` VALUES (
+ 0, '8b3f1b05-991c-4807-83be-8c30e54257c7','7b3f1b05-991c-4827-83be-8c30e57257c7',
+ '4b3f1b45-991c-4867-83be-8c30e57257c7','6b3f1b04-991c-4307-83be-8c30e57257c7',
+ '2b3f1b25-991c-4807-83be-8c30e57257c7',
+  '2000','1','127','test13','02', 
+ '주문확인', DEFAULT);
 
 -- 공지 테이블
 DROP TABLE if EXISTS megamega.notice;
@@ -104,6 +114,9 @@ notice_datetime DATETIME DEFAULT NOW() -- 공지일시
 );
 INSERT INTO notice VALUES (
  0, '메가커피 이벤트', '이벤트', 
+ 'https://megacoffee.coconutatelier.com/images/item/thumb-102556_main_320x0.png', DEFAULT);
+ INSERT INTO notice VALUES (
+ 0, '메가커피 공지사항', '공지사항', 
  'https://megacoffee.coconutatelier.com/images/item/thumb-102556_main_320x0.png', DEFAULT);
 
 

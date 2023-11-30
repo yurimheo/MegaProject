@@ -141,4 +141,35 @@ public String notices(Model model){
 
         return "managementOrder";
     }
+    @GetMapping("/order/detail/{no}")
+    public String orderDetail(@PathVariable long no, Model model) {
+
+        List<OrderEntity> orders = orderRepository.findByOrderNo(no);
+
+
+        if (!orders.isEmpty()) {
+            OrderEntity order = orders.get(0);
+            model.addAttribute("order", order);
+            model.addAttribute("pageName", "주문관리");
+            return "/managementOrderDetailed";
+        } else {
+            return "redirect:/admin/order";
+        }
+    }
+    @GetMapping("/notice/detail/{no}")
+    public String noticeDetail(@PathVariable long no, Model model) {
+
+        List<NoticeEntity> notices =noticeRepository.findByNoticeNo(no);
+
+        if (!notices.isEmpty()) {
+            NoticeEntity notice = notices.get(0);
+            model.addAttribute("notice", notice);
+            model.addAttribute("pageName", "공지관리");
+            System.out.println("이편지는 영국에서 시작되어 여러사람에게"+notice);
+            return "/managementNoticeDetailed";
+        } else {
+            return "redirect:/admin/notice";
+        }
+    }
+
 }

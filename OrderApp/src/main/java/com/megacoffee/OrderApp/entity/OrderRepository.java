@@ -6,11 +6,13 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<OrderEntity,Long> {
 
-    void deleteByOrderNo(int orderNo);
+    void deleteByOrderNo(long orderNo);
 
 
 
-    List<OrderEntity> findByOrderNo(int searchIntValue);
+    List<OrderEntity> findByOrderNo(long searchIntValue);
 
     List<OrderEntity> findByMemberIdContaining(String searchValue);
+
+
 }

@@ -33,18 +33,10 @@
             </thead>
             <tbody>
               <tr>
-                <td class="text-center">
-                  <select
-                    class="form-select w-50 d-inline-block text-center"
-                    aria-label="Default select example"
-                    style="height: 29%"
-                  >
-                    <option value="1">이벤트</option>
-                    <option value="2">공지사항</option>
-                  </select>
-                </td>
-                <td class="d-flex justify-content-center"></td>
-                <td></td>
+                <td class="text-center" th:text="${notice.noticeCate}"></td>
+                <td class="d-flex justify-content-center"
+                    th:text="${notice.noticeTitle}"></td>
+                <td th:text="${notice.noticeDateTime}"></td>
               </tr>
             </tbody>
           </table>
@@ -59,7 +51,9 @@
               </th>
             </tr>
             <tr>
-              <td></td>
+              <td>
+               <img class="w-100" th:src="${notice.noticeImgUrl}">
+              </td>
             </tr>
           </table>
         </div>
@@ -79,20 +73,14 @@
       </div>
     </div>
 
-    <script>
-      const tooltipTriggerList = document.querySelectorAll(
-        '[data-bs-toggle="tooltip"]'
-      );
-      const tooltipList = [...tooltipTriggerList].map(
-        (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
-      );
+  <script layout:fragment="script">
 
       // 공지 수정 페이지로 이동
       $(document).ready(function () {
         $(".editBtn").on("click", function (e) {
           e.preventDefault();
 
-          window.location.href = "managementNoticeUpdate.html";
+          window.location.href = "/admin/managementNoticeUpdate";
         });
       });
       // 공지 목록 페이지로 이동
@@ -100,7 +88,7 @@
         $(".submitBtn").on("click", function (e) {
           e.preventDefault();
 
-          window.location.href = "managementAnnouncement.html";
+          window.location.href = "/admin/notice";
         });
       });
     </script>

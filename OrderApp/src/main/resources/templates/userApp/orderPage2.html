@@ -20,14 +20,14 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="container-fluid p-0">
+    <div layout:fragment="mobile" class="container-fluid p-0">
       <div
         class="headerTop fs-1 fs-1 fw-bold d-flex align-items-center justify-content-between"
       >
         <a href=""
           ><img
             class="backImg ms-5"
-            src="../../static/images/icons/nav-back.svg"
+            th:src="@{images/icons/nav-back.svg}"
             alt=""
         /></a>
         <span span class="text-center flex-grow-1 me-5 pe-5">주문하기</span>

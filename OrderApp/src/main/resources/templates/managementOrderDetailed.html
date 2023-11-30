@@ -33,10 +33,10 @@
           </thead>
           <tbody>
             <tr class="text-center">
-              <td>21</td>
-              <td>21</td>
-              <td>21</td>
-              <td>21</td>
+              <td th:text="${order.orderDateTime}"></td>
+              <td th:text="${order.orderNo}"></td>
+              <td th:text="${order.memberId}"></td>
+              <td th:text="${order.orderTotalPrice}"></td>
             </tr>
           </tbody>
         </table>
@@ -69,18 +69,13 @@
     </div>
 
     <script>
-      const tooltipTriggerList = document.querySelectorAll(
-        '[data-bs-toggle="tooltip"]'
-      );
-      const tooltipList = [...tooltipTriggerList].map(
-        (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
-      );
+
       // 공지 수정 페이지로 이동
       $(document).ready(function () {
         $(".btn-orderselect").on("click", function (e) {
           e.preventDefault();
 
-          window.location.href = "managementOrder.html";
+          window.location.href = "/admin/order";
         });
       });
     </script>

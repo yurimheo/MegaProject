@@ -36,16 +36,16 @@ public class CartEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime cartDate;
 
-    public CartDto toDto() {
-        return CartDto.builder()
-                .cartNo(this.getCartNo())
-                .cartCode(this.getCartCode())
-                .itemCode(this.getItemCode())
-                .itemName(this.getItemName())
-                .itemImageUrl(this.getItemImageUrl()) // 수정된 부분
-                .itemPrice(this.getItemPrice())
-                .cartItemAmount(this.getCartItemAmount())
-                .cartDate(this.getCartDate())
+    public static CartEntity toCartEntity(CartDto dto) {
+        return CartEntity.builder()
+                .cartNo(dto.getCartNo())
+                .cartCode(dto.getCartCode())
+                .itemCode(dto.getItemCode())
+                .itemName(dto.getItemName())
+                .itemImageUrl(dto.getItemImageUrl()) // 수정된 부분
+                .itemPrice(dto.getItemPrice())
+                .cartItemAmount(dto.getCartItemAmount())
+                .cartDate(dto.getCartDate())
                 .build();
     }
 }

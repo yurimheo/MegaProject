@@ -1,20 +1,22 @@
 package com.megacoffee.OrderApp.controller;
+import com.megacoffee.OrderApp.UpdateOrderStatusRequest;
 import com.megacoffee.OrderApp.dto.*;
 import com.megacoffee.OrderApp.entity.*;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import com.megacoffee.OrderApp.dto.ResultDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
@@ -224,7 +226,7 @@ public class AdminApiController {
 
         try {
             //
-            for (int orderNo : orderNos ) {
+            for (long orderNo : orderNos ) {
                 orderRepository.deleteByOrderNo(orderNo);
             }
 
@@ -269,4 +271,40 @@ public class AdminApiController {
                 .map(OrderDto::toOrderDto)
                 .collect(Collectors.toList());
     }
+
+    // 주문 상태 변경
+    @PostMapping("/order/modifyOrderState")
+    public ResultDto modifyOrderStateAction(
+            @RequestBody ModifyOrderStateDto modifyOrderStateDto
+    ) {
+        try {
+            long orderNo = modifyOrderStateDto.getOrderNo(); // 주문 번호를 ModifyOrderStateDto 에서 가져오도록 수정
+
+            Optional<OrderEntity> orderOptional = orderRepository.findById(orderNo);
+            ResultDto resultDto;
+
+            if (orderOptional.isPresent()) {
+                OrderEntity order = orderOptional.get();
+                order.setOrderState(modifyOrderStateDto.getNewState());
+                // Update the order
+                orderRepository.save(order);
+                resultDto = ResultDto.builder()
+                        .status("ok")
+                        .result(1)
+                        .build();
+            } else {
+                resultDto = ResultDto.builder()
+                        .status("ok")
+                        .result(0)
+                        .build();
+            }
+            return resultDto;
+        } catch (Exception e) {
+            return ResultDto.builder()
+                    .status("error")
+                    .build();
+        }
+    }
+
+
 }
