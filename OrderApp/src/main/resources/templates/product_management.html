@@ -55,7 +55,7 @@
 
         <!--전체삭제 / 상품 등록 버튼 시작 -->
         <div class="d-flex justify-content-between">
-          <label class="col-form-label fw-bold">상품 0건</label>
+          <p class="col-form-label fw-bold" id="itemCount" th:text="|상품 총 ${count}개|">상품 총 0개</p>
           <div class="productButton">
             <button
               type="button"
@@ -66,7 +66,7 @@
             >
               <img
                 class="add-button"
-                th:src="@{/images/icons/add.png}"
+                th:src="@{/static/images/icons/add.png}"
                 alt="add_icon"
               />
               상품 신규등록
@@ -81,7 +81,7 @@
             >
               <img
                 class="minus-button"
-                th:src="@{/images/icons/minus-button.png}"
+                th:src="@{/static/images/icons/minus-button.png}"
                 alt=""
               />
               선택항목 삭제
@@ -125,16 +125,21 @@
               <td th:text="${item.itemPrice}"></td>
               <td th:text="${item.itemUpdateDatetime}"></td>
               <td>
-                <button
-                  type="button"
-                  class="detailCheck-btn detailCheck"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  data-bs-custom-class="custom-tooltip"
-                  data-bs-title="상품의 정보를 상세 조회 합니다."
+                <a
+                  th:href="@{/admin/item/detail/{name}(name=${item.itemName})}"
+                  style="color: #ffc107"
                 >
-                  상세조회
-                </button>
+                  <button
+                    type="button"
+                    class="detailCheck-btn detailCheck"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-custom-class="custom-tooltip"
+                    data-bs-title="상품의 정보를 상세 조회 합니다."
+                  >
+                    상세조회
+                  </button>
+                </a>
               </td>
             </tr>
           </tbody>
@@ -144,14 +149,11 @@
     </div>
 
     <script layout:fragment="script">
-      // 상세조회 페이지로 이동
-      $(document).ready(function () {
-        $(".detailCheck").on("click", function (e) {
-          e.preventDefault();
-
-          window.location.href = "/admin/product_details";
-        });
-      });
+      //상품 총 카운트 기능
+      function updateItemCount(count) {
+        const itemCountElement = document.getElementById("itemCount");
+        itemCountElement.textContent = `상품 총 ${count || 0}개`;
+      }
 
       // 상품등록 페이지로 이동 js
       $(document).ready(function () {
@@ -287,6 +289,7 @@
           // 테이블에 행 추가
           tableBody.appendChild(row);
         });
+        updateItemCount(data.length);
       }
     </script>
   </body>

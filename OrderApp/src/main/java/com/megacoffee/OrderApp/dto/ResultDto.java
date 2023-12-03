@@ -18,4 +18,5 @@ public class ResultDto {
     Object data;
     String message;
     LocalDate join_date;
+    String uploadFileName;
 }

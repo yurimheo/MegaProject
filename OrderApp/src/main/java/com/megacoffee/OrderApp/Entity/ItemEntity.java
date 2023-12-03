@@ -33,9 +33,12 @@ public class ItemEntity {
     private Integer itemNew;
     @Column(name = "item_image_url")
     private String itemImageUrl;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime itemUpdateDatetime;
+    @Column(name = "item_explanation")
+    private String itemExplanation;
 
+    @Column(name = "item_update_datetime")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDateTime itemUpdateDatetime = LocalDateTime.now();
 
     public static ItemEntity toEntity(ItemDto dto){
         return ItemEntity.builder()
@@ -47,6 +50,7 @@ public class ItemEntity {
                 .itemRecommend(dto.getItemRecommend())
                 .itemNew(dto.getItemNew())
                 .itemImageUrl(dto.getItemImageUrl())
+                .itemExplanation(dto.getItemExplanation())
                 .itemUpdateDatetime(dto.getItemUpdateDatetime())
                 .build();
     }

@@ -4,7 +4,6 @@
   lang="ko"
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
   <head>
     <meta charset="UTF-8" />
@@ -15,18 +14,18 @@
     <!-- 모바일 기기 뷰포트 설정-->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- 파비콘 설정 -->
-    <link rel="shortcut icon" href="images/icons/favicon.ico" />
+    <link rel="shortcut icon" href="/static/images/icons/favicon.ico" />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="images/icons/favicon-16x16.png"
+      href="/static/images/icons/favicon-16x16.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="images/icons/favicon-32x32.png"
+      href="/static/images/icons/favicon-32x32.png"
     />
     <!-- 스와이퍼 -->
     <link
@@ -43,11 +42,11 @@
     <link
       rel="stylesheet"
       type="text/css"
-      th:href="@{/css/bootstrap.min.css}"
+      th:href="@{/static/css/bootstrap.min.css}"
     />
     <title>MegaCoffee</title>
     <!-- 사용자 정의 CSS -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}" />
   </head>
   <body>
     <!-- 매 페이지마다 교체될 본문 영역 -->
@@ -56,8 +55,8 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- 부트스트랩 JS -->
-    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{/js/member.js}"></script>
+    <script th:src="@{/static/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/static/js/member.js}"></script>
     <!-- 자바스크립트 Start -->
     <th:block layout:fragment="script"></th:block>
   </body>

@@ -20,6 +20,7 @@ public class ItemDto {
     private Integer itemRecommend;
     private Integer itemNew;
     private String itemImageUrl;
+    private String itemExplanation; // 상품 설명
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime itemUpdateDatetime;
 
@@ -34,6 +35,7 @@ public class ItemDto {
                 .itemRecommend(entity.getItemRecommend())
                 .itemNew(entity.getItemNew())
                 .itemImageUrl(entity.getItemImageUrl())
+                .itemExplanation(entity.getItemExplanation())
                 .itemUpdateDatetime(entity.getItemUpdateDatetime())
                 .build();
     }
@@ -48,6 +50,7 @@ public class ItemDto {
                 .itemRecommend(entity.getItemRecommend())
                 .itemNew(entity.getItemNew())
                 .itemImageUrl(entity.getItemImageUrl())
+                .itemExplanation(entity.getItemExplanation())
                 .itemUpdateDatetime(entity.getItemUpdateDatetime())
                 .build();
     }

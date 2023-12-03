@@ -88,24 +88,47 @@ public class AdminViewController {
         return "product_management";
     }
 
-    //상품수정
-    @GetMapping("/product_details_update")
-    public String productDetailsUpdate() {
-        return "product_details_update";
-    }
-
     //상품신규등록
     @GetMapping("/product_details_registered")
-    public String productDetailsRegistered() {
+    public String productDetailsRegistered(Model model) {
+
+        model.addAttribute("pageName", "상품관리");
         return "product_details_registered";
     }
 
-    //상품 상세정보
-    @GetMapping("/product_details")
-    public String productDetails(Model model) {
-        return "product_details";
+// 상품관리화면 - 상품 상세 조회 탭으로 이동
+    @GetMapping("/item/detail/{name}")
+    public String itemDetail(@PathVariable String name , Model model) {
+        // 상품명을 통해 상품 정보 찾기
+        List<ItemEntity> items = itemRepository.findByItemName(name);
+
+        // DB에 상품이 있는가?
+        if (!items.isEmpty()) {
+            ItemEntity item = items.get(0); // 여러 회원 중 하나를 선택 (첫 번째 회원)
+            model.addAttribute("item", item);
+            model.addAttribute("pageName", "상품관리");
+            return "/product_details";  // 회원 상세 정보 조회 페이지로 이동
+        } else {
+            return "redirect:/admin/product_management";
+        }
     }
 
+    // 상품관리화면 - 상품 수정 탭으로 이동
+    @GetMapping("/item/update/{name}")
+    public String itemUpdate(@PathVariable String name , Model model) {
+        // 상품명을 통해 상품 정보 찾기
+        List<ItemEntity> items = itemRepository.findByItemName(name);
+
+        // DB에 상품이 있는가?
+        if (!items.isEmpty()) {
+            ItemEntity item = items.get(0); // 여러 회원 중 하나를 선택 (첫 번째 회원)
+            model.addAttribute("item", item);
+            model.addAttribute("pageName", "상품관리");
+            return "product_details_update";
+        } else {
+            return "redirect:/admin/product_management";
+        }
+    }
 
 
 // 3+4. 주문 및 공지 관리 시작 -------------------------------------------

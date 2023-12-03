@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html
-    lang="ko"
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-    layout:decorate="~{layouts/admin_layout}"
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  layout:decorate="~{layouts/admin_layout}"
 >
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>상품 수정</title>
+    <title>상품 상세 정보</title>
   </head>
   <body>
     <div layout:fragment="contents" class="border p-2">
@@ -21,10 +21,8 @@
             <div class="registered text-end">
               <!-- 신메뉴/추천메뉴 체크박스 시작 -->
               <span class="text-end registeredCheckbox">
-                <span class="fs-6">신메뉴&nbsp;<input type="checkbox" /></span>
-                <span class="fs-6">
-                  추천메뉴&nbsp;<input type="checkbox" />
-                </span>
+                 <span class="fs-6">신메뉴&nbsp;<input type="checkbox" th:checked="${item.itemNew == 1}" /></span>
+                <span class="fs-6">추천메뉴&nbsp;<input type="checkbox" th:checked="${item.itemRecommend == 1}" /></span>
               </span>
             </div>
           </div>
@@ -42,15 +40,18 @@
               </thead>
               <tbody>
                 <tr class="align-middle">
+                  <!-- 상품카테고리 -->
                   <td
                     class="d-flex justify-content-center flex-wrap align-items-center"
-                  >
-                    커피
-                  </td>
-                  <td class="topTable text-center">아메리카노</td>
-                  <td class="text-center">
-                    3,000원
-                  </td>
+                    th:text="${item.itemCate}"
+                  ></td>
+                  <!-- 상품이름 -->
+                  <td
+                    class="topTable text-center"
+                    th:text="${item.itemName}"
+                  ></td>
+                  <!-- 상품가격 -->
+                  <td class="text-center" th:text="${item.itemPrice}"></td>
                 </tr>
               </tbody>
             </table>
@@ -68,31 +69,11 @@
                 <tr>
                   <td>
                     <div class="upload-box">
-                      <div id="drop-file" class="drag-file">
-                        <img
-                          src="https://img.icons8.com/pastel-glyph/2x/image-file.png"
-                          alt="파일 아이콘"
-                          class="image"
-                        />
-                        <p class="message">Drag files to upload</p>
-                        <img src="" alt="미리보기 이미지" class="preview" />
-                      </div>
-                      <label class="file-label" for="chooseFile"
-                        >파일 선택</label
-                      >
-                      <input
-                        class="file"
-                        id="chooseFile"
-                        type="file"
-                        onchange="dropFile.handleFiles(this.files)"
-                        accept="image/png, image/jpeg, image/gif"
-                      />
+                      <img th:src="@{'/static/upload/' + ${item.itemImageUrl}}" alt="Item Image" />
                     </div>
                   </td>
 
-                  <td class="text-center">
-                   시원한 커피입니다.
-                  </td>
+                  <td class="text-center" th:text="${item.itemExplanation}"></td>
                 </tr>
               </tbody>
             </table>
@@ -107,81 +88,17 @@
           </span>
 
           <span class="text-end registeredCheckbox">
-            <button type="button" class="btn btn-warning text-white">
+            <a  th:href="@{/admin/item/update/{name}(name=${item.itemName})}">
+            <button type="button" class="btn btn-warning text-white" id="itemEdit">
               상품 수정하기
             </button>
+              </a>
           </span>
         </div>
       </div>
     </div>
 
-
-    <!-- 이미지 업로드 js 시작 -->
     <script layout:fragment="script">
-      function DropFile(dropAreaId, fileListId) {
-        let dropArea = document.getElementById(dropAreaId);
-        let fileList = document.getElementById(fileListId);
-
-        function preventDefaults(e) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
-
-        function highlight(e) {
-          preventDefaults(e);
-          dropArea.classList.add("highlight");
-        }
-
-        function unhighlight(e) {
-          preventDefaults(e);
-          dropArea.classList.remove("highlight");
-        }
-
-        function handleDrop(e) {
-          unhighlight(e);
-          let dt = e.dataTransfer;
-          let files = dt.files;
-
-          handleFiles(files);
-
-          const fileList = document.getElementById(fileListId);
-          if (fileList) {
-            fileList.scrollTo({ top: fileList.scrollHeight });
-          }
-        }
-
-        function handleFiles(files) {
-          files = [...files];
-          // files.forEach(uploadFile);
-          files.forEach(previewFile);
-        }
-
-        function previewFile(file) {
-          console.log(file);
-          renderFile(file);
-        }
-
-        function renderFile(file) {
-          let reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onloadend = function () {
-            let img = dropArea.getElementsByClassName("preview")[0];
-            img.src = reader.result;
-            img.style.display = "block";
-          };
-        }
-
-        dropArea.addEventListener("dragenter", highlight, false);
-        dropArea.addEventListener("dragover", highlight, false);
-        dropArea.addEventListener("dragleave", unhighlight, false);
-        dropArea.addEventListener("drop", handleDrop, false);
-
-        return {
-          handleFiles,
-        };
-      }
-      const dropFile = new DropFile("drop-file", "files");
-
       //상품관리 페이지로 이동.
       $(document).ready(function () {
         $(".registeredBtn").on("click", function (e) {
@@ -191,15 +108,11 @@
         });
       });
 
-      //상품수정 페이지로 이동.
-      $(document).ready(function () {
-        $(".registeredCheckbox").on("click", function (e) {
-          e.preventDefault();
-
-          window.location.href = "/admin/product_details_update";
-        });
-      });
+      // 확인 완료 버튼 - 이동 구현
+      function confirmDetails() {
+        alert("상품 확인이 완료되었습니다!");
+        window.location.href = "/admin/product_management";
+      }
     </script>
-    <!-- 이미지 업로드 js 끝 -->
   </body>
 </html>

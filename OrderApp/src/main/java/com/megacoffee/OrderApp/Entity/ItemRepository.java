@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ItemRepository extends JpaRepository<ItemEntity, Long> {
     void deleteByItemName(String itemName);
@@ -21,4 +22,7 @@ public interface ItemRepository extends JpaRepository<ItemEntity, Long> {
     List<ItemEntity> findTeaItemsByNameContaining(@Param("searchValue") String searchValue);
 
     List<ItemEntity> findByItemNameContaining(String searchValue);
+
+    Optional<ItemEntity> findOptionalByItemName(String name);
+    List<ItemEntity> findByItemName(String name);
 }

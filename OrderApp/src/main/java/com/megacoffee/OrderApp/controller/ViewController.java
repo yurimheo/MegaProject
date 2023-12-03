@@ -111,7 +111,32 @@ public class ViewController {
 
     // 2. 메인 시작 ---------------------------------------------
     @GetMapping("/main")
-    public String main(){return  "/userApp/main";}
+    public String main(Model model, HttpServletRequest request){
+        String loginId = (String)request.getSession().getAttribute("loginId");
+        if( loginId != null ){
+            List<MemberEntity> list = memberRepository.findByMemberId(loginId);
+            if( list.size() > 0 ){
+                MemberEntity memberEntity = list.get(0);
+                model.addAttribute("loginName", memberEntity.getMemberName());
+                model.addAttribute("stamp", memberEntity.getMemberStamp());
+            }
+        }
+        return  "/userApp/main";}
+
+    // 스탬프
+    @GetMapping("/stamp")
+    public String stamp(Model model, HttpServletRequest request){
+        String loginId = (String)request.getSession().getAttribute("loginId");
+        if( loginId != null ){
+            List<MemberEntity> list = memberRepository.findByMemberId(loginId);
+            if( list.size() > 0 ){
+                MemberEntity memberEntity = list.get(0);
+                model.addAttribute("loginName", memberEntity.getMemberName());
+                model.addAttribute("stamp", memberEntity.getMemberStamp());
+            }
+        }
+        return "/userApp/Stamp";
+    }
 
     // 2. 메인 끝 -----------------------------------------------
 }
