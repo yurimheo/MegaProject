@@ -1,5 +1,6 @@
 package com.megacoffee.OrderApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.megacoffee.OrderApp.dto.OrderDto;
 import jakarta.persistence.*;
 
@@ -18,7 +19,7 @@ public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_no")
-    private long orderNo;
+    private Long orderNo;
     @Column(name = "cart_item_code_1")
     private String cartItemCode1;
     @Column(name = "cart_item_code_2")
@@ -41,6 +42,7 @@ public class OrderEntity {
     private long orderPayType;
     @Column(name = "order_state")
     private String orderState;
+
     @Column(name = "order_datetime")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime orderDateTime;

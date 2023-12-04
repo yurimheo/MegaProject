@@ -20,32 +20,33 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="container-fluid p-0">
+  <div layout:fragment="mobile" class="container-fluid p-0">
       <div
         class="headerTop fs-1 fs-1 fw-bold d-flex align-items-center justify-content-between"
       >
-        <a href=""
+        <a href="#"
+           onclick="history.back();"
           ><img
             class="backImg ms-5"
-            src="../../static/images/icons/nav-back.svg"
+            th:src="@{images/icons/nav-back.svg}"
             alt=""
         /></a>
         <span span class="text-center flex-grow-1 me-5 pe-5">주문하기</span>
       </div>
       <div class="location fs-1">의정부역점</div>
       <div class="p-5"><span class="fs-1 fw-bold w-100">주문상품</span></div>
-      <div class="cart-list d-flex">
+      <div class="cart-list d-flex" th:each="cart, status:${ list }">
         <img
-          src="https://megacoffee.coconutatelier.com/images/item/thumb-102556_main_320x0.png"
+          th:src="${cart.itemImageUrl}"
           alt=""
         />
         <div class="w-100 mb-1">
           <div class="d-flex justify-content-between">
-            <span class="fw-bold fs-2">스모어블랙쿠키프라페</span>
+            <span th:text="${cart.itemName}" class="fw-bold fs-2">스모어블랙쿠키프라페</span>
             <a href="" style="height: 60px"
               ><img
                 class="cart-list-delete"
-                src="../../static/images/icons/btn-cart-delete.svg"
+                th:src="@{/images/icons/btn-cart-delete.svg}"
                 alt=""
             /></a>
           </div>
@@ -56,16 +57,16 @@
           <div class="amount-box">
             <div class="amount w-50">
               <a class="num-down" href=""
-                ><img src="../../static/images/icons/btn-amount-min.svg" alt=""
+                ><img th:src="@{/images/icons/btn-amount-min.svg}" alt=""
               /></a>
-              <span class="number fs-1">1</span>
+              <span class="number fs-1"  th:text="${cart.cartItemAmount}">1</span>
               <a class="num-up" href=""
                 ><img
-                  src="../../static/images/icons/btn-amount-plus.svg"
+                  th:src="@{/images/icons/btn-amount-plus.svg}"
                   alt=""
               /></a>
             </div>
-            <div class="price fs-1 fw-bold">4,400원</div>
+            <div class="price fs-1 fw-bold" th:text="${cart.itemPrice}">0원</div>
           </div>
         </div>
       </div>
@@ -84,7 +85,7 @@
           </span>
         </div>
         <div class="order-detail-btn">
-          <a class="fs-1 fw-bold" style="color: white" href="">주문하기</a>
+          <a class="fs-1 fw-bold" style="color: white" href="/order">주문하기</a>
         </div>
       </div>
     </div>

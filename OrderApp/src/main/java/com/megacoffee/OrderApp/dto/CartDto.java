@@ -22,7 +22,7 @@ public class CartDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime cartDate;
 
-    public static CartDto fromEntity(CartEntity entity){
+    public static CartDto toCartDto(CartEntity entity){
         return CartDto.builder()
                 .cartNo(entity.getCartNo())
                 .cartCode(entity.getCartCode())
