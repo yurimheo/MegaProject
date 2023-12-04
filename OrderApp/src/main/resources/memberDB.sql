@@ -1,0 +1,67 @@
+-- 회원 데이터
+INSERT INTO megamega.member (
+    member_id,
+    member_pw,
+    member_name,
+    member_birth,
+    member_email,
+    member_phone,
+    member_role,
+    member_join_date,
+    member_stamp
+) VALUES 
+(
+    'test1',
+    '1111',
+    '테스트1',
+    '1990-05-15',
+    'test1@example.com',
+    '01011112222',
+    'ROLE_USER',
+    '2023-12-04',
+    0
+),
+(
+    'test2',
+    '2222',
+    '테스트2',
+    '1988-08-25',
+    'test2@example.com',
+    '01022223333',
+    'ROLE_USER',
+    '2023-12-05',
+    0
+),
+(
+    'test3',
+    '3333',
+    '테스트3',
+    '1987-07-27',
+    'test3@example.com',
+    '01033334444',
+    'ROLE_USER',
+    '2023-10-11',
+    0
+),
+(
+    'test4',
+    '4444',
+    '테스트4',
+    '1994-04-20',
+    'test4@example.com',
+    '01044445555',
+    'ROLE_USER',
+    '2022-11-12',
+    0
+),
+(
+    'test5',
+    '5555',
+    '테스트5',
+    '2005-05-10',
+    'test5@example.com',
+    '01055556666',
+    'ROLE_USER',
+    '2021-09-18',
+    0
+);
