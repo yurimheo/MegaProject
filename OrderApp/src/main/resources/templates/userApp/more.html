@@ -18,10 +18,9 @@
     <!-- 아이폰 노치 커버 -->
     <meta name="viewport" content="viewport-fit=cover" />
     <title>Document</title>
-    <!-- 부트스트랩 CSS -->
   </head>
   <body>
-    <div class="container-fluid p-5">
+  <div layout:fragment="mobile" class="container-fluid p-5">
       <!-- 컨텐츠 시작 -->
       <div class="more-headerTop fs-2">
         <span class="headerTop-content">계정설정</span>
@@ -67,7 +66,7 @@
         </div>
         <div class="text-center mt-2 position-absolute" id="slideCount">
           <label
-            for=""
+            for="pageNumber"
             class="fs-3"
             id="pageNumber"
             style="color: white"

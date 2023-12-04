@@ -2,10 +2,8 @@ package com.megacoffee.OrderApp.controller;
 
 import com.megacoffee.OrderApp.dto.CartDto;
 import com.megacoffee.OrderApp.dto.FindIdDto;
-import com.megacoffee.OrderApp.entity.CartEntity;
-import com.megacoffee.OrderApp.entity.CartRepository;
-import com.megacoffee.OrderApp.entity.MemberEntity;
-import com.megacoffee.OrderApp.entity.MemberRepository;
+import com.megacoffee.OrderApp.dto.NoticeDto;
+import com.megacoffee.OrderApp.entity.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -114,6 +112,9 @@ public class ViewController {
     // 1. 로그인 및 회원 가입 끝 -------------------------------------
 
     // 2. 메인 시작 ---------------------------------------------
+    @Autowired
+    private NoticeRepository noticeRepository;
+
     @GetMapping("/main")
     public String main(Model model, HttpServletRequest request){
         String loginId = (String)request.getSession().getAttribute("loginId");
@@ -125,6 +126,16 @@ public class ViewController {
                 model.addAttribute("stamp", memberEntity.getMemberStamp());
             }
         }
+        // 메인 공지 불러오기
+        List<NoticeEntity> listEntity = noticeRepository.findAll();
+
+        List<NoticeDto> listDto = listEntity
+                .stream()
+                .map(NoticeDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("count", listDto.size());
+        model.addAttribute("list", listDto);
         return  "/userApp/main";}
 
     // 스탬프
@@ -140,6 +151,32 @@ public class ViewController {
             }
         }
         return "/userApp/Stamp";
+    }
+    @GetMapping("/newnews")
+    public String news(Model model){
+        List<NoticeEntity> listEntity = noticeRepository.findAll();
+
+        List<NoticeDto> listDto = listEntity
+                .stream()
+                .map(NoticeDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("count", listDto.size());
+        model.addAttribute("list", listDto);
+        return "/userApp/newnews";
+    }
+    @GetMapping("/newnews2")
+    public String news2(Model model){
+        List<NoticeEntity> listEntity = noticeRepository.findAll();
+
+        List<NoticeDto> listDto = listEntity
+                .stream()
+                .map(NoticeDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("count", listDto.size());
+        model.addAttribute("list", listDto);
+        return "/userApp/newnews2";
     }
 
     // 2. 메인 끝 -----------------------------------------------

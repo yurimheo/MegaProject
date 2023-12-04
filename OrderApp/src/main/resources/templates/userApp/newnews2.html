@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/mobile_layout}"
+>
+<head>
+  <meta charset="UTF-8" />
+  <!-- meta name="viewport" : 뷰포트 설정 -->
+  <!-- content="width=device-width : 디바이스의 가로 넓이에 맞춤 -->
+  <!-- initial-scale = 1.0 : 최초 화면 크기 100% 비율 -->
+  <!-- minimum-scale=1.0 : 최소 화면 크기 100% 비율 -->
+  <!-- maximum-scale=1.0 : 최대 화면 크기 100% 비율 -->
+  <!-- user-scalable=no : 사용자 확대 금지 -->
+  <meta
+          name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+  />
+  <!-- 아이폰 노치 커버 -->
+  <meta name="viewport" content="viewport-fit=cover" />
+  <title>Document</title>
+
+</head>
+<body>
+<div layout:fragment="mobile" class="container-fluid p-0">
+  <div class="headerTop fs-1 fw-bold justify-content-between">
+    <div class="d-flex align-items-center m-4 mt-5" style="height: 30px">
+      <a href=""
+         onclick="history.back();"
+      ><img
+              class="backImg ms-3"
+              th:src="@{static/images/icons/nav-back.svg}"
+              alt=""
+      /></a>
+      <span class="text-center flex-grow-1 me-5 pe-5">새소식</span>
+    </div>
+    <div class=" Top2 section d-flex ms-3">
+      <div id="event" class=" m-3 p-1 fs-1 w-50 text-center"style="color: #919395">이벤트</div>
+      &nbsp
+      <div id="notice" class=" m-3 p-1 fs-1 w-50 text-center "style="border-bottom: 2px solid black">
+        공지사항
+      </div>
+      &nbsp
+
+    </div>
+    <div class="line border border-bottom"></div>
+  </div>
+  <!-- 이벤트 사항 -->
+  <div class="eventPage p-4"  >
+    <div class="eventList" th:each="notice : ${list}" th:if="${notice.noticeCate == '공지사항'}">
+      <a href="" style="color: black">
+
+        <div class="eventText">
+          <b class="fs-1" th:text="${notice.noticeTitle}">[이벤트] 이벤트 이름</b>
+
+          <p class="fs-2 pt-3" th:text="${notice.noticeDateTime}">2023.11.08.-2023.11.28</p>
+          <hr>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script layout:fragment="script">
+$(document).ready(function () {
+        $("#event").on("click", function (e) {
+          e.preventDefault();
+
+          window.location.href = "/newnews";
+        });
+      });
+</script>
+</body>
+</html>

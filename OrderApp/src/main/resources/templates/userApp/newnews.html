@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/mobile_layout}"
+>
   <head>
     <meta charset="UTF-8" />
     <!-- meta name="viewport" : 뷰포트 설정 -->
@@ -15,113 +20,76 @@
     <!-- 아이폰 노치 커버 -->
     <meta name="viewport" content="viewport-fit=cover" />
     <title>Document</title>
-    <!-- 부트스트랩 CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../../static/css/bootstrap.min.css"
-    />
-    <!-- 사용자 정의 CSS -->
-    <link rel="stylesheet" type="text/css" href="../../static/css/style.css" />
   </head>
   <body>
-    <div class="container-fluid">
+    <div layout:fragment="mobile" class="container-fluid p-0">
       <div class="headerTop fs-1 fw-bold justify-content-between">
         <div class="d-flex align-items-center m-4 mt-5" style="height: 30px">
-          <a href=""
+          <a href="" onclick="history.back();"
             ><img
               class="backImg ms-3"
-              src="../../static/images/icons/nav-back.svg"
+              th:src="@{static/images/icons/nav-back.svg}"
               alt=""
           /></a>
           <span class="text-center flex-grow-1 me-5 pe-5">새소식</span>
         </div>
-        <div class="storeListMenu Top2 section d-flex ms-3">
-          <div id="event" class="storeListMenu-btn1 m-3 p-1 fs-1">이벤트</div>
+        <div class="Top2 section d-flex ms-3">
+          <div
+            id="event"
+            class="m-3 p-1 fs-1 w-50 text-center"
+            style="border-bottom: 2px solid black"
+          >
+            이벤트
+          </div>
           &nbsp
-          <div id="notice" class="storeListMenu-btn2 m-3 p-1 fs-1">
+
+          <div
+            id="notice"
+            class="m-3 p-1 fs-1 w-50 text-center"
+            style="color: #919395"
+          >
             공지사항
           </div>
+
           &nbsp
-          <div id="lankEvent" class="storeListMenu-btn3 m-3 p-1 fs-1">
-            랭킹이벤트
-          </div>
         </div>
         <div class="line border border-bottom"></div>
       </div>
       <!-- 이벤트 사항 -->
       <div class="eventPage p-4">
-        <div class="eventList">
+        <div
+          class="eventList"
+          th:each="notice : ${list}"
+          th:if="${notice.noticeCate == '이벤트'}"
+        >
           <a href="" style="color: black">
             <img
               class="eventImg w-100"
-              src="http://placehold.it/940X440"
+              th:src="@{'/static/upload/' + ${notice.noticeTitleImg}}"
               alt=""
             />
             <div class="eventText">
-              <b class="fs-1">[이벤트] 이벤트 이름</b>
+              <b class="fs-1" th:text="${notice.noticeTitle}"
+                >[이벤트] 이벤트 이름</b
+              >
 
-              <p class="fs-2 pt-3">2023.11.08.-2023.11.28</p>
-            </div>
-          </a>
-        </div>
-        <div class="eventList">
-          <a href="" style="color: black">
-            <img
-              class="eventImg w-100"
-              src="http://placehold.it/940X440"
-              alt=""
-            />
-            <div class="eventText">
-              <b class="fs-1">[이벤트] 이벤트 이름</b>
-
-              <p class="fs-2 pt-3">2023.11.08.-2023.11.28</p>
-            </div>
-          </a>
-        </div>
-        <div class="eventList">
-          <a href="" style="color: black">
-            <img
-              class="eventImg w-100"
-              src="http://placehold.it/940X440"
-              alt=""
-            />
-            <div class="eventText">
-              <b class="fs-1">[이벤트] 이벤트 이름</b>
-
-              <p class="fs-2 pt-3">2023.11.08.-2023.11.28</p>
-            </div>
-          </a>
-        </div>
-        <div class="eventList">
-          <a href="" style="color: black">
-            <img
-              class="eventImg w-100"
-              src="http://placehold.it/940X440"
-              alt=""
-            />
-            <div class="eventText">
-              <b class="fs-1">[이벤트] 이벤트 이름</b>
-
-              <p class="fs-2 pt-3">2023.11.08.-2023.11.28</p>
+              <p class="fs-2 pt-3" th:text="${notice.noticeDateTime}">
+                2023.11.08.-2023.11.28
+              </p>
             </div>
           </a>
         </div>
       </div>
     </div>
 
-    <!-- 부트스트랩 JS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
-      integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
-      crossorigin="anonymous"
-    ></script>
-    <!--  사용자 정의 JS -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script layout:fragment="script">
+      $(document).ready(function () {
+        $("#notice").on("click", function (e) {
+          e.preventDefault();
+
+          window.location.href = "/newnews2";
+        });
+      });
+    </script>
   </body>
 </html>

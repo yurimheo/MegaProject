@@ -25,6 +25,8 @@ public class NoticeEntity {
     private String noticeCate;
     @Column(name = "notice_image_url")
     private String noticeImgUrl;
+    @Column(name = "notice_title_image")
+    private String noticeTitleImg;
     @Column(name = "notice_datetime")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime noticeDateTime;
@@ -35,7 +37,7 @@ public class NoticeEntity {
                 .noticeTitle(dto.getNoticeTitle())
                 .noticeCate(dto.getNoticeCate())
                 .noticeImgUrl("images/add/" + dto.getNoticeImgUrl())
-                .noticeDateTime(dto.getNoticeDatetime())
+                .noticeDateTime(dto.getNoticeDateTime())
                 .build();
     }
 }
