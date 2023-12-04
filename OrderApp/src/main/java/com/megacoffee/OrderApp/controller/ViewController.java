@@ -142,6 +142,21 @@ public class ViewController {
         return "/userApp/Stamp";
     }
 
+    // 알림
+    @GetMapping("/notification")
+    public String notification(Model model, HttpServletRequest request){
+        String loginId = (String)request.getSession().getAttribute("loginId");
+        if( loginId != null ){
+            List<MemberEntity> list = memberRepository.findByMemberId(loginId);
+            if( list.size() > 0 ){
+                MemberEntity memberEntity = list.get(0);
+                model.addAttribute("loginName", memberEntity.getMemberName());
+                model.addAttribute("stamp", memberEntity.getMemberStamp());
+            }
+        }
+        return "/userApp/notification";
+    }
+
     // 2. 메인 끝 -----------------------------------------------
 
     // 3. 주문/결제하기 시작 -------------------------------------
@@ -168,5 +183,27 @@ public class ViewController {
         return "/userApp/orderPage2";
     }
     // 3. 주문/결제하기 끝 ---------------------------------------
+
+    // 4. 더보기 시작 -------------------------------------------
+    // 4-(1) 더보기
+
+
+    // 4-(2) 계정 관리
+    @GetMapping("/memberSetting")
+    public String memberSetting(Model model, HttpServletRequest request){
+        String loginId = (String)request.getSession().getAttribute("loginId");
+        if( loginId != null ){
+            List<MemberEntity> list = memberRepository.findByMemberId(loginId);
+            if( list.size() > 0 ){
+                MemberEntity memberEntity = list.get(0);
+                model.addAttribute("loginName", memberEntity.getMemberName());
+                model.addAttribute("memberBirth", memberEntity.getMemberBirth());
+                model.addAttribute("memberPhone", memberEntity.getMemberPhone());
+            }
+        }
+
+        return "/userApp/memberSetting";
+    }
+    // 4. 더보기 끝 ---------------------------------------------
 }
 

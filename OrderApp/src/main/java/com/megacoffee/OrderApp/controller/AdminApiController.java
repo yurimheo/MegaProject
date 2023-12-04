@@ -207,7 +207,7 @@ public class AdminApiController {
         String searchOption = params.get("searchOption");
         String searchValue = params.get("searchValue");
 
-        List<com.megacoffee.OrderApp.entity.ItemEntity> resultList;
+        List<ItemEntity> resultList;
         switch (searchOption) {
             case "1":
                 int searchIntValue = Integer.parseInt(searchValue);

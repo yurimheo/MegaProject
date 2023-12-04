@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/mobile_layout}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+    />
+    <!-- 아이폰 노치 커버 -->
+    <meta name="viewport" content="viewport-fit=cover" />
+    <title>계정 설정</title>
+  </head>
+  <body>
+    <!-- 로그인 화면 페이지 시작 -->
+    <div layout:fragment="mobile" class="container-fluid p-0">
+      <!-- 계정 설정 헤더 및 뒤로가기, 새로고침 버튼-->
+      <br />
+      <br />
+      <div class="stampHeaderBox">
+        <div class="memberSettingHeader d-flex align-items-center w-100">
+          <a href="" onclick="history.back();"
+            ><img
+              class="backImg ms-3"
+              th:src="@{static/images/icons/nav-back.svg}"
+              alt=""
+          /></a>
+          <div class="memberSettingTitle d-flex justify-content-center">
+            <p class="fw-bold">회원 정보 관리</p>
+          </div>
+        </div>
+      </div>
+      <br />
+      <!-- 헤더 -->
+      <!-- 하단 내역 -->
+      <div class="memberSettingSection w-100">
+        <div
+          class="nameSetting w-100 d-flex justify-content-between align-items-center"
+        >
+          <span><p>이름</p></span>
+          <span class="d-flex">
+            <p th:text="|${loginName}|" class="settingFont fw-bold">테스트</p>
+            <button type="button" class="settingBtn">변경</button>
+          </span>
+          <!-- 이름 -->
+        </div>
+        <!-- ************************************************* -->
+        <div class="settingLine w-100"></div>
+        <!-- ************************************************* -->
+        <div class="etcSetting w-100">
+          <!-- 생년월일 -->
+          <span class="d-flex justify-content-between">
+            <p>생년월일</p>
+            <p th:text="|${memberBirth}|">1999년 9월 9일</p>
+          </span>
+          <!-- 휴대전화번호 -->
+          <span class="phoneSetting d-flex justify-content-between">
+            <span>
+              <p>휴대전화번호</p>
+            </span>
+            <span class="d-flex justify-content-between">
+              <p th:text="|${memberPhone}|">010-1245-1245</p>
+              <button type="button" class="settingBtn">변경</button>
+            </span>
+          </span>
+        </div>
+        <!-- ************************************************* -->
+        <div class="settingLine w-100"></div>
+        <!-- ************************************************* -->
+        <div
+          class="deleteMember w-100 d-flex justify-content-between"
+          style="padding-right: 30px"
+        >
+          <!-- 회원 탈퇴 -->
+          <p>회원 탈퇴</p>
+          <a href="" onclick="history.back();"
+            ><img
+              class="backImg ms-3"
+              th:src="@{static/images/icons/btn-more.svg}"
+              alt=""
+          /></a>
+        </div>
+      </div>
+    </div>
+    <!-- 로그인 화면 페이지 끝 -->
+    <script layout:fragment="script">
+      //  뒤로가기 버튼 클릭시 이전 페이지로 이동
+      $(document).ready(function () {
+        $("#backBtn").on("click", function (e) {
+          e.preventDefault();
+
+          window.history.back();
+        });
+      });
+    </script>
+  </body>
+</html>
