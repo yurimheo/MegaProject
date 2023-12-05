@@ -1,6 +1,5 @@
 package com.megacoffee.OrderApp.controller;
-import com.megacoffee.OrderApp.dto.ItemDto;
-import com.megacoffee.OrderApp.dto.ResultDto;
+import com.megacoffee.OrderApp.dto.*;
 import com.megacoffee.OrderApp.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-import com.megacoffee.OrderApp.dto.MemberDto;
 import com.megacoffee.OrderApp.dto.ResultDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -296,6 +294,64 @@ public class AdminApiController {
             return ResultDto.builder()
                     .status("error")
                     .message("삭제 중 오류가 발생했습니다.")
+                    .build();
+        }
+    }
+    @PostMapping("/order/search")
+    public List<OrderDto> searchOrders(@RequestBody Map<String, String> params) {
+        String searchOption = params.get("searchOption");
+        String searchValue = params.get("searchValue");
+
+        List<OrderEntity> resultList;
+        switch (searchOption) {
+            case "1":
+                int searchIntValue = Integer.parseInt(searchValue);
+                resultList = orderRepository.findByOrderNo(searchIntValue);
+                break;
+
+            case "2":
+                resultList = orderRepository.findByMemberIdContaining(searchValue);
+                break;
+            default:
+                resultList = orderRepository.findAll();
+                break;
+        }
+
+        return resultList.stream()
+                .map(OrderDto::toOrderDto)
+                .collect(Collectors.toList());
+    }
+
+    // 주문 상태 변경
+    @PostMapping("/order/modifyOrderState")
+    public ResultDto modifyOrderStateAction(
+            @RequestBody ModifyOrderStateDto modifyOrderStateDto
+    ) {
+        try {
+            long orderNo = modifyOrderStateDto.getOrderNo(); // 주문 번호를 ModifyOrderStateDto 에서 가져오도록 수정
+
+            Optional<OrderEntity> orderOptional = orderRepository.findById(orderNo);
+            ResultDto resultDto;
+
+            if (orderOptional.isPresent()) {
+                OrderEntity order = orderOptional.get();
+                order.setOrderState(modifyOrderStateDto.getNewState());
+                // Update the order
+                orderRepository.save(order);
+                resultDto = ResultDto.builder()
+                        .status("ok")
+                        .result(1)
+                        .build();
+            } else {
+                resultDto = ResultDto.builder()
+                        .status("ok")
+                        .result(0)
+                        .build();
+            }
+            return resultDto;
+        } catch (Exception e) {
+            return ResultDto.builder()
+                    .status("error")
                     .build();
         }
     }

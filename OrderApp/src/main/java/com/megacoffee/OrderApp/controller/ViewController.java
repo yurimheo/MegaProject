@@ -178,6 +178,21 @@ public class ViewController {
         model.addAttribute("list", listDto);
         return "/userApp/newnews2";
     }
+    @GetMapping("/notice/details/{no}")
+    public String noticeDetail(@PathVariable long no, Model model) {
+
+        List<NoticeEntity> notices = noticeRepository.findByNoticeNo(no);
+
+
+        if (!notices.isEmpty()) {
+            NoticeEntity notice = notices.get(0);
+            model.addAttribute("notice", notice);
+            model.addAttribute("pageName", "공지");
+            return "/userApp/newsFeed";
+        } else {
+            return "redirect:/userApp/newsFeed";
+        }
+    }
 
     // 2. 메인 끝 -----------------------------------------------
 
@@ -206,4 +221,5 @@ public class ViewController {
     }
     // 3. 주문/결제하기 끝 ---------------------------------------
 }
+
 
