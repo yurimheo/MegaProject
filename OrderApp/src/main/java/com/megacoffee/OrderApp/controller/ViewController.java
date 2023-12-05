@@ -2,10 +2,9 @@ package com.megacoffee.OrderApp.controller;
 
 import com.megacoffee.OrderApp.dto.CartDto;
 import com.megacoffee.OrderApp.dto.FindIdDto;
-import com.megacoffee.OrderApp.entity.CartEntity;
-import com.megacoffee.OrderApp.entity.CartRepository;
-import com.megacoffee.OrderApp.entity.MemberEntity;
-import com.megacoffee.OrderApp.entity.MemberRepository;
+import com.megacoffee.OrderApp.dto.NoticeDto;
+import com.megacoffee.OrderApp.dto.StoreDto;
+import com.megacoffee.OrderApp.entity.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -114,6 +113,9 @@ public class ViewController {
     // 1. 로그인 및 회원 가입 끝 -------------------------------------
 
     // 2. 메인 시작 ---------------------------------------------
+    @Autowired
+    private NoticeRepository noticeRepository;
+
     @GetMapping("/main")
     public String main(Model model, HttpServletRequest request){
         String loginId = (String)request.getSession().getAttribute("loginId");
@@ -125,6 +127,16 @@ public class ViewController {
                 model.addAttribute("stamp", memberEntity.getMemberStamp());
             }
         }
+        // 메인 공지 불러오기
+        List<NoticeEntity> listEntity = noticeRepository.findAll();
+
+        List<NoticeDto> listDto = listEntity
+                .stream()
+                .map(NoticeDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("count", listDto.size());
+        model.addAttribute("list", listDto);
         return  "/userApp/main";}
 
     // 스탬프
@@ -186,7 +198,47 @@ public class ViewController {
 
     // 4. 더보기 시작 -------------------------------------------
     // 4-(1) 더보기
+    @GetMapping("/newnews")
+    public String news(Model model){
+        List<NoticeEntity> listEntity = noticeRepository.findAll();
 
+        List<NoticeDto> listDto = listEntity
+                .stream()
+                .map(NoticeDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("count", listDto.size());
+        model.addAttribute("list", listDto);
+        return "/userApp/newnews";
+    }
+    @GetMapping("/newnews2")
+    public String news2(Model model){
+        List<NoticeEntity> listEntity = noticeRepository.findAll();
+
+        List<NoticeDto> listDto = listEntity
+                .stream()
+                .map(NoticeDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("count", listDto.size());
+        model.addAttribute("list", listDto);
+        return "/userApp/newnews2";
+    }
+    @GetMapping("/notice/details/{no}")
+    public String noticeDetail(@PathVariable long no, Model model) {
+
+        List<NoticeEntity> notices = noticeRepository.findByNoticeNo(no);
+
+
+        if (!notices.isEmpty()) {
+            NoticeEntity notice = notices.get(0);
+            model.addAttribute("notice", notice);
+            model.addAttribute("pageName", "공지");
+            return "/userApp/newsFeed";
+        } else {
+            return "redirect:/userApp/newsFeed";
+        }
+    }
 
     // 4-(2) 계정 관리
     @GetMapping("/memberSetting")
@@ -205,5 +257,41 @@ public class ViewController {
         return "/userApp/memberSetting";
     }
     // 4. 더보기 끝 ---------------------------------------------
+
+    // 메장 및 메뉴 검색, 선택
+    //메뉴검색
+    @GetMapping("/menu/search")
+    public String menuSearch() {
+        return "/userApp/menu_search";
+    }
+
+    //주문하기(메뉴선택)
+    @GetMapping("/menu")
+    public String orderChoice() {
+        return "/userApp/order_choice";
+    }
+
+    //매장선택
+    @Autowired
+    private StoreRepository storeRepository;
+    @GetMapping("/store")
+    public String storeChoice(Model model) {
+        List<StoreEntity> listEntity = storeRepository.findAll();
+        List<StoreDto> listDto = listEntity
+                .stream()
+                .map(StoreDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("count", listDto.size());
+        model.addAttribute("list", listDto);
+
+        return "/userApp/store_choice";
+    }
+
+    //매장검색
+    @GetMapping("/store/search")
+    public String storeSearch() {
+        return "/userApp/store_search";
+    }
 }
 

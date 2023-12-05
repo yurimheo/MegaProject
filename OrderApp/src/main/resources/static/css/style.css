@@ -675,23 +675,13 @@ a {
   margin: 0;
   font-size: 55px;
 }
-.memberSettingSection {
-}
 /* 상세 설정 */
-.nameSetting {
-}
-.etcSetting {
-}
 .settingLine {
   height: 30px;
   background-color: #f9f9f9;
   border-top: 1px solid rgb(201, 201, 201);
 }
-.deleteMember {
-}
-.nameSetting p,
-.etcSetting p,
-.deleteMember p {
+.settingCate {
   font-size: 48px;
 }
 .nameSetting,
@@ -719,4 +709,146 @@ a {
   font-size: 42px;
   color: #4d4d4d;
 }
+/*  모달 */
+.inputNameBox {
+  width: 95%;
+  height: 90px;
+  border: 1px solid #6b6b6b;
+  border-radius: 5px;
+  font-size: 38px;
+}
+.modalFooter {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.modalFooter div {
+  width: 50%;
+  height: 100px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.modalFooter div button {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  font-size: 38px;
+}
+.modalCancelBtn {
+}
+.modalChangeBtn {
+  color: white;
+}
+.modalCancelDiv {
+  background-color: #e5e5e5;
+  color: white;
+}
+.modalChangeDiv {
+  background-color: #472907;
+}
 /* 계정 설정 끝 --------*/
+
+/* ------- orderMenu.html 시작-------- */
+/* 구분선 css 시작 */
+.divider {
+  width: 100%;
+  height: 8px;
+  background: #f8fafc;
+  margin-top: 1px;
+  box-shadow: 0 -1px 0 0 #edf1f3;
+}
+/* 구분선 css 끝 */
+
+/* 메뉴 이미지 시작*/
+.menuImg {
+  width: 170px;
+  height: 170px;
+}
+/* 메뉴 이미지 끝*/
+
+/* 상품 이름 및 이미지 가운데 정렬 시작*/
+.nameDescription,
+.menuOrderImg {
+  text-align: center;
+}
+/* 상품 이름 및 이미지 가운데 정렬 끝 */
+
+/* 갯수 증감 및 총 금액 시작*/
+.amountBox {
+  width: 100%;
+  padding: 24px 5%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  box-shadow: 0 1px 0 0 #dfdfdf;
+}
+
+.amountBox .amount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 120px;
+  padding-right: 1px;
+  font-size: 17px;
+}
+
+.totalPriceBox {
+  width: 100%;
+  padding: 24px 5%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  box-shadow: 0 1px 0 0 #dfdfdf;
+}
+.totalPrice {
+  font-weight: bold;
+  color: red;
+}
+/* 갯수 증감 및 총 금액 시작*/
+
+/* 주문 장바구니 버튼 시작 */
+.order-btn {
+  text-align: center;
+  margin: 30px;
+}
+.nowOrder {
+  display: inline-block;
+  width: 150px;
+  height: 50px;
+  border: 2px solid #000;
+  border-radius: 8px;
+  border: none;
+  text-align: center;
+  line-height: 50px;
+  font-weight: bold;
+  text-decoration: none;
+  margin: 10px;
+  background-color: #f0f0f0;
+  color: #000;
+}
+.inputCart {
+  display: inline-block;
+  width: 150px;
+  height: 50px;
+  border: 2px solid #000;
+  border-radius: 8px;
+  border: none;
+  text-align: center;
+  line-height: 50px;
+  font-weight: bold;
+  text-decoration: none;
+  margin: 10px;
+  background-color: black;
+  color: white;
+}
+
+.order-btn:hover {
+  background-color: #ccc;
+}
+/* 주문 장바구니 버튼 끝 */
+/* ------- orderMenu.html 끝-------- */

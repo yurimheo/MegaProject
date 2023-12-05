@@ -16,8 +16,9 @@ public class NoticeDto {
     private String noticeTitle;
     private String noticeCate;
     private String noticeImgUrl;
+    private String noticeTitleImg;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime noticeDatetime;
+    private LocalDateTime noticeDateTime;
 
     public static NoticeDto toDto(NoticeEntity entity){
         return NoticeDto.builder()
@@ -25,7 +26,8 @@ public class NoticeDto {
                 .noticeTitle(entity.getNoticeTitle())
                 .noticeCate(entity.getNoticeCate())
                 .noticeImgUrl(entity.getNoticeImgUrl())
-                .noticeDatetime(entity.getNoticeDateTime())
+                .noticeTitleImg(entity.getNoticeTitleImg())
+                .noticeDateTime(entity.getNoticeDateTime())
                 .build();
     }
 }

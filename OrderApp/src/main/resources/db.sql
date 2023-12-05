@@ -38,10 +38,11 @@ SELECT * FROM megamega.item;
 
 -- 지점 테이블
 DROP TABLE if EXISTS megamega.store;
-CREATE TABLE store (
-    store_no INT AUTO_INCREMENT NOT NULL PRIMARY KEY, -- 고유키  
-	store_name TEXT NOT NULL, -- 지점명
-	store_address VARCHAR(255) -- 지점주소
+CREATE TABLE megamega.store (
+   store_no INT AUTO_INCREMENT NOT NULL PRIMARY KEY, -- 고유키  
+   store_local TEXT NOT NULL, -- 지역
+    store_name TEXT NOT NULL, -- 지점명
+    store_address VARCHAR(255) -- 지점주소
 );
 
 -- 장바구니 테이블

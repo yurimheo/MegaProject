@@ -60,13 +60,14 @@
             <button
               type="button"
               class="btn btn-light product-add"
+              id="itemAdd"
               data-bs-toggle="tooltip"
               data-bs-placement="top"
               data-bs-title="신규 상품을 등록할 수 있습니다."
             >
               <img
                 class="add-button"
-                th:src="@{/static/images/icons/add.png}"
+                th:src="@{/images/icons/add.png}"
                 alt="add_icon"
               />
               상품 신규등록
@@ -81,7 +82,7 @@
             >
               <img
                 class="minus-button"
-                th:src="@{/static/images/icons/minus-button.png}"
+                th:src="@{/images/icons/minus-button.png}"
                 alt=""
               />
               선택항목 삭제
@@ -125,21 +126,20 @@
               <td th:text="${item.itemPrice}"></td>
               <td th:text="${item.itemUpdateDatetime}"></td>
               <td>
-                <a
-                  th:href="@{/admin/item/detail/{name}(name=${item.itemName})}"
-                  style="color: #ffc107"
+                <button
+                  type="button"
+                  class="detailCheck-btn detailCheck"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-custom-class="custom-tooltip"
+                  data-bs-title="상품의 정보를 상세 조회 합니다."
                 >
-                  <button
-                    type="button"
-                    class="detailCheck-btn detailCheck"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    data-bs-custom-class="custom-tooltip"
-                    data-bs-title="상품의 정보를 상세 조회 합니다."
+                  <a
+                    th:href="@{/admin/item/detail/{name}(name=${item.itemName})}"
+                    style="color: #ffc107"
+                    >상세조회</a
                   >
-                    상세조회
-                  </button>
-                </a>
+                </button>
               </td>
             </tr>
           </tbody>
@@ -206,7 +206,6 @@
       }
 
       // 검색기능
-      // 회원 조회
       function searchItemAction() {
         // 검색 옵션 및 검색값 가져오기
         const searchOption = document.getElementById("searchOption").value;
@@ -291,6 +290,8 @@
         });
         updateItemCount(data.length);
       }
+
+
     </script>
   </body>
 </html>

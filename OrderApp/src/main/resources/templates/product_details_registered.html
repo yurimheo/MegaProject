@@ -20,8 +20,12 @@
             <h2 class="top fw-bold d-flex editTitle">상품 등록</h2>
             <div class="registered text-end">
               <span class="text-end registeredCheckbox">
-             <span class="fs-6">신메뉴&nbsp;<input type="checkbox" id="itemNewMenu" /></span>
-            <span class="fs-6">추천메뉴&nbsp;<input type="checkbox" id="itemRecommended" /></span>
+                <span class="fs-6" id="itemNewMenu">
+                  신메뉴&nbsp;<input type="checkbox" />
+                </span>
+                <span class="fs-6" id="itemRecommended">
+                  추천메뉴&nbsp;<input type="checkbox" />
+                </span>
               </span>
             </div>
           </div>
@@ -32,13 +36,13 @@
             <table class="table col product-table table-bordered mb-0">
               <thead>
                 <tr class="topTable">
-                  <th scope="col" class="title text-center" id="Category">
+                  <th scope="col" class="title text-center" id="category">
                     카테고리
                   </th>
-                  <th scope="col" class="title text-center" id="ItemName">
+                  <th scope="col" class="title text-center" id="itemName">
                     상품명
                   </th>
-                  <th scope="col" class="title text-center" id="ItemPrice">
+                  <th scope="col" class="title text-center" id="itemPrice">
                     상품 가격
                   </th>
                 </tr>
@@ -48,29 +52,27 @@
                   <td
                     class="d-flex justify-content-center flex-wrap align-items-center"
                   >
+                      <!--카테고리-->
                     <div class="input-group w-50">
-                      <select
-                        class="form-select"
-                        id="inputItemCate"
-                        name="productName"
-                      >
-                        <option value="신메뉴">신메뉴</option>
-                        <option value="커피">커피</option>
-                        <option value="티">티</option>
-                        <option value="에이드 & 스무디">에이드 & 스무디</option>
+                      <select class="form-select" id="inputCategory" th:value="${item.itemCate}">
+                        <option value="1">신메뉴</option>
+                        <option value="2">커피</option>
+                        <option value="3">티</option>
+                        <option value="4">에이드&스무디</option>
                       </select>
                     </div>
                   </td>
-<!-- 상품명 -->
+                  <!--상품명-->
                   <td class="topTable text-center">
-                    <input type="text" id="inputItemName" name="productName" />
+                    <input type="text" id="inputItemName" name="productName" th:value="${item.itemName}" />
                   </td>
-<!-- 상품 가격 -->
+                  <!--상품 가격-->
                   <td class="text-center">
                     <input
                       type="text"
                       id="inputItemPrice"
                       name="productPrice1"
+                      th:value="${item.itemPrice}"
                     />
                   </td>
                 </tr>
@@ -96,28 +98,34 @@
                 <tr>
                   <td>
                     <div class="upload-box">
-                      <img class="admin_item_img" id="imgItemImageUrl" />
-                      &nbsp;&nbsp;<button
-                        type="file"
-                        class="btn btn-primary"
-                        onclick="onClickUpload();"
+                      <div id="drop-file" class="drag-file">
+                        <img
+                          src="https://img.icons8.com/pastel-glyph/2x/image-file.png"
+                          alt="파일 아이콘"
+                          class="admin_item_img" id="imgItemImageUrl" th:src="${item.itemImageUrl}"
+                        />
+                        <p class="message">Drag files to upload</p>
+                        <img src="" alt="미리보기 이미지" class="preview" />
+                      </div>
+                      <label class="file-label" for="chooseFile"
+                        >파일 선택</label
                       >
-                        등록
-                      </button>
-                      <!--  -->
                       <input
+                        class="file"
+                        id="chooseFile"
                         type="file"
-                        style="visibility: hidden"
-                        id="inputItemImageUrl"
-                        onchange="readURL(this);"
+                        onchange="dropFile.handleFiles(this.files)"
+                        accept="image/png, image/jpeg, image/gif"
                       />
                     </div>
                   </td>
+                  <!--상품 설명-->
                   <td>
                     <textarea
                       class="w-100 h-100"
                       name="productUpdate"
                       id="inputItemExplanation"
+                      th:value="${item.itemRecommend}"
                       cols="18"
                       rows="19"
                     ></textarea>
@@ -131,138 +139,101 @@
 
         <!-- 상품 등록/수정 버튼 시작-->
         <div class="d-flex registered">
-          <span class="text-end registeredBtn product-registeredBtn">
-            <button
-              type="button"
-              class="btn btn-warning text-white"
-              id="itemAdd"
-              onclick="func_item_addAction();"
-            >
-              상품 등록
-            </button>
-          </span>
+            <span class="text-end registeredBtn product-registeredBtn">
+              <button
+                type="button"
+                class="btn btn-warning text-white"
+                onclick="submitForm()"
+              >
+                상품 등록
+              </button>
+            </span>
         </div>
       </div>
     </div>
     <!-- 상품 등록/수정 버튼 끝-->
 
     <script layout:fragment="script">
-      function onClickUpload() {
-        let inputItemImageUrl = document.getElementById("inputItemImageUrl");
-        inputItemImageUrl.click();
-      }
+      //이미지 업로드 js 시작
+      function DropFile(dropAreaId, fileListId) {
+        let dropArea = document.getElementById(dropAreaId);
+        let fileList = document.getElementById(fileListId);
 
-      function readURL(input) {
-        if (input.files && input.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function (e) {
-            document.getElementById("imgItemImageUrl").src = e.target.result;
-          };
-          reader.readAsDataURL(input.files[0]);
-        } else {
-          document.getElementById("imgItemImageUrl").src = "";
+        function preventDefaults(e) {
+          e.preventDefault();
+          e.stopPropagation();
         }
 
-        let inputItemImageUrl = document.getElementById("inputItemImageUrl");
-        console.log("input:file value:" + inputItemImageUrl.value);
-        console.log("files:" + inputItemImageUrl.files[0]);
-      }
+        function highlight(e) {
+          preventDefaults(e);
+          dropArea.classList.add("highlight");
+        }
 
-      function func_item_addAction() {
-        image_upload();
-      }
-      function image_upload() {
-        let inputItemImageUrl = document.getElementById("inputItemImageUrl");
+        function unhighlight(e) {
+          preventDefaults(e);
+          dropArea.classList.remove("highlight");
+        }
 
-        let fileUrl = inputItemImageUrl.value; //C:\fakepath\cosmos.jpg
-        let index = fileUrl.lastIndexOf("\\");
-        let fileName = fileUrl.substr(index + 1); //cosmos.jpg
-        console.log("fileName:" + fileName);
+        function handleDrop(e) {
+          unhighlight(e);
+          let dt = e.dataTransfer;
+          let files = dt.files;
 
-        let form = new FormData();
-        form.enctype = "multipart/form-data";
-        form.append("file", inputItemImageUrl.files[0], fileName);
+          handleFiles(files);
 
-        fetch("/upload", {
-          method: "POST",
-          headers: {
-            //"Content-Type": "multipart/form-data"
-          },
-          body: form,
-        })
-          .then((response) => {
-            console.log("response:" + response);
-            console.log("response:" + JSON.stringify(response));
+          const fileList = document.getElementById(fileListId);
+          if (fileList) {
+            fileList.scrollTo({ top: fileList.scrollHeight });
+          }
+        }
 
-            return response.json();
-          }) //HTTP 응답
-          .then((json) => {
-            //{ status: "ok", result: 5 }
-            console.log("json:" + json);
-            console.log("json:" + JSON.stringify(json));
-            console.log("uploadFileName:" + json.uploadFileName);
+        function handleFiles(files) {
+          files = [...files];
+          // files.forEach(uploadFile);
+          files.forEach(previewFile);
+        }
 
-            func_item_addAction_json(json.uploadFileName);
-          }) //실제 데이타
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-      // 상품 등록 액션
-      function func_item_addAction_json(itemImageUrl) {
-        // 아이템 코드 랜덤 UUID 생성
-        let itemCodeValue = uuid.v4();
- let newMenuValue = document.getElementById("itemNewMenu").checked ? 1 : 0;
-    let recommendedValue = document.getElementById("itemRecommended").checked ? 1 : 0;
+        function previewFile(file) {
+          console.log(file);
+          renderFile(file);
+        }
 
-        const itemNameValue = document.getElementById("inputItemName").value;
-        //const inputItemImageUrl = document.getElementById("itemImageUrl").value;
-        const categoryValue = document.getElementById("inputItemCate").value;
-        const itemPriceValue = document.getElementById("inputItemPrice").value;
-        let itemExplanationValue = document.getElementById(
-          "inputItemExplanation"
-        ).value;
-        console.log("아이템 코드:" + itemCodeValue);
-        console.log("신메뉴:" + newMenuValue);
-        console.log("추천메뉴:" + recommendedValue);
-        console.log("카테고리:" + categoryValue);
-        console.log("상품명:" + itemNameValue);
-        console.log("상품가격:" + itemPriceValue);
-        console.log("상품설명:" + itemExplanationValue);
+        function renderFile(file) {
+          let reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onloadend = function () {
+            let img = dropArea.getElementsByClassName("preview")[0];
+            img.src = reader.result;
+            img.style.display = "block";
+          };
+        }
 
-        let params = {
-          itemCode: itemCodeValue,
-          itemNew: newMenuValue,
-          itemRecommend: recommendedValue,
-          itemCate: categoryValue,
-          itemName: itemNameValue,
-          itemPrice: itemPriceValue,
-          itemExplanation: itemExplanationValue,
-          itemImageUrl: itemImageUrl,
-          itemUpdateDatetime: new Date(),
+        dropArea.addEventListener("dragenter", highlight, false);
+        dropArea.addEventListener("dragover", highlight, false);
+        dropArea.addEventListener("dragleave", unhighlight, false);
+        dropArea.addEventListener("drop", handleDrop, false);
+
+        return {
+          handleFiles,
         };
-
-        fetch("/admin/product/addItem", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(params),
-        })
-          .then((response) => {
-            console.log("response:" + response);
-            return response.json();
-          }) //HTTP 응답
-          .then((json) => {
-            //{ status: "ok", result: 5 }
-            console.log("json:" + json);
-            //console.log("json:" + JSON.stringify(json));
-
-            //다음페이지로 이동
-            window.location.href = "/admin/product_management";
-          }) //실제 데이타
-          .catch((error) => {
-            console.log(error);
-          });
       }
+
+      const dropFile = new DropFile("drop-file", "files");
+      //이미지 업로드 js 끝
+
+      // 상품등록 버튼 클릭시 상품관리 페이지로 이동 js
+      $(document).ready(function () {
+        $(".btn").on("click", function (e) {
+          e.preventDefault();
+
+          window.location.href = "/admin/product_management";
+        });
+      });
+
+      // ---------이미지 및 상품 업로드 시작-----------
+
+
+
     </script>
   </body>
 </html>

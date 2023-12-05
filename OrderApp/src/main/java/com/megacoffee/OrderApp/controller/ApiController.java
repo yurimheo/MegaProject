@@ -3,6 +3,8 @@ package com.megacoffee.OrderApp.controller;
 import com.megacoffee.OrderApp.dto.*;
 import com.megacoffee.OrderApp.entity.MemberEntity;
 import com.megacoffee.OrderApp.entity.MemberRepository;
+import com.megacoffee.OrderApp.entity.StoreEntity;
+import com.megacoffee.OrderApp.entity.StoreRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
+
 // @RestController : 해당 클래스가 'RESTfulAPI'를 제공하는 컨트롤러임을 나타내는 어노테이션
 @RestController
 public class ApiController {
@@ -228,5 +232,20 @@ public class ApiController {
                     .status("error")
                     .build();
         }
+    }
+
+    @Autowired
+    StoreRepository storeRepository;
+    //매장 검색 기능
+    @PostMapping("/user/store")
+    public List<StoreDto> store(@RequestBody Map<String, String> params) {
+        String searchValue = params.get("searchValue");
+
+        List<StoreEntity> storeList = storeRepository.findByStoreNameContaining(searchValue);
+
+        return storeList.stream()
+                .map(StoreDto::toDto)
+                .collect(Collectors.toList());
+
     }
 }

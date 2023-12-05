@@ -97,21 +97,21 @@ public class AdminViewController {
     }
 
 // 상품관리화면 - 상품 상세 조회 탭으로 이동
-    @GetMapping("/item/detail/{name}")
-    public String itemDetail(@PathVariable String name , Model model) {
-        // 상품명을 통해 상품 정보 찾기
-        List<ItemEntity> items = itemRepository.findByItemName(name);
+@GetMapping("/item/detail/{name}")
+public String itemDetail(@PathVariable String name , Model model) {
+    // 아이디를 통해 회원 정보 찾기
+    List<ItemEntity> items = itemRepository.findByItemName(name);
 
-        // DB에 상품이 있는가?
-        if (!items.isEmpty()) {
-            ItemEntity item = items.get(0); // 여러 회원 중 하나를 선택 (첫 번째 회원)
-            model.addAttribute("item", item);
-            model.addAttribute("pageName", "상품관리");
-            return "/product_details";  // 회원 상세 정보 조회 페이지로 이동
-        } else {
-            return "redirect:/admin/product_management";
-        }
+    // DB에 상품이 있는가?
+    if (!items.isEmpty()) {
+        ItemEntity item = items.get(0); // 여러 회원 중 하나를 선택 (첫 번째 회원)
+        model.addAttribute("item", item);
+        model.addAttribute("pageName", "상품관리");
+        return "/product_details";  // 회원 상세 정보 조회 페이지로 이동
+    } else {
+        return "redirect:/admin/product_management";
     }
+}
 
     // 상품관리화면 - 상품 수정 탭으로 이동
     @GetMapping("/item/update/{name}")
@@ -148,6 +148,22 @@ public String notices(Model model){
     return "managementAnnouncement";
 }
 
+    @GetMapping("/notice/detail/{no}")
+    public String noticeDetail(@PathVariable long no, Model model) {
+
+        List<NoticeEntity> notices = noticeRepository.findByNoticeNo(no);
+
+
+        if (!notices.isEmpty()) {
+            NoticeEntity notice = notices.get(0);
+            model.addAttribute("notice", notice);
+            model.addAttribute("pageName", "공지");
+            return "/managementNoticeDetailed";
+        } else {
+            return "redirect:/admin/notice";
+        }
+    }
+
     @GetMapping("/order")
     public String orders(Model model){
         List<OrderEntity> listEntity = orderRepository.findAll();
@@ -163,5 +179,20 @@ public String notices(Model model){
 
 
         return "managementOrder";
+    }
+    @GetMapping("/order/detail/{no}")
+    public String orderDetail(@PathVariable long no, Model model) {
+
+        List<OrderEntity> orders = orderRepository.findByOrderNo(no);
+
+
+        if (!orders.isEmpty()) {
+            OrderEntity order = orders.get(0);
+            model.addAttribute("order", order);
+            model.addAttribute("pageName", "주문관리");
+            return "/managementOrderDetailed";
+        } else {
+            return "redirect:/admin/order";
+        }
     }
 }

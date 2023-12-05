@@ -63,5 +63,5 @@ INSERT INTO megamega.member (
     '01055556666',
     'ROLE_USER',
     '2021-09-18',
-    0
+    5
 );

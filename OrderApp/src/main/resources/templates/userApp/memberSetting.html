@@ -41,11 +41,71 @@
         <div
           class="nameSetting w-100 d-flex justify-content-between align-items-center"
         >
-          <span><p>이름</p></span>
+          <span><p class="settingCate">이름</p></span>
           <span class="d-flex">
             <p th:text="|${loginName}|" class="settingFont fw-bold">테스트</p>
-            <button type="button" class="settingBtn">변경</button>
+            <button
+              type="button"
+              class="settingBtn"
+              id="namePopupBtn"
+              data-bs-toggle="modal"
+              data-bs-target="#nameModal"
+            >
+              변경
+            </button>
           </span>
+
+          <div
+            class="modal fade"
+            id="nameModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content" style="height: 400px; overflow: hidden;">
+                <div
+                  class="modal-header d-flex justify-content-center align-items-end"
+                  style="height: 40%"
+                >
+                  <h1
+                    class="modal-title fw-bold"
+                    id="exampleModalLabel"
+                    style="font-size: 38px"
+                  >
+                    이름 변경
+                  </h1>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="mb-3 d-flex justify-content-center">
+                      <input
+                        class="inputNameBox"
+                        type="text"
+                        name="memberName"
+                        id="inputMemberName"
+                        th:value="|${loginName}|"
+                      />
+                    </div>
+                  </form>
+                </div>
+                <div class="modalFooter d-flex">
+                  <div class="modalCancelDiv">
+                    <button
+                      type="button"
+                      class="modalCancelBtn"
+                      data-bs-dismiss="modal"
+                    >
+                      취소
+                    </button>
+                  </div>
+                  <div class="modalChangeDiv">
+                    <button type="button" class="modalChangeBtn">변경</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <!-- 이름 -->
         </div>
         <!-- ************************************************* -->
@@ -54,16 +114,20 @@
         <div class="etcSetting w-100">
           <!-- 생년월일 -->
           <span class="d-flex justify-content-between">
-            <p>생년월일</p>
-            <p th:text="|${memberBirth}|">1999년 9월 9일</p>
+            <p class="settingCate">생년월일</p>
+            <p th:text="|${memberBirth}|" class="settingFont fw-bold">
+              1999년 9월 9일
+            </p>
           </span>
           <!-- 휴대전화번호 -->
           <span class="phoneSetting d-flex justify-content-between">
             <span>
-              <p>휴대전화번호</p>
+              <p class="settingCate">휴대전화번호</p>
             </span>
             <span class="d-flex justify-content-between">
-              <p th:text="|${memberPhone}|">010-1245-1245</p>
+              <p th:text="|${memberPhone}|" class="settingFont fw-bold">
+                010-1245-1245
+              </p>
               <button type="button" class="settingBtn">변경</button>
             </span>
           </span>
@@ -76,7 +140,7 @@
           style="padding-right: 30px"
         >
           <!-- 회원 탈퇴 -->
-          <p>회원 탈퇴</p>
+          <p class="settingCate">회원 탈퇴</p>
           <a href="" onclick="history.back();"
             ><img
               class="backImg ms-3"

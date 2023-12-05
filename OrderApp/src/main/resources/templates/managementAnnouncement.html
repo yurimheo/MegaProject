@@ -19,7 +19,7 @@
       <div class="border border-top border-dark"></div>
       <!-- 구분선 끝 -->
       <div class="mt-2 d-flex flex-wrap justify-content-between">
-        <span th:text="|공지 총 ${count}개|">0</span>
+        <span class="fw-bold" th:text="|공지 총 ${count}개|">0</span>
         <div class="position-relative">
           <button
             type="button"
@@ -32,7 +32,7 @@
           >
             <img
               class="minus-button"
-              th:src="@{/images/icons/add.png}"
+              th:src="@{/static/images/icons/add.png}"
               alt=""
             />
             신규 등록
@@ -48,7 +48,7 @@
           >
             <img
               class="minus-button"
-              th:src="@{/images/icons/minus-button.png}"
+              th:src="@{/static/images/icons/minus-button.png}"
               alt=""
             />
             선택 삭제
@@ -84,13 +84,13 @@
             </td>
             <td><span th:text="${notice.noticeNo}"></span></td>
             <td><span th:text="${notice.noticeCate}"></span></td>
-            <td><span th:text="${notice.noticeDatetime}"></span></td>
+            <td><span th:text="${notice.noticeDateTime}"></span></td>
             <td><span th:text="${notice.noticeTitle}"></span></td>
             <!-- 상세조회 버튼 -->
             <td>
               <button class="notice-detail-btn">
                 <a
-                  th:href="@{/notice/details/{id}(id=${notice.noticeNo})}"
+                  th:href="@{/admin/notice/detail/{no}(no=${notice.noticeNo})}"
                   class="p-0 notice-detail"
                   data-bs-toggle="tooltip"
                   data-bs-placement="top"

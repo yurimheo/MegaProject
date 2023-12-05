@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/mobile_layout}"
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/mobile_layout}"
 >
   <head>
     <meta charset="UTF-8" />
@@ -18,7 +20,7 @@
     <!-- 아이폰 노치 커버 -->
     <meta name="viewport" content="viewport-fit=cover" />
     <title>매장 선택</title>
-
+  </head>
   <body>
     <!-- 상단 메장선택 & 돋보기 버튼 시작 -->
     <div layout:fragment="mobile" class="container-fluid p-0">
@@ -30,23 +32,35 @@
           class="search text-end bg-transparent text-body border-0"
           style="width: 40%"
         >
-          <img id="search" src="./images/icons/search.png" alt="search" />
+          <img id="search" src="/static/images/icons/search.png" alt="search" />
         </button>
       </div>
       <br />
       <!-- 상단 메장선택 & 돋보기 버튼 끝 -->
-
-      <!-- 매장 선택 방법 시작 -->
-      <div class="storeListMenu d-flex">
-        <div id="btn1" class="storeListMenu-btn1 m-3 p-1 fs-1">
-          리스트로 선택
-        </div>
-        &nbsp
-        <div id="btn2" class="storeListMenu-btn2 m-3 p-1 fs-1">지도로 선택</div>
-        &nbsp
-        <div id="btn3" class="storeListMenu-btn3 m-3 p-1 fs-1">즐겨찾기</div>
+      <!-- <span class="input-group-text bg-white border-0" id="basic-addon1"
+      ><img src="/images/icons/search.png" alt=""
+      /></span> -->
+      <!-- 매장 검색창 시작 -->
+      <div class="input-group mb-3">
+        <button
+          class="btn btn-outline-secondary search bg-white border-0"
+          type="button"
+          id="button-addon2"
+          onclick="searchStoreAction();"
+        >
+          <img src="/static/images/icons/search.png" alt="" />
+        </button>
+        <input
+          type="text"
+          class="form-control fs-1"
+          placeholder="지점명으로 검색"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+          id="searchValue"
+        />
+        <img id="textReset" src="/static/images/icons/cross.png" />
       </div>
-      <!-- 매장 선택 방법 끝 -->
+      <!-- 상품 검색창 끝 -->
 
       <!-- 가로 선 시작 -->
       <div class="line border border-bottom"></div>
@@ -55,50 +69,49 @@
       <!-- 내 주변 매장 문구 시작 -->
       <div class="aroundStore m-4 fs-3">
         내 주변에
-        <label class="highlighte">15개의 매장</label>이 있습니다.
+        <label class="highlight" th:text="|총 ${count}개의 매장|"
+          >15개의 매장</label
+        >이 있습니다.
       </div>
       <!-- 내 주변 매장 문구 끝 -->
 
       <!-- 매장 리스트 시작-->
-      <div id="storeList" class="storeList d-flex justify-content-between m-5">
-        <div class="storeNmae">
-          <div class="fw-bold fs-1 m-1">의정부역점</div>
-          <div class="fs-2 m-1">경기도 의정부시 시민로 75</div>
-          <div class="fs-3 m-1 text-danger">122m</div>
-        </div>
-        <div class="storeImg">
-          <div>
-            <img
-              src="./images/icons/apple-touch-icon-152x152.png"
-              alt="매장사진"
-            />
+      <div id="storeList" class="storeList m-5">
+        <div class="storeName" th:each="store, status:${ list }">
+          <div class="d-flex justify-content-between">
+            <div class="w-75">
+              <div class="d-flex">
+                <div
+                  class="fw-bold fs-1 m-1 text-warning"
+                  th:text="${store.storeNo}"
+                ></div>
+                <span>&nbsp;&nbsp;&nbsp;</span>
+                <div
+                  class="fw-bold fs-1 m-1"
+                  th:text="${store.storeName}"
+                ></div>
+              </div>
+              <div class="fs-2 m-1" th:text="${store.storeAddress}"></div>
+            </div>
+            <div class="w-25">
+              <div class="storeImg">
+                <div>
+                  <img
+                    class="storeImg m-1"
+                    style="border-radius: 100px"
+                    src="./images/icons/store.jpg"
+                    alt="매장사진"
+                    width="150"
+                    height="150"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
-          <img
-            id="firef"
-            class="starimgStar"
-            style="width: 60px"
-            src="./images/icons/myStoreIcon.png"
-            onclick="hover1()"
-            alt=""
-          />
         </div>
       </div>
       <!-- 매장 리스트 끝-->
     </div>
-
-    <!-- 부트스트랩 JS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
-      integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
-      crossorigin="anonymous"
-    ></script>
-    <!--  사용자 정의 JS -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <script layout:fragment="script">
       //메뉴 리스트 선택 js 시작
@@ -112,25 +125,12 @@
         });
       });
 
-      // 즐겨찾기 버튼
-      let isImageChanged = false;
-      function hover1() {
-        if (!isImageChanged) {
-          document.getElementById("firef").src =
-            "../../static/images/icons/myStoreIcon2.png";
-          isImageChanged = true;
-        } else {
-          document.getElementById("firef").src =
-            "../../static/images/icons/myStoreIcon.png";
-          isImageChanged = false;
-        }
-      }
       // 돋보기 클릭시 지점명 검색으로 이동
       $(document).ready(function () {
         $("#search").on("click", function (e) {
           e.preventDefault();
 
-          window.location.href = "/store_search";
+          window.location.href = "/store/search";
         });
       });
 
@@ -139,9 +139,92 @@
         $("#storeList").on("click", function (e) {
           e.preventDefault();
 
-          window.location.href = "/order_choice";
+          window.location.href = "/order/choice";
         });
       });
+
+      // 검색 기능
+      function searchStoreAction() {
+        // 검색 옵션 및 검색값 가져오기
+        const searchValue = document.getElementById("searchValue").value;
+
+        // 파라미터 보내기
+        const params = { searchValue };
+
+        fetch("/user/store", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(params),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            updateTable(data); // 테이블 업데이트
+          })
+          .catch((error) => {
+            console.error("상품 검색 실페:", error);
+          });
+      }
+
+      // 데이터로 테이블 업데이트하는 함수
+      function updateTable(data) {
+        const storeList = document.getElementById("storeList");
+
+        // 기존 매장 리스트 초기화
+        storeList.innerHTML = "";
+
+        // 받아온 데이터로 매장 리스트 업데이트
+        data.forEach((store) => {
+          const storeDiv = document.createElement("div");
+          storeDiv.className = "storeName";
+
+          const storeInfoDiv = document.createElement("div");
+          storeInfoDiv.className = "d-flex justify-content-between";
+
+          const leftColumnDiv = document.createElement("div");
+          leftColumnDiv.className = "w-75";
+
+          const storeNoDiv = document.createElement("div");
+          storeNoDiv.className = "fw-bold fs-1 m-1 text-warning";
+          storeNoDiv.innerText = store.storeNo;
+
+          const storeNameDivInner = document.createElement("div");
+          storeNameDivInner.className = "fw-bold fs-1 m-1";
+          storeNameDivInner.innerText = store.storeName;
+
+          const storeAddressDiv = document.createElement("div");
+          storeAddressDiv.className = "fs-2 m-1";
+          storeAddressDiv.innerText = store.storeAddress;
+
+          leftColumnDiv.appendChild(storeNoDiv);
+          leftColumnDiv.appendChild(document.createElement("span"));
+          leftColumnDiv.appendChild(storeNameDivInner);
+          leftColumnDiv.appendChild(storeAddressDiv);
+
+          const rightColumnDiv = document.createElement("div");
+          rightColumnDiv.className = "w-25";
+
+          const storeImgDiv = document.createElement("div");
+          const storeImg = document.createElement("img");
+          storeImg.className = "storeImg m-1";
+          storeImg.style.borderRadius = "100px";
+          storeImg.src = "/static/images/icons/store.jpg";
+          storeImg.alt = "매장사진";
+          storeImg.width = "150";
+          storeImg.height = "150";
+
+          storeImgDiv.appendChild(storeImg);
+          rightColumnDiv.appendChild(storeImgDiv);
+
+          storeInfoDiv.appendChild(leftColumnDiv);
+          storeInfoDiv.appendChild(rightColumnDiv);
+
+          storeDiv.appendChild(storeInfoDiv);
+          storeList.appendChild(storeDiv);
+        });
+      }
     </script>
   </body>
 </html>
