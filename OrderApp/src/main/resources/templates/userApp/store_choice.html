@@ -28,12 +28,7 @@
         <div class="choiceStore text-end p-4" style="width: 60%">
           <div class="fw-bold fs-1">매장 선택</div>
         </div>
-        <button
-          class="search text-end bg-transparent text-body border-0"
-          style="width: 40%"
-        >
-          <img id="search" src="/static/images/icons/search.png" alt="search" />
-        </button>
+
       </div>
       <br />
       <!-- 상단 메장선택 & 돋보기 버튼 끝 -->
@@ -124,6 +119,12 @@
           $(this).addClass("active");
         });
       });
+
+      //x 클릭시 텍스트 지워짐 js
+      document.getElementById('textReset').addEventListener('click', function() {
+        document.getElementById('searchValue').value = '';
+    });
+
 
       // 돋보기 클릭시 지점명 검색으로 이동
       $(document).ready(function () {

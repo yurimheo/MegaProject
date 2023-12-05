@@ -1,9 +1,6 @@
 package com.megacoffee.OrderApp.controller;
 
-import com.megacoffee.OrderApp.dto.CartDto;
-import com.megacoffee.OrderApp.dto.FindIdDto;
-import com.megacoffee.OrderApp.dto.NoticeDto;
-import com.megacoffee.OrderApp.dto.StoreDto;
+import com.megacoffee.OrderApp.dto.*;
 import com.megacoffee.OrderApp.entity.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,6 +113,9 @@ public class ViewController {
     @Autowired
     private NoticeRepository noticeRepository;
 
+    @Autowired
+    private ItemRepository itemRepository;
+
     @GetMapping("/main")
     public String main(Model model, HttpServletRequest request){
         String loginId = (String)request.getSession().getAttribute("loginId");
@@ -137,6 +137,21 @@ public class ViewController {
 
         model.addAttribute("count", listDto.size());
         model.addAttribute("list", listDto);
+
+        //추천 메뉴 불러오기
+        List<ItemEntity> itemEntity = itemRepository.findAll();
+
+        List<ItemDto> itemDto = itemEntity
+                .stream()
+                .map(ItemDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("count2", itemDto.size());
+        model.addAttribute("list2", itemDto);
+
+
+
+
         return  "/userApp/main";}
 
     // 스탬프
@@ -211,6 +226,10 @@ public class ViewController {
         model.addAttribute("list", listDto);
         return "/userApp/newnews";
     }
+
+
+
+
     @GetMapping("/newnews2")
     public String news2(Model model){
         List<NoticeEntity> listEntity = noticeRepository.findAll();
@@ -258,12 +277,28 @@ public class ViewController {
     }
     // 4. 더보기 끝 ---------------------------------------------
 
-    // 메장 및 메뉴 검색, 선택
+    // ------------매장 및 메뉴 검색, 선택 ---------------
+
     //메뉴검색
     @GetMapping("/menu/search")
-    public String menuSearch() {
+    public String menuSearch(Model model) {
+
+        //메뉴 불러오기
+        List<ItemEntity> itemEntity = itemRepository.findAll();
+
+        List<ItemDto> itemDto = itemEntity
+                .stream()
+                .map(ItemDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("count", itemDto.size());
+        model.addAttribute("list", itemDto);
+
         return "/userApp/menu_search";
     }
+
+
+
 
     //주문하기(메뉴선택)
     @GetMapping("/menu")
@@ -288,10 +323,8 @@ public class ViewController {
         return "/userApp/store_choice";
     }
 
-    //매장검색
-    @GetMapping("/store/search")
-    public String storeSearch() {
-        return "/userApp/store_search";
-    }
+
+    // ------------메장 및 메뉴 검색, 선택 끝 ---------------
+
 }
 

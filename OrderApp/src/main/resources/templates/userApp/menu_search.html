@@ -27,7 +27,7 @@
         <button class="backBtn border-0 bg-white">
           <img
             id="backBtnImg"
-            src="/images/icons/cross.png"
+            src="../../static/images/icons/cross.png"
             alt="back"
           />
         </button>
@@ -35,7 +35,7 @@
           <div class="fw-bold fs-1">상품 검색</div>
         </div>
         <div class="cartImg">
-          <img src="/images/icons/online-shopping.png" alt="" />
+          <img src="../../static/images/icons/online-shopping.png" alt="" />
         </div>
       </div>
       <br />
@@ -44,7 +44,7 @@
       <!-- 상품 검색창 시작 -->
       <div class="input-group mb-3">
         <span class="input-group-text bg-white border-0" id="basic-addon1"
-          ><img src="/images/icons/search.png" alt=""
+          ><img src="../../static/images/icons/search.png" alt=""
         /></span>
         <input
           type="text"
@@ -53,47 +53,27 @@
           aria-label="Username"
           aria-describedby="basic-addon1"
         />
-        <img id="textReset" src="/images/icons/cross.png" />
+        <img id="textReset" src="../../static/images/icons/cross.png">
       </div>
       <!-- 상품 검색창 끝 -->
 
       <!-- 메뉴 검색 리스트 시작-->
-      <div class="itemList d-flex">
+      <div class="itemList d-flex" th:each="item : ${list}">
         <div class="img m-3 p-3">
-          <img src="http://placehold.it/300X300" alt="" />
+          <img alt="" th:src="@{'/static/upload/' + ${item.itemImageUrl}}" />
         </div>
         <div class="itemInput m-5 p-5">
-          <div class="text fs-1 fw-bold">[커피](ICE)아메리카노</div>
+          <div class="text fs-1 fw-bold" th:text="${item.itemName}">[커피](ICE)아메리카노</div>
           <br />
-          <div class="price fs-2">3,500원</div>
-        </div>
-      </div>
-      <div class="itemList d-flex">
-        <div class="img m-3 p-3">
-          <img src="http://placehold.it/300X300" alt="" />
-        </div>
-        <div class="itemInput m-5 p-5">
-          <div class="text fs-1 fw-bold">[커피](HOT)카페라떼</div>
-          <br />
-          <div class="price fs-2">3,500원</div>
-        </div>
-      </div>
-      <div class="itemList d-flex">
-        <div class="img m-3 p-3">
-          <img src="http://placehold.it/300X300" alt="" />
-        </div>
-        <div class="itemInput m-5 p-5">
-          <div class="text fs-1 fw-bold">[Tea](HOT)녹차</div>
-          <br />
-          <div class="price fs-2">3,500원</div>
+          <div class="price fs-2" th:text="${item.itemPrice}">3,500원</div>
         </div>
       </div>
       <!-- 메뉴 검색 리스트 끝-->
-      <div class="moreBox">더보기</div>
+      <div class="moreBox" id="loadMoreButton">더보기</div>
     </div>
 
     <script layout:fragment="script">
-      //x버튼 클릭시 뒤로가기
+      //상단 x버튼 클릭시 뒤로가기
       $(document).ready(function () {
         $("#backBtnImg").on("click", function (e) {
           e.preventDefault();
