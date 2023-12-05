@@ -298,8 +298,6 @@ public class ViewController {
     }
 
 
-
-
     //주문하기(메뉴선택)
     @GetMapping("/menu")
     public String orderChoice() {

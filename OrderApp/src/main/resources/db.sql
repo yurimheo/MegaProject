@@ -57,7 +57,7 @@ CREATE TABLE cart (
     cart_item_amount INT(255) NOT NULL, -- 구매갯수
     cart_date DATETIME DEFAULT NOW() -- 주문일시
 );
-INSERT INTO cart VALUES (
+megamegamegamegaINSERT INTO cart VALUES (
  0, '8b3f1h05-991c-4807-83be-8c30e54257c7', '999a9999-b888-77c7-d666-89894444i885',
  '사과유자차', 'appletea.png',
  '3500','2', DEFAULT);
