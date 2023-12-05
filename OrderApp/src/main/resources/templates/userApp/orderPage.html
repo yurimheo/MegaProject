@@ -23,12 +23,13 @@
   <div layout:fragment="mobile" class="container-fluid p-0">
       <div
         class="headerTop fs-1 fs-1 fw-bold d-flex align-items-center justify-content-between"
+        style="position: fixed"
       >
         <a href="#"
            onclick="history.back();"
           ><img
             class="backImg ms-5"
-            th:src="@{images/icons/nav-back.svg}"
+            th:src="@{/static/images/icons/nav-back.svg}"
             alt=""
         /></a>
         <span span class="text-center flex-grow-1 me-5 pe-5">주문하기</span>
@@ -37,16 +38,16 @@
       <div class="p-5"><span class="fs-1 fw-bold w-100">주문상품</span></div>
       <div class="cart-list d-flex" th:each="cart, status:${ list }">
         <img
-          th:src="${cart.itemImageUrl}"
+                th:src="@{'/static/upload/' + ${cart.itemImageUrl}}"
           alt=""
         />
         <div class="w-100 mb-1">
-          <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-between" >
             <span th:text="${cart.itemName}" class="fw-bold fs-2">스모어블랙쿠키프라페</span>
             <a href="" style="height: 60px"
               ><img
                 class="cart-list-delete"
-                th:src="@{/images/icons/btn-cart-delete.svg}"
+                th:src="@{/static/images/icons/btn-cart-delete.svg}"
                 alt=""
             /></a>
           </div>
@@ -57,12 +58,12 @@
           <div class="amount-box">
             <div class="amount w-50">
               <a class="num-down" href=""
-                ><img th:src="@{/images/icons/btn-amount-min.svg}" alt=""
+                ><img th:src="@{/static/images/icons/btn-amount-min.svg}" alt=""
               /></a>
               <span class="number fs-1"  th:text="${cart.cartItemAmount}">1</span>
               <a class="num-up" href=""
                 ><img
-                  th:src="@{/images/icons/btn-amount-plus.svg}"
+                  th:src="@{/static/images/icons/btn-amount-plus.svg}"
                   alt=""
               /></a>
             </div>

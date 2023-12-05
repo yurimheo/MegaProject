@@ -189,15 +189,28 @@ public class ViewController {
 
         return "/userApp/orderPage";
     }
+
     // 4. 결제
     @GetMapping("/order")
     public String order(Model model){
+        List<CartEntity> listEntity = cartRepository.findAll();
+
+        List<CartDto> listDto = listEntity
+                .stream()
+                .map(CartDto::toCartDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("count", listDto.size());
+        model.addAttribute("list", listDto);
         return "/userApp/orderPage2";
     }
     // 3. 주문/결제하기 끝 ---------------------------------------
 
     // 4. 더보기 시작 -------------------------------------------
     // 4-(1) 더보기
+
+
+    //이벤트리스트
     @GetMapping("/newnews")
     public String news(Model model){
         List<NoticeEntity> listEntity = noticeRepository.findAll();
@@ -211,6 +224,7 @@ public class ViewController {
         model.addAttribute("list", listDto);
         return "/userApp/newnews";
     }
+    //공지 리스트
     @GetMapping("/newnews2")
     public String news2(Model model){
         List<NoticeEntity> listEntity = noticeRepository.findAll();
@@ -224,6 +238,7 @@ public class ViewController {
         model.addAttribute("list", listDto);
         return "/userApp/newnews2";
     }
+    //공지 자세히
     @GetMapping("/notice/details/{no}")
     public String noticeDetail(@PathVariable long no, Model model) {
 
@@ -238,6 +253,11 @@ public class ViewController {
         } else {
             return "redirect:/userApp/newsFeed";
         }
+    }
+
+    @GetMapping("/more")
+    public String more(){
+        return "/userApp/more";
     }
 
     // 4-(2) 계정 관리

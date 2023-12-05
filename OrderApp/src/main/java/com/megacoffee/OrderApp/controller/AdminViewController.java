@@ -157,7 +157,7 @@ public String notices(Model model){
         if (!notices.isEmpty()) {
             NoticeEntity notice = notices.get(0);
             model.addAttribute("notice", notice);
-            model.addAttribute("pageName", "공지");
+            model.addAttribute("pageName","공지관리");
             return "/managementNoticeDetailed";
         } else {
             return "redirect:/admin/notice";

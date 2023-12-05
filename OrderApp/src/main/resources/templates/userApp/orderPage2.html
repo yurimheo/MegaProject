@@ -23,11 +23,12 @@
     <div layout:fragment="mobile" class="container-fluid p-0">
       <div
         class="headerTop fs-1 fs-1 fw-bold d-flex align-items-center justify-content-between"
+        style="position: fixed"
       >
         <a href=""
           ><img
             class="backImg ms-5"
-            th:src="@{images/icons/nav-back.svg}"
+            th:src="@{/static/images/icons/nav-back.svg}"
             alt=""
         /></a>
         <span span class="text-center flex-grow-1 me-5 pe-5">주문하기</span>
@@ -47,7 +48,7 @@
             >
               <div class="accordion-content1">
                 <span class="fw-bold fs-1">주문 상품</span>
-                <span class="fs-2 fw-bold me-4">스모어블랙쿠키프라페</span>
+                <span class="fs-2 fw-bold me-4"  th:text="|${list[0].itemName} 외 ${count} 건|"  >스모어블랙쿠키프라페</span>
               </div>
             </button>
           </h2>
@@ -57,19 +58,19 @@
             data-bs-parent="#accordionFlushExample"
           >
             <div class="accordion-body">
-              <div class="cart-list d-flex">
+              <div class="cart-list d-flex " th:each="cart: ${list}">
                 <img
-                  src="https://megacoffee.coconutatelier.com/images/item/thumb-102556_main_320x0.png"
+                        th:src="@{'/static/upload/' + ${cart.itemImageUrl}}"
                   alt=""
                 />
                 <div class="w-100 mb-1">
                   <div class="d-flex justify-content-between">
-                    <span class="fw-bold fs-2">스모어블랙쿠키프라페</span>
+                    <span class="fw-bold fs-2" th:text="${cart.itemName}">아이템이름</span>
                   </div>
                   <div class="cart-option fs-2 mt-2 mb-5"></div>
                   <div class="amount-box">
-                    <div class="amount w-50 fs-1 fw-bold">1개</div>
-                    <div class="price fs-1 fw-bold">4,400원</div>
+                    <div class="amount w-50 fs-1 fw-bold" th:text="|${cart.cartItemAmount} 개|">1개</div>
+                    <div class="price fs-1 fw-bold"th:text="|${cart.itemPrice} 원|" >4,400원</div>
                   </div>
                 </div>
               </div>

@@ -23,7 +23,10 @@
   </head>
   <body>
     <div layout:fragment="mobile" class="container-fluid p-0">
-      <div class="headerTop fs-1 fw-bold justify-content-between" style="position: fixed;">
+      <div
+        class="headerTop fs-1 fw-bold justify-content-between"
+        style="position: fixed"
+      >
         <div class="d-flex align-items-center m-4 mt-5" style="height: 30px">
           <a href="" onclick="history.back();"
             ><img
@@ -62,7 +65,7 @@
           th:each="notice : ${list}"
           th:if="${notice.noticeCate == '이벤트'}"
         >
-          <a href="" style="color: black">
+          <a th:href="@{/notice/details/{no}(no=${notice.noticeNo})}" style="color: black">
             <img
               class="eventImg w-100"
               th:src="@{'/static/upload/' + ${notice.noticeTitleImg}}"
