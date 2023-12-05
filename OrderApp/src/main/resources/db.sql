@@ -93,5 +93,6 @@ CREATE TABLE notice (
 notice_title VARCHAR(255) NOT NULL, -- 공지 이름
 notice_cate  VARCHAR(255) NOT NULL, -- 공지 카테고리
 notice_image_url TEXT NOT NULL, -- 이미지
+notice_title_image TEXT,-- 타이틀이미지
 notice_datetime DATETIME DEFAULT NOW() -- 공지일시
 );
