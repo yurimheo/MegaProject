@@ -37,6 +37,7 @@ public class NoticeEntity {
                 .noticeTitle(dto.getNoticeTitle())
                 .noticeCate(dto.getNoticeCate())
                 .noticeImgUrl("images/add/" + dto.getNoticeImgUrl())
+                .noticeTitleImg(dto.getNoticeTitleImg())
                 .noticeDateTime(dto.getNoticeDateTime())
                 .build();
     }

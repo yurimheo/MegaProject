@@ -1,13 +1,11 @@
 package com.megacoffee.OrderApp.controller;
 
 import com.megacoffee.OrderApp.dto.*;
-import com.megacoffee.OrderApp.entity.MemberEntity;
-import com.megacoffee.OrderApp.entity.MemberRepository;
-import com.megacoffee.OrderApp.entity.StoreEntity;
-import com.megacoffee.OrderApp.entity.StoreRepository;
+import com.megacoffee.OrderApp.entity.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.lang.reflect.Member;
@@ -248,4 +246,35 @@ public class ApiController {
                 .collect(Collectors.toList());
 
     }
+    @Autowired
+    private CartRepository cartRepository;
+    // 카트목록 삭제
+    @PostMapping("/delete/cart")
+    @Transactional
+    public ResultDto deleteCart(@RequestBody Map<String, List<Integer>> params) {
+        List<Integer> cartNos = params.get("cartNos");
+
+        try {
+            for (long cartNo : cartNos) {
+                cartRepository.deleteByCartNo(cartNo);
+            }
+
+            // 삭제 후 결과를 응답
+            return ResultDto.builder()
+                    .status("ok")
+                    .result(1)
+                    .build();
+        } catch (Exception e) {
+            // 예외가 발생한 경우
+            String errorMessage = "삭제 중 오류가 발생했습니다.";
+            if (e.getMessage() != null) {
+                errorMessage += " 원인: " + e.getMessage();
+            }
+            return ResultDto.builder()
+                    .status("error")
+                    .message(errorMessage) // 좀 더 자세한 에러 메시지 반환
+                    .build();
+        }
+    }
+
 }

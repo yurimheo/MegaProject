@@ -37,6 +37,7 @@
       <div class="location fs-1">의정부역점</div>
       <div class="p-5"><span class="fs-1 fw-bold w-100">주문상품</span></div>
       <div class="cart-list d-flex" th:each="cart, status:${ list }">
+
         <img
                 th:src="@{'/static/upload/' + ${cart.itemImageUrl}}"
           alt=""
@@ -44,12 +45,16 @@
         <div class="w-100 mb-1">
           <div class="d-flex justify-content-between" >
             <span th:text="${cart.itemName}" class="fw-bold fs-2">스모어블랙쿠키프라페</span>
-            <a href="" style="height: 60px"
-              ><img
-                class="cart-list-delete"
+            <!--삭제버튼-->
+            <a class="delete"
+               href=""
+               style="height: 60px">
+              <img
+                      class="cart-list-delete"
                 th:src="@{/static/images/icons/btn-cart-delete.svg}"
                 alt=""
             /></a>
+
           </div>
           <div class="cart-option fs-2 mt-2 mb-5">
             <p>선택안함x1</p>
@@ -67,7 +72,8 @@
                   alt=""
               /></a>
             </div>
-            <div class="price fs-1 fw-bold" th:text="${cart.itemPrice}">0원</div>
+            <div class="price fs-1 fw-bold" th:attr="data-price=${cart.itemPrice}" th:text="${(cart.cartItemAmount * cart.itemPrice) + ' 원'}">0원</div>
+
           </div>
         </div>
       </div>
@@ -81,8 +87,8 @@
       <div class="order-detail w-100">
         <div class="order-detail-price p-5">
           <p class="fs-1">상품금액</p>
-          <span class="total-price fs-1 fw-bold" style="color: red">
-            9,900 원
+          <span id="totalAmount"  class="total-price fs-1 fw-bold" style="color: red">
+            0 원
           </span>
         </div>
         <div class="order-detail-btn">
@@ -90,5 +96,97 @@
         </div>
       </div>
     </div>
+  <script layout:fragment="script">
+  //상품 갯수 -
+     document.querySelectorAll('.num-down').forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      const quantityElement = this.nextElementSibling;
+      let currentQuantity = parseInt(quantityElement.textContent);
+
+      // 최소 수량을 1로 제한
+      if (currentQuantity > 1) {
+        currentQuantity--;
+        quantityElement.textContent = currentQuantity;
+
+      updatePrice(this);
+      updateTotalAmount();
+
+      }
+    });
+  });
+// 상품 갯수 +
+  document.querySelectorAll('.num-up').forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      const quantityElement = this.previousElementSibling;
+      let currentQuantity = parseInt(quantityElement.textContent);
+
+      // 수량을 증가시킴
+      currentQuantity++;
+      quantityElement.textContent = currentQuantity;
+
+      updatePrice(this);
+      updateTotalAmount();
+
+    });
+  });
+  // 아이템의 갯수 * 아이템의 가격
+  function updatePrice(element) {
+  const quantityElement = element.closest('.amount-box').querySelector('.number');
+  const priceElement = element.closest('.amount-box').querySelector('.price');
+  const itemPrice = parseFloat(priceElement.getAttribute('data-price'));
+  const currentQuantity = parseInt(quantityElement.textContent.trim());
+
+  const totalPrice = currentQuantity * itemPrice;
+
+  priceElement.textContent = totalPrice.toLocaleString() + ' 원';
+}
+
+// 아이템들의 총 합
+function updateTotalAmount() {
+  const priceElements = document.querySelectorAll('.price');
+  let totalAmount = 0;
+
+  priceElements.forEach(priceElement => {
+    const itemPrice = parseFloat(priceElement.getAttribute('data-price'));
+    const currentQuantity = parseInt(priceElement.closest('.amount-box').querySelector('.number').textContent.trim());
+    const totalPrice = currentQuantity * itemPrice;
+    totalAmount += totalPrice;
+  });
+
+  const totalAmountElement = document.getElementById('totalAmount');
+  totalAmountElement.textContent = totalAmount.toLocaleString() + ' 원';
+}
+updateTotalAmount();
+
+// 카트 아이템 삭제
+const cartNosToDelete = [1, 2, 3]; // 삭제할 카트 번호 목록을 이에 맞게 설정하세요
+
+fetch('/delete/cart', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ cartNos: cartNosToDelete })
+})
+.then(response => response.json())
+.then(data => {
+  if (data.status === 'ok') {
+    // 성공 시 처리할 로직
+    console.log('삭제가 완료되었습니다.');
+    // 예를 들어, 화면 갱신 등의 동작을 수행할 수 있습니다.
+  } else {
+    // 실패 시 처리할 로직
+    console.error('삭제에 실패했습니다:', data.message);
+  }
+})
+.catch(error => {
+  // 네트워크 오류 등을 처리할 수 있습니다.
+  console.error('네트워크 오류:', error);
+});
+  </script>
   </body>
 </html>

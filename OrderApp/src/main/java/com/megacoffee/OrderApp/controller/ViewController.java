@@ -254,7 +254,7 @@ public class ViewController {
             return "redirect:/userApp/newsFeed";
         }
     }
-
+    //더보기
     @GetMapping("/more")
     public String more(){
         return "/userApp/more";
