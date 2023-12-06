@@ -21,8 +21,16 @@
             <div class="registered text-end">
               <!-- 신메뉴/추천메뉴 체크박스 시작 -->
               <span class="text-end registeredCheckbox">
-                 <span class="fs-6">신메뉴&nbsp;<input type="checkbox" th:checked="${item.itemNew == 1}" /></span>
-                <span class="fs-6">추천메뉴&nbsp;<input type="checkbox" th:checked="${item.itemRecommend == 1}" /></span>
+                <span class="fs-6"
+                  >신메뉴&nbsp;<input
+                    type="checkbox"
+                    th:checked="${item.itemNew == 1}"
+                /></span>
+                <span class="fs-6"
+                  >추천메뉴&nbsp;<input
+                    type="checkbox"
+                    th:checked="${item.itemRecommend == 1}"
+                /></span>
               </span>
             </div>
           </div>
@@ -69,11 +77,17 @@
                 <tr>
                   <td>
                     <div class="upload-box">
-                      <img th:src="@{'/static/upload/' + ${item.itemImageUrl}}" alt="Item Image" />
+                      <img
+                        th:src="@{'/static/upload/' + ${item.itemImageUrl}}"
+                        alt="Item Image"
+                      />
                     </div>
                   </td>
 
-                  <td class="text-center" th:text="${item.itemExplanation}"></td>
+                  <td
+                    class="text-center"
+                    th:text="${item.itemExplanation}"
+                  ></td>
                 </tr>
               </tbody>
             </table>
@@ -82,32 +96,31 @@
         <!-- 상품 등록/수정 버튼 -->
         <div class="d-flex registered">
           <span class="text-end registeredBtn">
-            <button type="button" class="btn btn-warning text-white">
-              상품확인
+            <button
+              type="button"
+              class="btn btn-warning text-white"
+              onclick="confirmDetails()"
+            >
+              확인 완료
             </button>
           </span>
 
           <span class="text-end registeredCheckbox">
-            <a  th:href="@{/admin/item/update/{name}(name=${item.itemName})}">
-            <button type="button" class="btn btn-warning text-white" id="itemEdit">
-              상품 수정하기
-            </button>
-              </a>
+            <a th:href="@{/admin/item/update/{name}(name=${item.itemName})}">
+              <button
+                type="button"
+                class="btn btn-warning text-white"
+                id="itemEdit"
+              >
+                상품 수정하기
+              </button>
+            </a>
           </span>
         </div>
       </div>
     </div>
 
     <script layout:fragment="script">
-      //상품관리 페이지로 이동.
-      $(document).ready(function () {
-        $(".registeredBtn").on("click", function (e) {
-          e.preventDefault();
-
-          window.location.href = "/admin/product_management";
-        });
-      });
-
       // 확인 완료 버튼 - 이동 구현
       function confirmDetails() {
         alert("상품 확인이 완료되었습니다!");

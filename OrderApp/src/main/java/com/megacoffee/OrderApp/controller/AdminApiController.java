@@ -197,8 +197,6 @@ public class AdminApiController {
         return resultDto;
     }
 
-
-
     //상품 관리페이지 - 상품검색 기능 구현
     @PostMapping("/product/search")
     public List<ItemDto> searchItems(@RequestBody Map<String, String> params) {
@@ -354,4 +352,83 @@ public class AdminApiController {
                     .build();
         }
     }
+
+    // 공지 등록
+    @PostMapping("/notice/addItem")
+    public ResultDto noticeAddItem(@RequestBody NoticeDto noticeDto) {
+
+        //noticeDto.setNoticeImgUrl(noticeDto.getNoticeImgUrl());
+        //noticeDto.setNoticeTitleImg(noticeDto.getNoticeTitleImg());
+
+        NoticeEntity noticeEntity = NoticeEntity.toEntity(noticeDto);
+
+        NoticeEntity newEntity = noticeRepository.save(noticeEntity);
+
+        ResultDto resultDto = null;
+
+        if( newEntity != null  ) {
+            //등록 성공
+            resultDto = ResultDto.builder()
+                    .status("ok")
+                    .result(1)
+                    .build();
+        }else{
+            //등록 실패
+            resultDto = ResultDto.builder()
+                    .status("ok")
+                    .result(0)
+                    .build();
+        }
+
+        return resultDto;
+    }
+
+    // 공지 수정
+    @PostMapping("/notice/updateItem")
+    public ResultDto noticeUpdateItem(@RequestBody NoticeDto noticeDto) {
+        // 기존 상품을 번호를 기준으로 찾기
+        Optional<NoticeEntity> optionalNoticeEntity = noticeRepository.findOptionalByNoticeNo(noticeDto.getNoticeNo());
+
+        ResultDto resultDto;
+
+        if (optionalNoticeEntity.isPresent()) {
+            // 기존 상품이 존재할 경우 수정 진행
+            NoticeEntity existingEntity = optionalNoticeEntity.get();
+
+            // 변경하려는 값으로 엔터티 업데이트
+            existingEntity.setNoticeCate(noticeDto.getNoticeCate()); // 공지 카테고리 변경
+            existingEntity.setNoticeTitle(noticeDto.getNoticeTitle()); // 공지 이름 변경
+            existingEntity.setNoticeTitleImg(noticeDto.getNoticeTitleImg()); // 공지 미리보기 이미지 변경
+            existingEntity.setNoticeImgUrl(noticeDto.getNoticeImgUrl()); // 공지 본문 이미지 변경
+            existingEntity.setNoticeDateTime(noticeDto.getNoticeDateTime()); // 공지 수정일 변경
+
+            // 엔터티 저장
+            NoticeEntity updatedEntity = noticeRepository.save(existingEntity);
+
+            if (updatedEntity != null) {
+                // 수정 성공
+                resultDto = ResultDto.builder()
+                        .status("ok")
+                        .result(1)
+                        .build();
+            } else {
+                // 수정 실패
+                resultDto = ResultDto.builder()
+                        .status("error")
+                        .message("상품 수정 중에 오류가 발생했습니다.")
+                        .result(0)
+                        .build();
+            }
+        } else {
+            // 기존 상품이 없을 경우
+            resultDto = ResultDto.builder()
+                    .status("error")
+                    .message("상품을 찾을 수 없습니다.")
+                    .result(0)
+                    .build();
+        }
+
+        return resultDto;
+    }
 }
+

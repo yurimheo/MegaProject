@@ -1,170 +1,170 @@
 <!DOCTYPE html>
 <html
-        lang="ko"
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-        layout:decorate="~{layouts/admin_layout}"
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  layout:decorate="~{layouts/admin_layout}"
 >
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-</head>
-<body>
-<div layout:fragment="contents" class="border p-2">
-  <!-- 조회 검색창 -->
-  <div class="row mt-3 d-flex ms-2">
-    <select
-            class="form-select w-25 d-inline-block"
-            aria-label="Default select example"
-            style="height: 29%"
-            id="searchOption"
-    >
-      <option value="1">주문번호</option>
-      <option value="2">아이디</option>
-    </select>
-    <div class="input-group mb-3 h-25" style="width: 70%">
-      <input
-              type="text"
-              class="form-control"
-              placeholder=""
-              aria-label="Recipient's username"
-              aria-describedby="button-addon2"
-              id="searchValue"
-      />
-      <button
-              class="btn btn-outline-secondary order-search"
-              type="button"
-              id="button-addon2"
-              onclick="searchOrderAction();"
-      >
-        검색
-      </button>
-    </div>
-  </div>
-  <hr style="margin-top: 0" />
-  <!-- 조회 캘린더 -->
-  <div class="d-flex justify-content-between">
-    <div class="d-flex flex-wrap align-items-center">
-          <span class="fw-bold" th:text="|주문 총 ${count}개|" id="orderCount"
-          >0</span
-          >
-      <!--          <button type="button" class="btn btn-light">전체</button>-->
-      <!--          <button type="button" class="btn btn-light">1개월</button>-->
-      <!--          <form class="d-flex align-items-center ms-3">-->
-      <!--            <span><input type="date" />~<input type="date" /></span>-->
-      <!--            <span><input class="mx-2" type="submit" value="조회" /></span>-->
-      <!--          </form>-->
-    </div>
-    <div class="d-flex justify-content-end align-items-center">
-      <!--          <select-->
-      <!--            class="form-select_2 h-75"-->
-      <!--            aria-label="Default select example"-->
-      <!--          >-->
-      <!--            <option value="1">최신순</option>-->
-      <!--            <option value="2">오래된순</option>-->
-      <!--          </select>-->
-
-      <div>
-        <button
-                type="button"
-                class="btn fw-bold"
-                onclick="deleteSelectedOrder()"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                data-bs-custom-class="custom-tooltip"
-                data-bs-title="선택한 주문내역들을 모두 삭제 합니다."
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div layout:fragment="contents" class="border p-2">
+      <!-- 조회 검색창 -->
+      <div class="row d-flex ms-2">
+        <select
+          class="form-select w-25 d-inline-block"
+          aria-label="Default select example"
+          style="height: 29%"
+          id="searchOption"
         >
-          <img
-                  class="minus-button"
-                  th:src="@{/static/images/icons/minus-button.png}"
-                  alt=""
+          <option value="1">주문번호</option>
+          <option value="2">아이디</option>
+        </select>
+        <div class="input-group mb-3 h-25 w-75">
+          <input
+            type="text"
+            class="form-control"
+            placeholder=""
+            aria-label="Recipient's username"
+            aria-describedby="button-addon2"
+            id="searchValue"
           />
-          선택 삭제
-        </button>
+          <button
+            class="btn btn-outline-secondary order-search"
+            type="button"
+            id="button-addon2"
+            onclick="searchOrderAction();"
+          >
+            검색
+          </button>
+        </div>
       </div>
-    </div>
-  </div>
+      <hr class="m-0" />
+      <!-- 조회 캘린더 -->
+      <div class="d-flex justify-content-between">
+        <div class="d-flex flex-wrap align-items-center">
+          <span class="fw-bold" th:text="|주문 총 ${count}개|" id="orderCount"
+            >0</span
+          >
+          <!--          <button type="button" class="btn btn-light">전체</button>-->
+          <!--          <button type="button" class="btn btn-light">1개월</button>-->
+          <!--          <form class="d-flex align-items-center ms-3">-->
+          <!--            <span><input type="date" />~<input type="date" /></span>-->
+          <!--            <span><input class="mx-2" type="submit" value="조회" /></span>-->
+          <!--          </form>-->
+        </div>
+        <div class="d-flex justify-content-end align-items-center">
+          <!--          <select-->
+          <!--            class="form-select_2 h-75"-->
+          <!--            aria-label="Default select example"-->
+          <!--          >-->
+          <!--            <option value="1">최신순</option>-->
+          <!--            <option value="2">오래된순</option>-->
+          <!--          </select>-->
 
-  <!-- 테이블 -->
-  <div>
-    <table class="table table-bordered">
-      <thead>
-      <tr style="background-color: #ffc107; color: white">
-        <th class="text-center" scope="col"></th>
-        <th class="text-center" scope="col">주문일</th>
-        <th class="text-center" scope="col">주문번호</th>
-        <th class="text-center" scope="col">아이디</th>
-        <th class="text-center" scope="col">총 주문금액</th>
-        <th class="text-center" scope="col">주문상태</th>
-        <th class="text-center" scope="col">주문상세조회</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr
+          <div>
+            <button
+              type="button"
+              class="btn fw-bold"
+              onclick="deleteSelectedOrder()"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="선택한 주문내역들을 모두 삭제 합니다."
+            >
+              <img
+                class="minus-button"
+                th:src="@{/static/images/icons/minus-button.png}"
+                alt=""
+              />
+              선택 삭제
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 테이블 -->
+      <div>
+        <table class="table table-bordered">
+          <thead>
+            <tr style="background-color: #ffc107; color: white">
+              <th class="text-center" scope="col"></th>
+              <th class="text-center" scope="col">주문일</th>
+              <th class="text-center" scope="col">주문번호</th>
+              <th class="text-center" scope="col">아이디</th>
+              <th class="text-center" scope="col">총 주문금액</th>
+              <th class="text-center" scope="col">주문상태</th>
+              <th class="text-center" scope="col">주문상세조회</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
               class="text-center align-middle"
               th:each="order, status:${ list }"
-      >
-        <td>
-          <input
+            >
+              <td>
+                <input
                   type="checkbox"
                   th:id="'checkbox_' + ${order.orderNo}"
                   class="delete-checkbox form-check-input"
-          />
-        </td>
-        <td><span th:text="${order.orderDatetime}"></span></td>
-        <td><span th:text="${order.orderNo}"></span></td>
-        <td><span th:text="${order.memberId}"></span></td>
-        <td><span th:text="${order.orderTotalPrice}"></span></td>
-        <td>
-          <select
+                />
+              </td>
+              <td><span th:text="${order.orderDatetime}"></span></td>
+              <td><span th:text="${order.orderNo}"></span></td>
+              <td><span th:text="${order.memberId}"></span></td>
+              <td><span th:text="${order.orderTotalPrice}"></span></td>
+              <td>
+                <select
                   class="form-select_2 orderStateSelect"
                   aria-label="Default select example"
-          >
-            <option
+                >
+                  <option
                     id="orderOption1"
                     value="1"
                     th:selected="${order.orderState == '결제완료'}"
-            >
-              결제완료
-            </option>
-            <option
+                  >
+                    결제완료
+                  </option>
+                  <option
                     id="orderOption2"
                     value="2"
                     th:selected="${order.orderState == '주문확인'}"
-            >
-              주문확인
-            </option>
-            <option
+                  >
+                    주문확인
+                  </option>
+                  <option
                     id="orderOption3"
                     value="3"
                     th:selected="${order.orderState == '제조완료'}"
-            >
-              제조완료
-            </option>
-          </select>
-        </td>
-        <td>
-          <button type="button" class="order-detail-btn">
-            <a
+                  >
+                    제조완료
+                  </option>
+                </select>
+              </td>
+              <td>
+                <button type="button" class="order-detail-btn">
+                  <a
                     th:href="@{/admin/order/detail/{no}(no=${order.orderNo})}"
                     class="p-0 order-detail"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
                     data-bs-custom-class="custom-tooltip"
                     data-bs-title="클릭하시면 상세조회 페이지로 이동합니다."
-            >상세조회</a
-            >
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+                    >상세조회</a
+                  >
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-<script layout:fragment="script">
+    <script layout:fragment="script">
       //선택한 주문 삭제
       function deleteSelectedOrder() {
         const checkboxes = document.querySelectorAll(
@@ -281,53 +281,56 @@
       }
 
       // 주문 상태 변경하기
-    $(document).ready(function () {
-  $(".orderStateSelect").on("change", function (e) {
-    e.preventDefault();
+      $(document).ready(function () {
+        $(".orderStateSelect").on("change", function (e) {
+          e.preventDefault();
 
-    var orderNo = $(this).closest("tr").find("td:nth-child(3) span").text();
-    var newState = ''; // 초기화
+          var orderNo = $(this)
+            .closest("tr")
+            .find("td:nth-child(3) span")
+            .text();
+          var newState = ""; // 초기화
 
-    // 선택한 주문 상태 값 가져오기
-    var selectedValue = $(this).val();
+          // 선택한 주문 상태 값 가져오기
+          var selectedValue = $(this).val();
 
-    // 각 옵션에 따라 newState 값 설정
-    switch (selectedValue) {
-      case "1":
-        newState = "결제완료";
-        break;
-      case "2":
-        newState = "주문확인";
-        break;
-      case "3":
-        newState = "제조완료";
-        break;
-      default:
-        break;
-    }
+          // 각 옵션에 따라 newState 값 설정
+          switch (selectedValue) {
+            case "1":
+              newState = "결제완료";
+              break;
+            case "2":
+              newState = "주문확인";
+              break;
+            case "3":
+              newState = "제조완료";
+              break;
+            default:
+              break;
+          }
 
-    $.ajax({
-      type: "POST",
-      url: "/admin/order/modifyOrderState",
-      contentType: "application/json",
-      data: JSON.stringify({
-        newState: newState,
-         orderNo: orderNo
-      }),
-      success: function (response) {
-        if (response.status === "ok" && response.result === 1) {
-          alert("주문상태가 성공적으로 수정되었습니다.");
-          window.location.reload();
-        } else {
-          alert("주문상태 수정에 실패했습니다.");
-        }
-      },
-      error: function () {
-        alert("서버 오류가 발생했습니다.");
-      },
-    });
-  });
-});
+          $.ajax({
+            type: "POST",
+            url: "/admin/order/modifyOrderState",
+            contentType: "application/json",
+            data: JSON.stringify({
+              newState: newState,
+              orderNo: orderNo,
+            }),
+            success: function (response) {
+              if (response.status === "ok" && response.result === 1) {
+                alert("주문상태가 성공적으로 수정되었습니다.");
+                window.location.reload();
+              } else {
+                alert("주문상태 수정에 실패했습니다.");
+              }
+            },
+            error: function () {
+              alert("서버 오류가 발생했습니다.");
+            },
+          });
+        });
+      });
     </script>
-</body>
+  </body>
 </html>

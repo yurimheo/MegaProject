@@ -735,8 +735,7 @@ a {
   border: none;
   font-size: 38px;
 }
-.modalCancelBtn {
-}
+
 .modalChangeBtn {
   color: white;
 }
@@ -852,3 +851,52 @@ a {
 }
 /* 주문 장바구니 버튼 끝 */
 /* ------- orderMenu.html 끝-------- */
+
+/* 주문하기 (menu) 시작 */
+.menuCate1 {
+  width: 20%;
+}
+.menuCate2 {
+  width: 35%;
+}
+.menuCate {
+  padding: 0;
+  height: 80px;
+  font-size: 32px;
+  border: 1px solid #808080;
+  border-radius: 50px;
+  background-color: white;
+}
+.menuCate.active {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
+.menuItem {
+  width: 33.33%;
+  box-sizing: border-box;
+  float: left;
+  margin: 0;
+  padding: 20px;
+}
+.menuImage {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.menuImage img {
+  height: 200px;
+}
+.menuName {
+  font-size: 35px;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+.menuPrice {
+  font-size: 38px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* 주문하기 (menu) 끝 */

@@ -1,10 +1,7 @@
 package com.megacoffee.OrderApp.controller;
 
 import com.megacoffee.OrderApp.dto.*;
-import com.megacoffee.OrderApp.entity.MemberEntity;
-import com.megacoffee.OrderApp.entity.MemberRepository;
-import com.megacoffee.OrderApp.entity.StoreEntity;
-import com.megacoffee.OrderApp.entity.StoreRepository;
+import com.megacoffee.OrderApp.entity.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -234,6 +231,7 @@ public class ApiController {
         }
     }
 
+    // 매장 선택
     @Autowired
     StoreRepository storeRepository;
     //매장 검색 기능
@@ -248,4 +246,30 @@ public class ApiController {
                 .collect(Collectors.toList());
 
     }
+
+    // 메뉴 선택
+    @Autowired
+    ItemRepository itemRepository;
+
+    @PostMapping("/menu/select")
+    public List<ItemDto> menuSelect(@RequestBody Map<String, String> params){
+        String category = params.get("category");
+
+        List<ItemEntity> itemList;
+
+        if ("신메뉴".equals(category)) {
+            // 신메뉴 카테고리 선택한 경우
+            itemList = itemRepository.findByItemNew(1);
+        }else {
+            // 타 카테고리 선택한 경우 ( 커피, 에이드 & 스무디, 티 )
+            itemList = itemRepository.findByItemCate(category);
+        }
+
+        return itemList.stream()
+                .map(ItemDto::toDto)
+                .collect(Collectors.toList());
+
+    }
+
+    
 }

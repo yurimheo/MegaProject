@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface NoticeRepository extends JpaRepository<NoticeEntity,Long> {
@@ -12,4 +13,6 @@ public interface NoticeRepository extends JpaRepository<NoticeEntity,Long> {
     void deleteByNoticeNo(long noticeNo);
 
     List<NoticeEntity> findByNoticeNo(long no);
+
+    Optional<NoticeEntity> findOptionalByNoticeNo(long noticeNo);
 }

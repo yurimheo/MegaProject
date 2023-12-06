@@ -1,48 +1,47 @@
 <!DOCTYPE html>
 <html
-        lang="ko"
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-        layout:decorate="~{layouts/admin_layout}"
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  layout:decorate="~{layouts/admin_layout}"
 >
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-
-</head>
-<body>
-<div layout:fragment="contents" class="border p-2">
-  <p class="fs-2 fw-bold text-center" style="color: #ffc107">
-    주문 정보 상세 조회
-  </p>
-  <!-- 테이블 -->
-  <div>
-    <table class="table table-bordered mb-0">
-      <thead>
-      <tr
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div layout:fragment="contents" class="border p-2">
+      <p class="fs-2 fw-bold text-center" style="color: #ffc107">
+        주문 정보 상세 조회
+      </p>
+      <!-- 테이블 -->
+      <div>
+        <table class="table table-bordered mb-0">
+          <thead>
+            <tr
               class="text-center"
               style="background-color: #ffc107; color: white"
-      >
-        <th scope="col">주문일</th>
-        <th scope="col">주문번호</th>
-        <th scope="col">아이디</th>
-        <th scope="col">총 주문금액</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr class="text-center">
-        <td th:text="${order.orderDateTime}"></td>
-        <td th:text="${order.orderNo}"></td>
-        <td th:text="${order.memberId}"></td>
-        <td th:text="${order.orderTotalPrice}"></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  <!--  -->
-  <div>
+            >
+              <th scope="col">주문일</th>
+              <th scope="col">주문번호</th>
+              <th scope="col">아이디</th>
+              <th scope="col">총 주문금액</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="text-center">
+              <td th:text="${order.orderDateTime}"></td>
+              <td th:text="${order.orderNo}"></td>
+              <td th:text="${order.memberId}"></td>
+              <td th:text="${order.orderTotalPrice}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--  -->
+      <!-- <div>
     <table class="table table-bordered">
       <thead>
       <tr
@@ -62,17 +61,18 @@
       </tr>
       </tbody>
     </table>
-  </div>
-  <div class="text-center">
-    <button type="button"
-            onclick="history.back();"
-            class="btn btn-orderselect">확인완료</button>
-  </div>
-</div>
+  </div> -->
+      <div class="text-center mt-3">
+        <button
+          type="button"
+          onclick="history.back();"
+          class="btn btn-orderselect"
+        >
+          확인완료
+        </button>
+      </div>
+    </div>
 
-<script>
-
-
-    </script>
-</body>
+    <script></script>
+  </body>
 </html>

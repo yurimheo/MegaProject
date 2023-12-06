@@ -1,9 +1,6 @@
 package com.megacoffee.OrderApp.controller;
 
-import com.megacoffee.OrderApp.dto.CartDto;
-import com.megacoffee.OrderApp.dto.FindIdDto;
-import com.megacoffee.OrderApp.dto.NoticeDto;
-import com.megacoffee.OrderApp.dto.StoreDto;
+import com.megacoffee.OrderApp.dto.*;
 import com.megacoffee.OrderApp.entity.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -266,9 +263,20 @@ public class ViewController {
     }
 
     //주문하기(메뉴선택)
+    @Autowired
+    ItemRepository itemRepository;
+
     @GetMapping("/menu")
-    public String orderChoice() {
-        return "/userApp/order_choice";
+    public String orderChoice(Model model) {
+        List<ItemEntity> listEntity = itemRepository.findAll();
+        List<ItemDto> listDto = listEntity
+                .stream()
+                .map(ItemDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("count", listDto.size());
+        model.addAttribute("list", listDto);
+        return "/userApp/menu";
     }
 
     //매장선택

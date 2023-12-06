@@ -64,7 +64,7 @@ public class AdminViewController {
     }
         // 1. 회원 관리 탭 끝 -------------------------------------------
 
-    // 2. 상품 관리 ---------------------------------------------
+    // 2. 상품 관리 -------------------------------------------------
 
     @Autowired
     private ItemRepository itemRepository;
@@ -148,6 +148,15 @@ public String notices(Model model){
     return "managementAnnouncement";
 }
 
+// 공지 신규 등록
+    @GetMapping("/notice/add")
+    public String noticeAdd(Model model) {
+        model.addAttribute("pageName", "공지관리");
+    return "managementNotice";
+    }
+
+
+    // 공지 상세 조회
     @GetMapping("/notice/detail/{no}")
     public String noticeDetail(@PathVariable long no, Model model) {
 
@@ -157,12 +166,14 @@ public String notices(Model model){
         if (!notices.isEmpty()) {
             NoticeEntity notice = notices.get(0);
             model.addAttribute("notice", notice);
-            model.addAttribute("pageName", "공지");
+            model.addAttribute("pageName", "공지관리");
             return "/managementNoticeDetailed";
         } else {
             return "redirect:/admin/notice";
         }
     }
+
+
 
     @GetMapping("/order")
     public String orders(Model model){
@@ -193,6 +204,23 @@ public String notices(Model model){
             return "/managementOrderDetailed";
         } else {
             return "redirect:/admin/order";
+        }
+    }
+
+    // 공지 관리 - 공지 수정 탭으로 이동
+    @GetMapping("/notice/update/{no}")
+    public String noticeUpdate(@PathVariable long no , Model model) {
+        // 공지 번호를 통해 상품 정보 찾기
+        List<NoticeEntity> notices = noticeRepository.findByNoticeNo(no);
+
+        // DB에 그 공지가 있는가?
+        if (!notices.isEmpty()) {
+            NoticeEntity notice = notices.get(0); // 여러 공지 중 하나를 선택 (첫 번째 공지)
+            model.addAttribute("notice", notice);
+            model.addAttribute("pageName", "공지관리");
+            return "managementNoticeUpdate";
+        } else {
+            return "redirect:/admin/notice";
         }
     }
 }
