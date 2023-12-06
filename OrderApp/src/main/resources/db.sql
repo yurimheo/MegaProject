@@ -47,7 +47,7 @@ CREATE TABLE megamega.store (
 
 -- 장바구니 테이블
 DROP TABLE if EXISTS megamega.cart;
-CREATE TABLE cart (
+CREATE TABLE megamega.cart (
     cart_no INT AUTO_INCREMENT NOT NULL PRIMARY KEY, -- 장바구니 번호 (고유키)
    cart_code VARCHAR(255) NOT NULL UNIQUE, -- 장바구니 코드(UUID
    item_code VARCHAR(255) NOT NULL UNIQUE, -- 상품 코드(UUID)
