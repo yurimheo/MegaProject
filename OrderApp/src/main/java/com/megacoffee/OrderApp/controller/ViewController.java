@@ -1,9 +1,6 @@
 package com.megacoffee.OrderApp.controller;
 
-import com.megacoffee.OrderApp.dto.CartDto;
-import com.megacoffee.OrderApp.dto.FindIdDto;
-import com.megacoffee.OrderApp.dto.NoticeDto;
-import com.megacoffee.OrderApp.dto.StoreDto;
+import com.megacoffee.OrderApp.dto.*;
 import com.megacoffee.OrderApp.entity.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -189,10 +186,13 @@ public class ViewController {
 
         return "/userApp/orderPage";
     }
+    // 카트목록 삭제
+
 
     // 4. 결제
     @GetMapping("/order")
-    public String order(Model model){
+    public String order(Model model,HttpServletRequest request){
+        String loginId = (String)request.getSession().getAttribute("loginId");
         List<CartEntity> listEntity = cartRepository.findAll();
 
         List<CartDto> listDto = listEntity
@@ -200,10 +200,23 @@ public class ViewController {
                 .map(CartDto::toCartDto)
                 .collect(Collectors.toList());
 
+        if( loginId != null ){
+            List<MemberEntity> list = memberRepository.findByMemberId(loginId);
+            if( list.size() > 0 ){
+                MemberEntity memberEntity = list.get(0);
+                model.addAttribute("loginId", loginId);
+            }
+        }
+
         model.addAttribute("count", listDto.size());
+
         model.addAttribute("list", listDto);
         return "/userApp/orderPage2";
     }
+
+
+
+
     // 3. 주문/결제하기 끝 ---------------------------------------
 
     // 4. 더보기 시작 -------------------------------------------
