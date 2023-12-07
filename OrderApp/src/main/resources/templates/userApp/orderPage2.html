@@ -23,11 +23,12 @@
     <div layout:fragment="mobile" class="container-fluid p-0">
       <div
         class="headerTop fs-1 fs-1 fw-bold d-flex align-items-center justify-content-between"
+        style="position: fixed"
       >
         <a href=""
           ><img
             class="backImg ms-5"
-            th:src="@{images/icons/nav-back.svg}"
+            th:src="@{/static/images/icons/nav-back.svg}"
             alt=""
         /></a>
         <span span class="text-center flex-grow-1 me-5 pe-5">주문하기</span>
@@ -47,7 +48,8 @@
             >
               <div class="accordion-content1">
                 <span class="fw-bold fs-1">주문 상품</span>
-                <span class="fs-2 fw-bold me-4">스모어블랙쿠키프라페</span>
+                <span class="fs-2 fw-bold me-4"  th:text="|${list[0].itemName} 외 ${count -1} 건|"
+                      >스모어블랙쿠키프라페</span>
               </div>
             </button>
           </h2>
@@ -57,19 +59,27 @@
             data-bs-parent="#accordionFlushExample"
           >
             <div class="accordion-body">
-              <div class="cart-list d-flex">
+              <div class="cart-list d-flex " th:each="cart: ${list}" >
+                <input
+                        class="cartUUID"
+                        type="text"
+                        th:value="${cart.itemCode}"
+                        style="display: none"
+                />
                 <img
-                  src="https://megacoffee.coconutatelier.com/images/item/thumb-102556_main_320x0.png"
+                        th:src="@{'/static/upload/' + ${cart.itemImageUrl}}"
                   alt=""
                 />
                 <div class="w-100 mb-1">
                   <div class="d-flex justify-content-between">
-                    <span class="fw-bold fs-2">스모어블랙쿠키프라페</span>
+                    <span class="fw-bold fs-2" th:text="${cart.itemName}">아이템이름</span>
                   </div>
                   <div class="cart-option fs-2 mt-2 mb-5"></div>
                   <div class="amount-box">
-                    <div class="amount w-50 fs-1 fw-bold">1개</div>
-                    <div class="price fs-1 fw-bold">4,400원</div>
+                    <div class="amount w-50 fs-1 fw-bold" th:text="|${cart.cartItemAmount} 개|">1개</div>
+                    <div class="price fs-1 fw-bold"th:text="|${cart.cartItemAmount * cart.itemPrice} 원|"
+                       ></div>
+
                   </div>
                 </div>
               </div>
@@ -77,6 +87,18 @@
           </div>
         </div>
       </div>
+      <input
+              type="text"
+              th:value="|${loginId}|"
+              id="memberId"
+              style="display: none"
+      />
+      <input
+              type="text"
+              th:value="${count}"
+              id="countValue"
+              style="display: none"
+      />
       <div class="backColor" style="height: 20px"></div>
       <!-- 요청사항 -->
       <div class="requested d-flex flex-column">
@@ -103,19 +125,19 @@
         <span class="fw-bold fs-1">결제 수단</span>
         <div class="fs-2 mt-4">
           <div class="paymentSelect">
-            <input class="radioBtn" type="radio" name="pay" value="card" />
+            <input class="radioBtn" type="radio" name="pay" value="1" checked="true" />
             <label>신용카드</label>
           </div>
           <div class="paymentSelect">
-            <input class="radioBtn" type="radio" name="pay" value="card2" />
+            <input class="radioBtn" type="radio" name="pay" value="2" />
             <label>간편카드결제</label>
           </div>
           <div class="paymentSelect">
-            <input class="radioBtn" type="radio" name="pay" value="naver" />
+            <input class="radioBtn" type="radio" name="pay" value="3" />
             <label>네이버페이</label>
           </div>
           <div class="paymentSelect">
-            <input class="radioBtn" type="radio" name="pay" value="kakao" />
+            <input class="radioBtn" type="radio" name="pay" value="4" />
             <label>카카오페이</label>
           </div>
         </div>
@@ -126,6 +148,10 @@
         <div class="selectPrice">
           <span class="fs-1">상품금액</span>
           <span class="fs-2 fw-bold">4,400원</span>
+        </div>
+        <div class="selectPrice mt-2">
+          <span class="fs-1">할인금액</span>
+          <span class="fs-2 fw-bold">-0원</span>
         </div>
         <div class="totalPrice mt-4 mb-4">
           <span class="fs-1">결제금액</span>
@@ -169,8 +195,87 @@
         </span>
       </div>
       <div class="order-detail-btn">
-        <a class="fs-1 fw-bold" style="color: white" href="">주문하기</a>
+        <a class="fs-1 fw-bold" style="color: white" href=""
+        onclick="orderUpdate()">주문하기</a>
       </div>
     </div>
+    <script layout:fragment="script">
+// 총 금액
+    let totalPrice = 0;
+    const priceElements = document.querySelectorAll('.price');
+    priceElements.forEach(element => {
+      const priceText = element.innerText;
+      const priceNumber = parseInt(priceText.replace(/[^\d]/g, ''));
+      totalPrice += priceNumber;
+    });
+
+// totalPrice 값을 HTML 요소에 넣어주기
+    const totalPriceElement = document.querySelector('.fs-2.fw-bold[style="color: red"]');
+    if (totalPriceElement) {
+      totalPriceElement.textContent = `${totalPrice.toLocaleString()}원`;
+    }
+    const productAmountElement = document.querySelector('.selectPrice .fs-2.fw-bold');
+
+// 총 금액을 가진 변수 넣기
+    if (productAmountElement) {
+      productAmountElement.textContent = `${totalPrice.toLocaleString()}원`;
+    }
+
+//총 갯수
+    const countValue = document.getElementById('countValue').value;
+    const count = parseInt(countValue);
+
+// 결제타입
+    const selectedPayment = document.querySelector('input[name="pay"]:checked').value;
+
+//카트 UUID
+  let cartUUIDs = [];
+
+  const cartUUIDElements = document.querySelectorAll('.cartUUID');
+  if (cartUUIDElements.length > 0) {
+    cartUUIDElements.forEach(element => {
+      cartUUIDs.push(element.value);
+    });
+  }
+//아이디
+ const memberIdElement = document.getElementById('memberId').value;
+
+// 주문상태
+ var orderStatus = "결제완료";
+
+
+<!--   console.log(memberIdElement);-->
+<!--      console.log("총가격 : "+totalPrice);-->
+<!--      console.log("갯수 : "+count);-->
+<!--      console.log("결제타입 : "+selectedPayment);-->
+<!--      console.log(cartUUIDs);-->
+
+    let params = {
+    orderTotalPrice: totalPrice,
+    orderTotalCount: count,
+    orderPayType: selectedPayment,
+    memberId : memberIdElement,
+    orderState : orderStatus,
+    orderDatetime: new Date(),
+};
+
+for (let i = 0; i < 5; i++) {
+    const cartItemCode = cartUUIDs[i];
+    if (cartItemCode !== null && cartItemCode !== undefined) {
+        params[`cartItemCode${i + 1}`] = cartItemCode;
+    } else {
+        params[`cartItemCode${i + 1}`] = null;
+    }
+}
+
+console.log(params);
+
+
+function orderUpdate() {
+
+
+
+      }
+    </script>
   </body>
 </html>

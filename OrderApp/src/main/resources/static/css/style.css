@@ -759,19 +759,21 @@ a {
 }
 /* 구분선 css 끝 */
 
-/* 메뉴 이미지 시작*/
-.menuImg {
-  width: 170px;
-  height: 170px;
-}
-/* 메뉴 이미지 끝*/
-
 /* 상품 이름 및 이미지 가운데 정렬 시작*/
-.nameDescription,
+.nameDescription {
+  margin: 10px;
+  text-align: center;
+}
 .menuOrderImg {
   text-align: center;
 }
+
 /* 상품 이름 및 이미지 가운데 정렬 끝 */
+
+/* 메뉴 이름 볼드처리 */
+.menuName {
+  font-weight: bold;
+}
 
 /* 갯수 증감 및 총 금액 시작*/
 .amountBox {
@@ -845,12 +847,8 @@ a {
   background-color: black;
   color: white;
 }
-
-.order-btn:hover {
-  background-color: #ccc;
-}
 /* 주문 장바구니 버튼 끝 */
-/* ------- orderMenu.html 끝-------- */
+/* ------- oderMenu.html 끝-------- */
 
 /* 주문하기 (menu) 시작 */
 .menuCate1 {
@@ -900,3 +898,20 @@ a {
 }
 
 /* 주문하기 (menu) 끝 */
+
+.memberDeleteBtn {
+  height: 56px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 17px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 56px;
+  margin-bottom: 10px;
+  background-color: #c9cdd1;
+  border: none;
+}
+
+.memberDeleteBtn.active {
+  background-color: #462201 !important;
+}

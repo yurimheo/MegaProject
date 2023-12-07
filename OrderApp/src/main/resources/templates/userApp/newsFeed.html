@@ -1,59 +1,62 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/mobile_layout}"
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/mobile_layout}"
 >
-<head>
-  <meta charset="UTF-8" />
-  <!-- meta name="viewport" : 뷰포트 설정 -->
-  <!-- content="width=device-width : 디바이스의 가로 넓이에 맞춤 -->
-  <!-- initial-scale = 1.0 : 최초 화면 크기 100% 비율 -->
-  <!-- minimum-scale=1.0 : 최소 화면 크기 100% 비율 -->
-  <!-- maximum-scale=1.0 : 최대 화면 크기 100% 비율 -->
-  <!-- user-scalable=no : 사용자 확대 금지 -->
-  <meta
-          name="viewport"
-          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
-  />
-  <!-- 아이폰 노치 커버 -->
-  <meta name="viewport" content="viewport-fit=cover" />
-  <title>Document</title>
-
-</head>
-<body>
-<div layout:fragment="mobile" class="container-fluid p-0">
-  <div class="headerTop fs-1 fw-bold justify-content-between" style="position: fixed;">
-    <div class="d-flex align-items-center m-4 mt-5" style="height: 30px">
-      <a href=""
-         onclick="history.back();"
-      ><img
+  <head>
+    <meta charset="UTF-8" />
+    <!-- meta name="viewport" : 뷰포트 설정 -->
+    <!-- content="width=device-width : 디바이스의 가로 넓이에 맞춤 -->
+    <!-- initial-scale = 1.0 : 최초 화면 크기 100% 비율 -->
+    <!-- minimum-scale=1.0 : 최소 화면 크기 100% 비율 -->
+    <!-- maximum-scale=1.0 : 최대 화면 크기 100% 비율 -->
+    <!-- user-scalable=no : 사용자 확대 금지 -->
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+    />
+    <!-- 아이폰 노치 커버 -->
+    <meta name="viewport" content="viewport-fit=cover" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div layout:fragment="mobile" class="container-fluid p-0">
+      <div
+        class="headerTop fs-1 fw-bold justify-content-between"
+        style="position: fixed"
+      >
+        <div class="d-flex align-items-center m-4 mt-5" style="height: 30px">
+          <a href="" onclick="history.back();"
+            ><img
               class="backImg ms-3"
-              th:src="@{static/images/icons/nav-back.svg}"
+              src="../../static/images/icons/nav-back.svg"
               alt=""
-      /></a>
-      <span class="text-center flex-grow-1 me-5 pe-5">이벤트</span>
-    </div>
-
-    <div class="line border border-bottom"></div>
-  </div>
-  <!-- 이벤트 사항 -->
-  <div class="eventPage p-4"  >
-    <div class="eventList" >
-      <a href="" style="color: black">
-          <span class="fs-1 fw-bold" th:text="${notice.noticeTitle}"></span>
-        <br>
-        <span class="fs-1" th:text="${notice.noticeDateTime}"> </span>
-        <div class="eventText w-100">
-          <img th:src="@{'/static/upload/' + ${notice.noticeImgUrl}}">
-
+          /></a>
+          <span class="text-center flex-grow-1 me-5 pe-5">새소식</span>
         </div>
-      </a>
+
+
+      </div>
+      <!-- 이벤트 사항 -->
+      <div class="eventPage2 p-4" style="margin-top: 160px">
+        <div class="eventList">
+          <a href="" style="color: black">
+            <span class="fs-1 fw-bold" th:text="${notice.noticeTitle}"></span>
+            <br />
+            <span class="fs-1" th:text="${notice.noticeDateTime}"> </span>
+            <div class="eventText ps-0 w-100">
+              <img
+                style="width: 100%"
+                th:src="@{'/static/upload/' + ${notice.noticeImgUrl}}"
+              />
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<script layout:fragment="script">
-
-</script>
-</body>
+    <script layout:fragment="script"></script>
+  </body>
 </html>

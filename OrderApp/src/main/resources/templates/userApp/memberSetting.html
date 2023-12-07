@@ -23,7 +23,7 @@
       <br />
       <div class="stampHeaderBox">
         <div class="memberSettingHeader d-flex align-items-center w-100">
-          <a href="" onclick="history.back();"
+          <a href="/more"
             ><img
               class="backImg ms-3"
               th:src="@{static/images/icons/nav-back.svg}"
@@ -63,7 +63,10 @@
             aria-hidden="true"
           >
             <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content" style="height: 400px; overflow: hidden;">
+              <div
+                class="modal-content"
+                style="height: 400px; overflow: hidden"
+              >
                 <div
                   class="modal-header d-flex justify-content-center align-items-end"
                   style="height: 40%"
@@ -84,7 +87,7 @@
                         type="text"
                         name="memberName"
                         id="inputMemberName"
-                        th:value="|${loginName}|"
+                        th:placeholder="|${loginName}|"
                       />
                     </div>
                   </form>
@@ -100,12 +103,19 @@
                     </button>
                   </div>
                   <div class="modalChangeDiv">
-                    <button type="button" class="modalChangeBtn">변경</button>
+                    <button
+                      type="button"
+                      class="modalChangeBtn"
+                      onclick="updateNameAction();"
+                    >
+                      변경
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <!-- 모달 끝 -->
           <!-- 이름 -->
         </div>
         <!-- ************************************************* -->
@@ -128,9 +138,74 @@
               <p th:text="|${memberPhone}|" class="settingFont fw-bold">
                 010-1245-1245
               </p>
-              <button type="button" class="settingBtn">변경</button>
+              <button
+                type="button"
+                class="settingBtn"
+                data-bs-toggle="modal"
+                data-bs-target="#phoneModal"
+              >
+                변경
+              </button>
             </span>
           </span>
+        </div>
+        <!-- 폰번호 모달 -->
+        <div
+          class="modal fade"
+          id="phoneModal"
+          tabindex="-1"
+          aria-labelledby="phoneModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="height: 400px; overflow: hidden">
+              <div
+                class="modal-header d-flex justify-content-center align-items-end"
+                style="height: 40%"
+              >
+                <h1
+                  class="modal-title fw-bold"
+                  id="phoneModalLabel"
+                  style="font-size: 38px"
+                >
+                  휴대전화번호 변경
+                </h1>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="mb-3 d-flex justify-content-center">
+                    <input
+                      class="inputNameBox"
+                      type="text"
+                      name="memberPhone"
+                      id="inputMemberPhone"
+                      th:placeholder="|${lmemberPhone}|"
+                    />
+                  </div>
+                </form>
+              </div>
+              <div class="modalFooter d-flex">
+                <div class="modalCancelDiv">
+                  <button
+                    type="button"
+                    class="modalCancelBtn"
+                    data-bs-dismiss="modal"
+                  >
+                    취소
+                  </button>
+                </div>
+                <div class="modalChangeDiv">
+                  <button
+                    type="button"
+                    class="modalChangeBtn"
+                    onclick="updatePhoneAction();"
+                  >
+                    변경
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <!-- ************************************************* -->
         <div class="settingLine w-100"></div>
@@ -141,7 +216,7 @@
         >
           <!-- 회원 탈퇴 -->
           <p class="settingCate">회원 탈퇴</p>
-          <a href="" onclick="history.back();"
+          <a href="/deleteMember" onclick="history.back();"
             ><img
               class="backImg ms-3"
               th:src="@{static/images/icons/btn-more.svg}"
@@ -160,6 +235,58 @@
           window.history.back();
         });
       });
+
+      // 회원 이름 변경 액션
+      function updateNameAction() {
+        const nameValue = document.getElementById("inputMemberName").value;
+        console.log("이름:" + nameValue);
+
+        let params = {
+          memberName: nameValue,
+        };
+
+        fetch("/memberSetting/updateName", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(params),
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            console.log("json:" + JSON.stringify(json));
+
+            // 페이지 새로고침
+            window.location.reload();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+
+      // 회원 휴대폰 번호 변경 액션
+      function updatePhoneAction() {
+        const phoneValue = document.getElementById("inputMemberPhone").value;
+        console.log("핸드폰 번호:" + phoneValue);
+
+        let params = {
+          memberPhone: phoneValue,
+        };
+
+        fetch("/memberSetting/updatePhone", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(params),
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            console.log("json:" + JSON.stringify(json));
+
+            // 페이지 새로고침
+            window.location.reload();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     </script>
   </body>
 </html>

@@ -34,13 +34,14 @@
           <div class="fw-bold" style="font-size: 42px">주문하기</div>
         </div>
         <button class="searchBtn text-end bg-transparent text-body border-0">
-          <img id="search" src="/static/images/icons/search.png" alt="search" />
-          <img
-            class="cartImg"
-            style="width: 50px"
-            src="/static/images/icons/online-shopping.png"
-            alt=""
-          />
+         <a href="/cart">
+           <img
+                   class="cartImg"
+                   style="width: 50px"
+                   src="/static/images/icons/online-shopping.png"
+                   alt=""
+           />
+         </a>
         </button>
       </div>
       <br />
@@ -77,6 +78,7 @@
           th:each="item : ${list}"
           th:if="${item.itemNew == 1}"
           class="menuItem"
+          onclick="detailAction();"
         >
           <!-- 이미지 -->
           <div class="menuImage">
@@ -280,11 +282,20 @@
           priceDiv.appendChild(priceP);
           menuItem.appendChild(priceDiv);
 
+          menuItem.addEventListener("click", function () {
+            detailAction(item.itemName);
+          });
           menuList.appendChild(menuItem);
         });
 
         // 상품 총 카운트 업데이트
         updateItemCount(items.length);
+      }
+
+      // 상품 상세 페이지로 이동
+      function detailAction(itemName) {
+        const detailUrl = `/menu/detail/${itemName}`;
+        window.location.href = detailUrl;
       }
     </script>
   </body>

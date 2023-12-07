@@ -48,4 +48,17 @@ public class CartEntity {
                 .cartDate(dto.getCartDate())
                 .build();
     }
+
+    public static CartEntity toEntity(CartDto dto) {
+        return CartEntity.builder()
+                .cartNo(dto.getCartNo())
+                .cartCode(dto.getCartCode())
+                .itemCode(dto.getItemCode())
+                .itemName(dto.getItemName())
+                .itemImageUrl(dto.getItemImageUrl()) // 수정된 부분
+                .itemPrice(dto.getItemPrice())
+                .cartItemAmount(dto.getCartItemAmount())
+                .cartDate(dto.getCartDate())
+                .build();
+    }
 }

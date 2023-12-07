@@ -49,7 +49,7 @@
   </div>
   <!-- 슬라이드 쇼 끝 -->
   <!-- 알림 이미지 -->
-  <button class="bell">
+  <button class="bell" onclick="window.location.href='/notification'">
     <img
             class="z-n1 position-absolute top-0 end-0 p-4"
             src="/static/images/icons/notification.png"
@@ -134,70 +134,20 @@
     <!-- 추천메뉴 -->
     <div class="swiper recommendMenu">
       <div class="swiper-wrapper">
-        <div class="swiper-slide p-4">
-          <img
-                  class="recommendSwiper"
-                  style="
+        <div class="swiper-slide p-4" th:each="item : ${list2}" th:if="${item.itemRecommend == 1}">
+          <a href="/store">
+            <img
+                    class="recommendSwiper"
+                    style="
                   display: flex;
                   flex-direction: column;
                   align-items: center;
                 "
-                  src="http://placehold.it/260X260"
-                  alt="슬라이드 1"
-          />
-          <span class="fs-1">추천메뉴</span>
-        </div>
-        <div class="swiper-slide p-4">
-          <img
-                  class="recommendSwiper"
-                  style="
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                "
-                  src="http://placehold.it/128X128"
-                  alt="슬라이드 1"
-          />
-          <span class="fs-1">추천메뉴</span>
-        </div>
-        <div class="swiper-slide p-4">
-          <img
-                  class="recommendSwiper"
-                  style="
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                "
-                  src="http://placehold.it/128X128"
-                  alt="슬라이드 1"
-          />
-          <span class="fs-1">추천메뉴</span>
-        </div>
-        <div class="swiper-slide p-4">
-          <img
-                  class="recommendSwiper"
-                  style="
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                "
-                  src="http://placehold.it/128X128"
-                  alt="슬라이드 1"
-          />
-          <span class="fs-1">추천메뉴</span>
-        </div>
-        <div class="swiper-slide p-4">
-          <img
-                  class="recommendSwiper"
-                  style="
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                "
-                  src="http://placehold.it/128X128"
-                  alt="슬라이드 1"
-          />
-          <span class="fs-1">추천메뉴</span>
+                    th:src="@{'/static/upload/' + ${item.itemImageUrl}}"
+                    alt="슬라이드 1"
+            />
+            <span class="fs-1 text-center" th:text="${item.itemName}" style="color: black">추천메뉴</span>
+          </a>
         </div>
       </div>
     </div>
@@ -292,7 +242,7 @@
     <div class="swiper newnewsSwiper" >
       <div class="swiper-wrapper">
         <div class="swiper-slide newsSwipe" th:each="notice : ${list}" th:if="${notice.noticeNo == 1 or notice.noticeNo == 5 or notice.noticeNo == 6}">
-          <a  th:href="@{/notice/details/{no}(no=${notice.noticeNo})}"
+          <a th:href="@{/notice/details/{no}(no=${notice.noticeNo})}"
           ><img
                   class="swiperImg"
                   th:src="@{'/static/upload/' + ${notice.noticeTitleImg}}"

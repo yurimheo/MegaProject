@@ -47,7 +47,7 @@
   <!-- 이벤트 사항 -->
   <div class="eventPage p-4"  >
     <div class="eventList" th:each="notice : ${list}" th:if="${notice.noticeCate == '공지사항'}">
-      <a href="" style="color: black">
+      <a th:href="@{/notice/details/{no}(no=${notice.noticeNo})}" style="color: black">
 
         <div class="eventText">
           <b class="fs-1" th:text="${notice.noticeTitle}">[이벤트] 이벤트 이름</b>

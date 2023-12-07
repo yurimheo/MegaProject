@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -134,6 +135,17 @@ public class ViewController {
 
         model.addAttribute("count", listDto.size());
         model.addAttribute("list", listDto);
+
+        //추천 메뉴 불러오기
+        List<ItemEntity> itemEntity = itemRepository.findAll();
+
+        List<ItemDto> itemDto = itemEntity
+                .stream()
+                .map(ItemDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("count2", itemDto.size());
+        model.addAttribute("list2", itemDto);
         return  "/userApp/main";}
 
     // 스탬프
@@ -195,6 +207,12 @@ public class ViewController {
 
     // 4. 더보기 시작 -------------------------------------------
     // 4-(1) 더보기
+     @GetMapping("/more")
+    public String more(){
+        return "/userApp/more";
+    }
+
+
     @GetMapping("/newnews")
     public String news(Model model){
         List<NoticeEntity> listEntity = noticeRepository.findAll();
@@ -253,6 +271,21 @@ public class ViewController {
 
         return "/userApp/memberSetting";
     }
+
+    // 4-(3) 회원 탈퇴
+    @GetMapping("/deleteMember")
+    public String deleteMember(Model model, HttpServletRequest request){
+        String loginId = (String)request.getSession().getAttribute("loginId");
+        if( loginId != null ){
+            List<MemberEntity> list = memberRepository.findByMemberId(loginId);
+            if( list.size() > 0 ){
+                MemberEntity memberEntity = list.get(0);
+                model.addAttribute("loginName", memberEntity.getMemberName());
+            }
+        }
+
+        return "/userApp/memberDelete";
+    }
     // 4. 더보기 끝 ---------------------------------------------
 
     // 메장 및 메뉴 검색, 선택
@@ -277,6 +310,20 @@ public class ViewController {
         model.addAttribute("count", listDto.size());
         model.addAttribute("list", listDto);
         return "/userApp/menu";
+    }
+
+    // 메뉴 상세 페이지 이동
+    @GetMapping("/menu/detail/{name}")
+    public String menuDetail(@PathVariable String name, Model model) {
+
+        List<ItemEntity> items = itemRepository.findByItemName(name);
+        if (!items.isEmpty()) {
+            ItemEntity item = items.get(0);
+            model.addAttribute("item", item);
+            return "/userApp/oderMenu"; //메뉴 상세페이지로 이동
+        } else {
+            return "redirect:/menu";
+        }
     }
 
     //매장선택

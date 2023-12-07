@@ -1,8 +1,10 @@
 package com.megacoffee.OrderApp.controller;
 
+import com.megacoffee.OrderApp.ItemRequest;
 import com.megacoffee.OrderApp.dto.*;
 import com.megacoffee.OrderApp.entity.*;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,10 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.lang.reflect.Member;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 // @RestController : 해당 클래스가 'RESTfulAPI'를 제공하는 컨트롤러임을 나타내는 어노테이션
@@ -231,6 +230,136 @@ public class ApiController {
         }
     }
 
+    // 계정 설정 - 계정 정보 변경
+    // (1) 이름 변경
+    @PostMapping("/memberSetting/updateName")
+    public ResultDto memberUpdate(Model model, HttpServletRequest request, @RequestBody MemberDto memberDto) {
+        String loginId = (String)request.getSession().getAttribute("loginId");
+
+        // 아이디 값으로 회원 정보 찾기
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findOptionalByMemberId(loginId);
+
+        ResultDto resultDto;
+
+        if (optionalMemberEntity.isPresent()) {
+            // 기존 상품이 존재할 경우 수정 진행
+            MemberEntity existingEntity = optionalMemberEntity.get();
+
+            // 변경하려는 값으로 엔터티 업데이트
+            existingEntity.setMemberName(memberDto.getMemberName()); // 회원 이름 변경
+
+            // 엔터티 저장
+            MemberEntity updatedEntity = memberRepository.save(existingEntity);
+
+            if (updatedEntity != null) {
+                // 수정 성공
+                resultDto = ResultDto.builder()
+                        .status("ok")
+                        .result(1)
+                        .build();
+            } else {
+                // 수정 실패
+                resultDto = ResultDto.builder()
+                        .status("error")
+                        .message("상품 수정 중에 오류가 발생했습니다.")
+                        .result(0)
+                        .build();
+            }
+        } else {
+            // 기존 상품이 없을 경우
+            resultDto = ResultDto.builder()
+                    .status("error")
+                    .message("상품을 찾을 수 없습니다.")
+                    .result(0)
+                    .build();
+        }
+
+        return resultDto;
+    }
+    // (2) 핸드폰 번호 변경
+    @PostMapping("/memberSetting/updatePhone")
+    public ResultDto memberUpdate2(Model model, HttpServletRequest request, @RequestBody MemberDto memberDto) {
+        String loginId = (String)request.getSession().getAttribute("loginId");
+
+        // 아이디 값으로 회원 정보 찾기
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findOptionalByMemberId(loginId);
+
+        ResultDto resultDto;
+
+        if (optionalMemberEntity.isPresent()) {
+            // 기존 상품이 존재할 경우 수정 진행
+            MemberEntity existingEntity = optionalMemberEntity.get();
+
+            // 변경하려는 값으로 엔터티 업데이트
+            existingEntity.setMemberPhone(memberDto.getMemberPhone()); // 회원 핸드폰 번호 변경
+
+            // 엔터티 저장
+            MemberEntity updatedEntity = memberRepository.save(existingEntity);
+
+            if (updatedEntity != null) {
+                // 수정 성공
+                resultDto = ResultDto.builder()
+                        .status("ok")
+                        .result(1)
+                        .build();
+            } else {
+                // 수정 실패
+                resultDto = ResultDto.builder()
+                        .status("error")
+                        .message("상품 수정 중에 오류가 발생했습니다.")
+                        .result(0)
+                        .build();
+            }
+        } else {
+            // 기존 상품이 없을 경우
+            resultDto = ResultDto.builder()
+                    .status("error")
+                    .message("상품을 찾을 수 없습니다.")
+                    .result(0)
+                    .build();
+        }
+
+        return resultDto;
+    }
+
+    // 회원 탈퇴 액션
+    @PostMapping("/deleteMemberAction")
+    @Transactional
+    public ResultDto deleteMemberAction(@RequestBody MemberDto memberDto) {
+        try {
+            // 아이디 값으로 회원 정보 찾기
+            Optional<MemberEntity> optionalMemberEntity = memberRepository.findOptionalByMemberName(memberDto.getMemberName());
+
+            if (optionalMemberEntity.isPresent()) {
+                // 기존 회원이 존재할 경우 삭제 진행
+                memberRepository.deleteByMemberName(memberDto.getMemberName());
+
+                return ResultDto.builder()
+                        .status("ok")
+                        .result(1)
+                        .build();
+            } else {
+                // 회원이 존재하지 않는 경우
+                return ResultDto.builder()
+                        .status("error")
+                        .message("삭제할 회원을 찾을 수 없습니다.")
+                        .build();
+            }
+        } catch (Exception e) {
+            // 예외가 발생한 경우
+            String errorMessage = "삭제 중 오류가 발생했습니다.";
+            if (e.getMessage() != null) {
+                errorMessage += " 원인: " + e.getMessage();
+            }
+
+            return ResultDto.builder()
+                    .status("error")
+                    .message(errorMessage)
+                    .build();
+        }
+    }
+
+
     // 매장 선택
     @Autowired
     StoreRepository storeRepository;
@@ -269,6 +398,110 @@ public class ApiController {
                 .map(ItemDto::toDto)
                 .collect(Collectors.toList());
 
+    }
+
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private CartRepository cartRepository;
+
+    //바로주문하기
+    //메뉴상세 페이지에서 바로기능 누르면 DB에 저장하는 기능
+    @PostMapping("/updateOrder")
+    public ResultDto updateOrder(@RequestBody CartDto cartDto) {
+
+        CartEntity cartEntity = CartEntity.toEntity(cartDto);
+
+        CartEntity newEntity = cartRepository.save(cartEntity);
+
+        ResultDto resultDto = null;
+
+        if( newEntity != null  ) {
+            //등록 성공
+            resultDto = ResultDto.builder()
+                    .status("ok")
+                    .result(1)
+                    .build();
+        }else{
+            //등록 실패
+            resultDto = ResultDto.builder()
+                    .status("ok")
+                    .result(0)
+                    .build();
+        }
+
+        return resultDto;
+    }
+
+    //장바구니 담기
+    //메뉴상세 페이지에서 바로기능 누르면 DB에 저장하는 기능
+    @PostMapping("/updateCart")
+    public ResultDto updateCart(@RequestBody CartDto cartDto) {
+
+        CartEntity cartEntity = CartEntity.toEntity(cartDto);
+
+        CartEntity newEntity = cartRepository.save(cartEntity);
+
+        ResultDto resultDto = null;
+
+        if( newEntity != null  ) {
+            //등록 성공
+            resultDto = ResultDto.builder()
+                    .status("ok")
+                    .result(1)
+                    .build();
+        }else{
+            //등록 실패
+            resultDto = ResultDto.builder()
+                    .status("ok")
+                    .result(0)
+                    .build();
+        }
+
+        return resultDto;
+    }
+
+
+    // 카트목록 삭제
+    @PostMapping("/cart/delete")
+    @Transactional
+    public ResultDto deleteCart(@RequestBody ItemRequest request) {
+        try {
+            String itemName = request.getItemName();
+
+            cartRepository.deleteByItemName(itemName);
+
+            return ResultDto.builder()
+                    .status("ok")
+                    .result(1)
+                    .build();
+        } catch (Exception e) {
+            return ResultDto.builder()
+                    .status("error")
+                    .message("삭제 중 오류가 발생했습니다.")
+                    .build();
+        }
+    }
+
+    //주문하기
+    @PostMapping("/cart/update")
+    public ResultDto updateCartItem(@RequestBody ItemRequest request) {
+        try {
+            String itemName = request.getItemName();
+            int amount = request.getAmount();
+
+            cartRepository.updateItemAmount(itemName, amount);
+
+            return ResultDto.builder()
+                    .status("ok")
+                    .result(1)
+                    .build();
+        } catch (Exception e) {
+            return ResultDto.builder()
+                    .status("error")
+                    .message("수량 업데이트 중 오류가 발생했습니다.")
+                    .build();
+        }
     }
 
     

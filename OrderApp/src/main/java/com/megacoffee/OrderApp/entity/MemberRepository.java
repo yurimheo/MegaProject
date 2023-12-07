@@ -3,6 +3,7 @@ package com.megacoffee.OrderApp.entity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     long count();
@@ -32,4 +33,10 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     List<MemberEntity> findByMemberIdContaining(String searchValue);
     // <조회> 회원 이름이나 아이디 (부분 문자열 포함 확인)
     List<MemberEntity> findByMemberNameContainingOrMemberIdContaining(String searchValue, String searchValue1);
+
+    Optional<MemberEntity> findOptionalByMemberId(String loginId);
+
+    Optional<MemberEntity> findOptionalByMemberName(String memberName);
+
+    void deleteByMemberName(String memberName);
 }

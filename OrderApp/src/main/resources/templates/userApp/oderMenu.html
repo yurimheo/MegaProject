@@ -1,129 +1,51 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/mobile_layout}"
+>
   <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>test</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
       content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
       name="viewport"
     />
-    <style>
-      /* 구분선 css 시작 */
-      .divider {
-        width: 100%;
-        height: 8px;
-        background: #f8fafc;
-        margin-top: 1px;
-        box-shadow: 0 -1px 0 0 #edf1f3;
-      }
-      /* 구분선 css 끝 */
-
-      /* 메뉴 이미지 시작*/
-      .meunImg {
-        width: 170px;
-        height: 170px;
-      }
-      /* 메뉴 이미지 끝*/
-
-      /* 상품 이름 및 이미지 가운데 정렬 시작*/
-      .nameDescription,
-      .menuOrderImg {
-        text-align: center;
-      }
-      /* 상품 이름 및 이미지 가운데 정렬 끝 */
-
-      /* 갯수 증감 및 총 금액 시작*/
-      .amountBox {
-        width: 100%;
-        padding: 24px 5%;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: #fff;
-        box-shadow: 0 1px 0 0 #dfdfdf;
-      }
-
-      .amountBox .amount {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 120px;
-        padding-right: 1px;
-        font-size: 17px;
-      }
-
-      .totalPriceBox {
-        width: 100%;
-        padding: 24px 5%;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: #fff;
-        box-shadow: 0 1px 0 0 #dfdfdf;
-      }
-      .totalPrice {
-        font-weight: bold;
-        color: red;
-      }
-      /* 갯수 증감 및 총 금액 시작*/
-
-      /* 주문 장바구니 버튼 시작 */
-      .order-btn {
-        text-align: center;
-        margin: 30px;
-      }
-      .nowOrder {
-        display: inline-block;
-        width: 150px;
-        height: 50px;
-        border: 2px solid #000;
-        border-radius: 8px;
-        border: none;
-        text-align: center;
-        line-height: 50px;
-        font-weight: bold;
-        text-decoration: none;
-        margin: 10px;
-        background-color: #f0f0f0;
-        color: #000;
-      }
-      .inputCart {
-        display: inline-block;
-        width: 150px;
-        height: 50px;
-        border: 2px solid #000;
-        border-radius: 8px;
-        border: none;
-        text-align: center;
-        line-height: 50px;
-        font-weight: bold;
-        text-decoration: none;
-        margin: 10px;
-        background-color: black;
-        color: white;
-      }
-
-      .order-btn:hover {
-        background-color: #ccc;
-      }
-      /* 주문 장바구니 버튼 끝 */
-    </style>
   </head>
   <body>
-    <div class="container-fluid p-0">
+    <div class="container-fluid p-0" layout:fragment="mobile">
       <!-- 메뉴 이미지 시작 -->
       <div class="menuOrderImg">
-        <img src="../../static/images/grey.png" class="meunImg" alt="" />
+        <img alt="" th:src="@{'/static/upload/' + ${item.itemImageUrl}}" />
+        <input
+          type="text"
+          th:value="${item.itemImageUrl}"
+          id="imageValue"
+          style="display: none"
+        />
       </div>
       <!-- 메뉴 이미지 끝 -->
 
       <!-- 메뉴 이름 & 메뉴 설명 시작-->
       <div class="nameDescription">
-        <h3 class="menuName">아메리카노</h3>
-        <h4 class="menuDescription">아메리카노 설명</h4>
+        <h4 class="menuName" th:text="${item.itemName}" id="nameValue">
+          아메리카노
+        </h4>
+        <p
+          class="menuDescription"
+          th:text="${item.itemExplanation}"
+          id="exValue"
+        >
+          아메리카노 설명
+        </p>
+        <input
+          type="text"
+          th:value="${item.itemCode}"
+          id="cartItemCode"
+          style="display: none"
+        />
       </div>
       <!-- 메뉴 이름 & 메뉴 설명 끝-->
 
@@ -132,11 +54,19 @@
       <!-- 수량 및 가격 시작 -->
       <div class="amountBox">
         <div class="amount">
-          <img src="../../static/images/icons/btn-amount-min.svg" alt="" />
-          <span>1</span>
-          <img src="../../static/images/icons/btn-amount-plus.svg" alt="" />
+          <img
+            id="minusBtn"
+            src="../../static/images/icons/btn-amount-min.svg"
+            alt=""
+          />
+          <span id="defaultNo">1</span>
+          <img
+            id="plusBtn"
+            src="../../static/images/icons/btn-amount-plus.svg"
+            alt=""
+          />
         </div>
-        <div class="price g900" id="order-price">1,500원</div>
+        <div class="price g900" th:text="${item.itemPrice}">1,500원</div>
       </div>
       <!-- 수량 및 가격 끝 -->
 
@@ -144,17 +74,162 @@
 
       <!-- 총 상품금액 시작 -->
       <div class="totalPriceBox">
-        <h3 class="totalPriceText">총 상품금액</h3>
-        <div class="totalPrice">1,500원</div>
+        <h5 class="totalPriceText">총 상품금액</h5>
+        <div class="totalPrice" id="totalPriceId" th:text="${item.itemPrice}">
+          1,500원
+        </div>
       </div>
       <!-- 총 상품금액 끝-->
 
       <!-- 바로주문 & 장바구니담기 시작-->
       <div class="order-btn">
-        <a href="" class="nowOrder">바로 주문</a>
-        <a href="" class="inputCart">장바구니 담기</a>
+        <button
+          href=""
+          id="nowOrderId"
+          class="nowOrder"
+          onclick="updateOrder();"
+        >
+          바로 주문
+        </button>
+        <button
+          href=""
+          id="inputCartId"
+          class="inputCart"
+          onclick="updateCart();"
+        >
+          장바구니 담기
+        </button>
       </div>
       <!-- 바로주문 & 장바구니담기 끝-->
     </div>
+
+    <script layout:fragment="script">
+      // 수량 변경 및 총 상품금액 js 시작
+      document.addEventListener("DOMContentLoaded", function () {
+        var defaultNo = document.getElementById("defaultNo");
+        var totalPriceId = document.getElementById("totalPriceId");
+        var price = parseInt(
+          document
+            .querySelector(".price")
+            .innerText.replace("원", "")
+            .replace(/,/g, "")
+        );
+        var defaultNumber = parseInt(defaultNo.innerText);
+
+        document
+          .getElementById("minusBtn")
+          .addEventListener("click", function () {
+            if (defaultNumber > 1) {
+              defaultNumber--;
+              defaultNo.innerText = defaultNumber;
+              var totalPrice = price * defaultNumber;
+              totalPriceId.innerText = totalPrice.toString();
+            }
+          });
+
+        document
+          .getElementById("plusBtn")
+          .addEventListener("click", function () {
+            defaultNumber++;
+            defaultNo.innerText = defaultNumber;
+            var totalPrice = price * defaultNumber;
+            totalPriceId.innerText = totalPrice.toString();
+          });
+      });
+      // 수량 변경 및 총 상품금액 js 끝
+
+      // 바로주문 클릭시 이동 및 수량과 금액정보를 DB로 전송 기능 시작
+      function updateOrder() {
+        let cartCodeValue = uuid.v4();
+        const itemCodeValue = document.getElementById("cartItemCode").value;
+        const itemNameValue = document.getElementById("nameValue").innerText;
+        const itemImageUrlValue = document.getElementById("imageValue").value;
+        const itemPriceValue =
+          document.getElementById("totalPriceId").innerText;
+        const cartItemAmountValue = parseInt(
+          document.getElementById("defaultNo").innerText
+        );
+
+        console.log("카트코드:" + cartCodeValue);
+        console.log("상품코드:" + itemCodeValue);
+        console.log("상품이름:" + itemNameValue);
+        console.log("상품이미지:" + itemImageUrlValue);
+        console.log("상품가격:" + itemPriceValue);
+        console.log("아이템수량:" + cartItemAmountValue);
+
+        let params = {
+          cartCode: cartCodeValue,
+          itemCode: itemCodeValue,
+          itemName: itemNameValue,
+          itemImageUrl: itemImageUrlValue,
+          itemPrice: itemPriceValue,
+          cartItemAmount: cartItemAmountValue,
+          cartDate: new Date(),
+        };
+        fetch("/updateOrder", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(params),
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            console.log("json:" + JSON.stringify(json));
+            window.location.href = "/order"; // 해당 주소로 페이지 이동
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+      // 바로주문 클릭시 이동 및 수량과 금액정보를 DB로 전송 기능 시작
+
+      // '장바구니' 클릭시 이동 및 수량과 금액정보를 DB로 전송 기능 시작
+      function updateCart() {
+        let cartCodeValue = uuid.v4();
+        const itemCodeValue = document.getElementById("cartItemCode").value;
+        const itemNameValue = document.getElementById("nameValue").innerText;
+        const itemImageUrlValue = document.getElementById("imageValue").value;
+        const itemPriceValue =
+          document.getElementById("totalPriceId").innerText;
+        const cartItemAmountValue = parseInt(
+          document.getElementById("defaultNo").innerText
+        );
+
+        console.log("카트코드:" + cartCodeValue);
+        console.log("상품코드:" + itemCodeValue);
+        console.log("상품이름:" + itemNameValue);
+        console.log("상품이미지:" + itemImageUrlValue);
+        console.log("상품가격:" + itemPriceValue);
+        console.log("아이템수량:" + cartItemAmountValue);
+
+        let params = {
+          cartCode: cartCodeValue,
+          itemCode: itemCodeValue,
+          itemName: itemNameValue,
+          itemImageUrl: itemImageUrlValue,
+          itemPrice: itemPriceValue,
+          cartItemAmount: cartItemAmountValue,
+          cartDate: new Date(),
+        };
+        fetch("/updateOrder", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(params),
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            console.log("json:" + JSON.stringify(json));
+            window.location.href = "/cart"; // 해당 주소로 페이지 이동
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+
+      // '장바구니' 클릭시 이동 및 수량과 금액정보를 DB로 전송 기능 끝
+    </script>
   </body>
 </html>

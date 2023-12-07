@@ -28,12 +28,6 @@
         <div class="choiceStore text-end p-4" style="width: 60%">
           <div class="fw-bold fs-1">매장 선택</div>
         </div>
-        <button
-          class="search text-end bg-transparent text-body border-0"
-          style="width: 40%"
-        >
-          <img id="search" src="/static/images/icons/search.png" alt="search" />
-        </button>
       </div>
       <br />
       <!-- 상단 메장선택 & 돋보기 버튼 끝 -->
@@ -99,7 +93,7 @@
                   <img
                     class="storeImg m-1"
                     style="border-radius: 100px"
-                    src="./images/icons/store.jpg"
+                    src="../../static/images/icons/store.jpg"
                     alt="매장사진"
                     width="150"
                     height="150"
@@ -111,6 +105,42 @@
         </div>
       </div>
       <!-- 매장 리스트 끝-->
+
+      <!-- 하단바 시작 -->
+      <footer class="footer">
+        <div class="container d-flex flex-wrap justify-content-center">
+          <!-- 1. 메인 -->
+          <div class="footerInBox footerMain d-flex justify-content-center">
+            <a th:href="@{/main}">
+              <div id="footerMain">
+                <img src="/static/images/icons/house (1).png" alt="" />
+                <p>메인</p>
+              </div>
+            </a>
+          </div>
+          <!-- 2. 메가오더 -->
+          <div
+            class="footerInBox footerMegaOrder d-flex justify-content-center"
+          >
+            <a href="/store">
+              <div id="footerMegaOrder">
+                <div class="footerImg">
+                  <img src="/static/images/icons/coffee-cup (1).png" alt="" />
+                </div>
+                <p>메가오더</p>
+              </div>
+            </a>
+          </div>
+          <!-- 3. 더보기 -->
+          <div class="footerInBox footerMore d-flex justify-content-center">
+            <div id="footerMore">
+              <img src="/static/images/icons/menu (1).png" alt="" />
+              <p>더보기</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- 하단바 끝 -->
     </div>
 
     <script layout:fragment="script">
@@ -124,6 +154,13 @@
           $(this).addClass("active");
         });
       });
+
+      //x 클릭시 텍스트 지워짐 js
+      document
+        .getElementById("textReset")
+        .addEventListener("click", function () {
+          document.getElementById("searchValue").value = "";
+        });
 
       // 돋보기 클릭시 지점명 검색으로 이동
       $(document).ready(function () {
@@ -139,7 +176,7 @@
         $("#storeList").on("click", function (e) {
           e.preventDefault();
 
-          window.location.href = "/order/choice";
+          window.location.href = "/menu";
         });
       });
 
@@ -223,6 +260,49 @@
 
           storeDiv.appendChild(storeInfoDiv);
           storeList.appendChild(storeDiv);
+        });
+      }
+
+      // 페이지 로드시 하단바 업데이트
+      document.addEventListener("DOMContentLoaded", function () {
+        updateFooter();
+      });
+
+      // 하단 바 업데이트
+      function updateFooter() {
+        var currentPageName = "메가오더"; // 현재 페이지 이름 설정
+
+        // 하단 바의 모든 상자에 대해 반복
+        document.querySelectorAll(".footerInBox").forEach(function (box) {
+          var footerImg = box.querySelector("img");
+          var footerText = box.querySelector("p");
+
+          // 각 상자에 대해 현재 페이지에 따라 이미지 및 텍스트 업데이트
+          if (box.classList.contains("footerMain")) {
+            if (currentPageName === "메인") {
+              footerImg.src = "/static/images/icons/house.png";
+              footerText.style.color = "initial";
+            } else {
+              footerImg.src = "/static/images/icons/house (1).png";
+              footerText.style.color = "black";
+            }
+          } else if (box.classList.contains("footerMegaOrder")) {
+            if (currentPageName === "메가오더") {
+              footerImg.src = "/static/images/icons/coffee-cup.png";
+              footerText.style.color = "black";
+            } else {
+              footerImg.src = "/static/images/icons/coffee-cup (1).png";
+              footerText.style.color = "initial";
+            }
+          } else if (box.classList.contains("footerMore")) {
+            if (currentPageName === "더보기") {
+              footerImg.src = "/static/images/icons/menu.png";
+              footerText.style.color = "initial";
+            } else {
+              footerImg.src = "/static/images/icons/menu (1).png";
+              footerText.style.color = "black";
+            }
+          }
         });
       }
     </script>

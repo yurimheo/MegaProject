@@ -20,8 +20,12 @@
             <h2 class="top fw-bold d-flex editTitle">상품 등록</h2>
             <div class="registered text-end">
               <span class="text-end registeredCheckbox">
-             <span class="fs-6">신메뉴&nbsp;<input type="checkbox" id="itemNewMenu" /></span>
-            <span class="fs-6">추천메뉴&nbsp;<input type="checkbox" id="itemRecommended" /></span>
+                <span class="fs-6"
+                  >신메뉴&nbsp;<input type="checkbox" id="itemNewMenu"
+                /></span>
+                <span class="fs-6"
+                  >추천메뉴&nbsp;<input type="checkbox" id="itemRecommended"
+                /></span>
               </span>
             </div>
           </div>
@@ -61,11 +65,11 @@
                       </select>
                     </div>
                   </td>
-<!-- 상품명 -->
+                  <!-- 상품명 -->
                   <td class="topTable text-center">
                     <input type="text" id="inputItemName" name="productName" />
                   </td>
-<!-- 상품 가격 -->
+                  <!-- 상품 가격 -->
                   <td class="text-center">
                     <input
                       type="text"
@@ -212,8 +216,13 @@
       function func_item_addAction_json(itemImageUrl) {
         // 아이템 코드 랜덤 UUID 생성
         let itemCodeValue = uuid.v4();
- let newMenuValue = document.getElementById("itemNewMenu").checked ? 1 : 0;
-    let recommendedValue = document.getElementById("itemRecommended").checked ? 1 : 0;
+        let newMenuValue = document.getElementById("itemNewMenu").checked
+          ? 1
+          : 0;
+        let recommendedValue = document.getElementById("itemRecommended")
+          .checked
+          ? 1
+          : 0;
 
         const itemNameValue = document.getElementById("inputItemName").value;
         //const inputItemImageUrl = document.getElementById("itemImageUrl").value;

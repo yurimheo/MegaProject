@@ -27,4 +27,8 @@ public interface ItemRepository extends JpaRepository<ItemEntity, Long> {
     List<ItemEntity> findByItemName(String name);
 
     List<ItemEntity> findByItemCate(String category);
+
+    List<ItemEntity> findByItemCode(String code);
+
+    List<ItemEntity> findByItemNo(long no);
 }
