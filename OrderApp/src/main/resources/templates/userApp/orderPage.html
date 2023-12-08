@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/mobile_layout}"
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/mobile_layout}"
 >
   <head>
     <meta charset="UTF-8" />
@@ -20,13 +22,12 @@
     <title>Document</title>
   </head>
   <body>
-  <div layout:fragment="mobile" class="container-fluid p-0">
+    <div layout:fragment="mobile" class="container-fluid p-0">
       <div
         class="headerTop fs-1 fs-1 fw-bold d-flex align-items-center justify-content-between"
         style="position: fixed"
       >
-        <a href="#"
-           onclick="history.back();"
+        <a href="#" onclick="history.back();"
           ><img
             class="backImg ms-5"
             th:src="@{/static/images/icons/nav-back.svg}"
@@ -37,25 +38,34 @@
       <div class="location fs-1">의정부역점</div>
       <div class="p-5"><span class="fs-1 fw-bold w-100">주문상품</span></div>
       <div class="cart-list d-flex" th:each="cart, status:${ list }">
-
-        <img
-                th:src="@{'/static/upload/' + ${cart.itemImageUrl}}"
-          alt=""
-        />
+        <img th:src="@{'/static/upload/' + ${cart.itemImageUrl}}" alt="" />
         <div class="w-100 mb-1">
-          <div class="d-flex justify-content-between" >
-            <span th:text="${cart.itemName}" class="fw-bold fs-2">스모어블랙쿠키프라페</span>
+          <div class="d-flex justify-content-between">
+            <span
+              th:text="${cart.itemName}"
+              class="fw-bold fs-2"
+              data-item-name="${cart.itemName}"
+              >스모어블랙쿠키프라페</span
+            >
+            <input
+              type="text"
+              th:value="${cart.itemName}"
+              style="display: none"
+            />
             <!--삭제버튼-->
-            <a class="delete"
-               href=""
-               onclick="deleteCart([[${cart.cartNo}]])"
-               style="height: 60px">
-              <img
-                      class="cart-list-delete"
-                th:src="@{/static/images/icons/btn-cart-delete.svg}"
-                alt=""
-            /></a>
-
+            <form class="delete" style="height: 60px">
+              <button
+                type="button"
+                style="border: none; background: none; cursor: pointer"
+                onclick="deleteCart(event);"
+              >
+                <img
+                  class="cart-list-delete"
+                  th:src="@{/static/images/icons/btn-cart-delete.svg}"
+                  alt=""
+                />
+              </button>
+            </form>
           </div>
           <div class="cart-option fs-2 mt-2 mb-5">
             <p>선택안함x1</p>
@@ -64,17 +74,27 @@
           <div class="amount-box">
             <div class="amount w-50">
               <a class="num-down" href=""
-                ><img th:src="@{/static/images/icons/btn-amount-min.svg}" alt=""
+                ><img
+                  th:src="@{/static/images/icons/btn-amount-min.svg}"
+                  alt=""
               /></a>
-              <span class="number fs-1"  th:text="${cart.cartItemAmount}">1</span>
+              <!-- 상품 갯수-->
+              <span class="number fs-1" th:text="${cart.cartItemAmount}"
+                >1</span
+              >
               <a class="num-up" href=""
                 ><img
                   th:src="@{/static/images/icons/btn-amount-plus.svg}"
                   alt=""
               /></a>
             </div>
-            <div class="price fs-1 fw-bold" th:attr="data-price=${cart.itemPrice}" th:text="${(cart.cartItemAmount * cart.itemPrice) + ' 원'}">0원</div>
-
+            <div
+              class="price fs-1 fw-bold"
+              th:attr="data-price=${cart.itemPrice}"
+              th:text="${(cart.cartItemAmount * cart.itemPrice) + ' 원'}"
+            >
+              0원
+            </div>
           </div>
         </div>
       </div>
@@ -88,108 +108,163 @@
       <div class="order-detail w-100">
         <div class="order-detail-price p-5">
           <p class="fs-1">상품금액</p>
-          <span id="totalAmount"  class="total-price fs-1 fw-bold" style="color: red">
+          <span
+            id="totalAmount"
+            class="total-price fs-1 fw-bold"
+            style="color: red"
+          >
             0 원
           </span>
         </div>
         <div class="order-detail-btn">
-          <a class="fs-1 fw-bold" style="color: white" href="/order">주문하기</a>
+          <a
+            class="fs-1 fw-bold"
+            style="color: white"
+            href="/order"
+
+            >주문하기</a
+          >
         </div>
       </div>
     </div>
-  <script layout:fragment="script">
-  //상품 갯수 -
-     document.querySelectorAll('.num-down').forEach(button => {
-    button.addEventListener('click', function(e) {
-      e.preventDefault();
+    <script layout:fragment="script">
+      //상품 갯수 -
+      document.querySelectorAll(".num-down").forEach((button) => {
+        button.addEventListener("click", function (e) {
+          e.preventDefault();
 
-      const quantityElement = this.nextElementSibling;
-      let currentQuantity = parseInt(quantityElement.textContent);
+          const quantityElement = this.nextElementSibling;
+          let currentQuantity = parseInt(quantityElement.textContent);
 
-      // 최소 수량을 1로 제한
-      if (currentQuantity > 1) {
-        currentQuantity--;
-        quantityElement.textContent = currentQuantity;
+          // 최소 수량을 1로 제한
+          if (currentQuantity > 1) {
+            currentQuantity--;
+            quantityElement.textContent = currentQuantity;
 
-      updatePrice(this);
-      updateTotalAmount();
-
-      }
-    });
-  });
-// 상품 갯수 +
-  document.querySelectorAll('.num-up').forEach(button => {
-    button.addEventListener('click', function(e) {
-      e.preventDefault();
-
-      const quantityElement = this.previousElementSibling;
-      let currentQuantity = parseInt(quantityElement.textContent);
-
-      // 수량을 증가시킴
-      currentQuantity++;
-      quantityElement.textContent = currentQuantity;
-
-      updatePrice(this);
-      updateTotalAmount();
-
-    });
-  });
-  // 아이템의 갯수 * 아이템의 가격
-  function updatePrice(element) {
-  const quantityElement = element.closest('.amount-box').querySelector('.number');
-  const priceElement = element.closest('.amount-box').querySelector('.price');
-  const itemPrice = parseFloat(priceElement.getAttribute('data-price'));
-  const currentQuantity = parseInt(quantityElement.textContent.trim());
-
-  const totalPrice = currentQuantity * itemPrice;
-
-  priceElement.textContent = totalPrice.toLocaleString() + ' 원';
-}
-
-// 아이템들의 총 합
-function updateTotalAmount() {
-  const priceElements = document.querySelectorAll('.price');
-  let totalAmount = 0;
-
-  priceElements.forEach(priceElement => {
-    const itemPrice = parseFloat(priceElement.getAttribute('data-price'));
-    const currentQuantity = parseInt(priceElement.closest('.amount-box').querySelector('.number').textContent.trim());
-    const totalPrice = currentQuantity * itemPrice;
-    totalAmount += totalPrice;
-  });
-
-  const totalAmountElement = document.getElementById('totalAmount');
-  totalAmountElement.textContent = totalAmount.toLocaleString() + ' 원';
-}
-updateTotalAmount();
-
-// 카트 아이템 삭제
- function deleteCart(cartNo) {
-        const cartNosToDelete = [cartNo];
-
-        fetch('/delete/cart', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ cartNos: cartNosToDelete })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'ok') {
-                // 성공 시 처리할 로직
-                console.log('삭제가 완료되었습니다.');
-                // 예를 들어, 화면 갱신 등의 동작을 수행할 수 있습니다.
-            } else {
-                // 실패 시 처리할 로직
-                console.error('삭제에 실패했습니다:', data.message);
-            }
-        })
-        .catch(error => {
-            // 네트워크 오류 등을 처리할 수 있습니다.
-            console.error('네트워크 오류:', error);
+            updatePrice(this);
+            updateTotalAmount();
+            updateCartItem(this);
+          }
         });
-    }
-  </script>
+      });
+      // 상품 갯수 +
+      document.querySelectorAll(".num-up").forEach((button) => {
+        button.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const quantityElement = this.previousElementSibling;
+          let currentQuantity = parseInt(quantityElement.textContent);
+
+          // 수량을 증가시킴
+          currentQuantity++;
+          quantityElement.textContent = currentQuantity;
+
+          updatePrice(this);
+          updateTotalAmount();
+          updateCartItem(this);
+        });
+      });
+      //수량변경사항 서버에 반영
+       function updateCartItem(element) {
+    const itemNameElement = element.closest(".cart-list").querySelector(".fw-bold");
+    const itemName = itemNameElement.textContent.trim();
+    const quantityElement = element.closest(".amount-box").querySelector(".number");
+    const newQuantity = parseInt(quantityElement.textContent.trim());
+
+    let params = {
+      itemName: itemName,
+      amount: newQuantity,
+    };
+
+    fetch("/cart/update", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(params),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log("json:" + JSON.stringify(json));
+
+        // 페이지 새로고침
+          //  window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+      // 아이템의 갯수 * 아이템의 가격
+      function updatePrice(element) {
+        const quantityElement = element
+          .closest(".amount-box")
+          .querySelector(".number");
+        const priceElement = element
+          .closest(".amount-box")
+          .querySelector(".price");
+        const itemPrice = parseFloat(priceElement.getAttribute("data-price"));
+        const currentQuantity = parseInt(quantityElement.textContent.trim());
+
+        const totalPrice = currentQuantity * itemPrice;
+
+        priceElement.textContent = totalPrice.toLocaleString() + " 원";
+      }
+
+      // 아이템들의 총 합
+      function updateTotalAmount() {
+        const priceElements = document.querySelectorAll(".price");
+        let totalAmount = 0;
+
+        priceElements.forEach((priceElement) => {
+          const itemPrice = parseFloat(priceElement.getAttribute("data-price"));
+          const currentQuantity = parseInt(
+            priceElement
+              .closest(".amount-box")
+              .querySelector(".number")
+              .textContent.trim()
+          );
+          const totalPrice = currentQuantity * itemPrice;
+          totalAmount += totalPrice;
+        });
+
+        const totalAmountElement = document.getElementById("totalAmount");
+        totalAmountElement.textContent = totalAmount.toLocaleString() + " 원";
+      }
+      updateTotalAmount();
+
+      // 카트 아이템 삭제
+      function deleteCart(event) {
+        // 이벤트가 발생한 요소 (버튼)에서 가장 가까운 부모 요소인 'div'를 찾습니다.
+        let parentDiv = event.target.closest(".delete").parentNode;
+
+        // 'div' 요소에서 'input' 요소를 찾습니다.
+        let inputElement = parentDiv.querySelector('input[type="text"]');
+
+        // 'input' 요소의 값 (아이템 이름)을 가져옵니다.
+        let itemName = inputElement.value;
+
+        console.log(itemName);
+
+        let params = {
+          itemName: itemName,
+        };
+
+        fetch("/cart/delete", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(params),
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            console.log("json:" + JSON.stringify(json));
+
+            // 페이지 새로고침
+            window.location.reload();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+      // 주문하기
+    </script>
   </body>
 </html>
