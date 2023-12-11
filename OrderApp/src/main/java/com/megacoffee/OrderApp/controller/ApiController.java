@@ -6,6 +6,8 @@ import com.megacoffee.OrderApp.entity.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,21 +36,31 @@ public class ApiController {
                 loginDto.getLoginPw()
         );
         ResultDto resultDto = null;
-        if (list.size() > 0) {
+        if( list.size() > 0 ) {
             //로그인 성공
-            resultDto = ResultDto.builder()
-                    .status("ok")
-                    .result(1)
-                    .build();
+            //관리자로 로그인하면
+            if( loginDto.getLoginId().equals("admin") ){
+                resultDto = ResultDto.builder()
+                        .status("ok")
+                        .result(2)
+                        .build();
+            }else{
+                resultDto = ResultDto.builder()
+                        .status("ok")
+                        .result(1)
+                        .build();
+            }
+
             request.getSession().setAttribute("loginId", loginDto.getLoginId());
             //request.getSession().invalidate(); //로그아웃처리
-        } else {
+        }else{
             //로그인 실패
             resultDto = ResultDto.builder()
                     .status("ok")
                     .result(0)
                     .build();
         }
+
         return resultDto;
     }
 
@@ -501,6 +513,44 @@ public class ApiController {
                     .status("error")
                     .message("수량 업데이트 중 오류가 발생했습니다.")
                     .build();
+        }
+    }
+
+    @PostMapping("/order/update")
+    @Transactional
+    public ResponseEntity<ResultDto> updateOrder(@RequestBody OrderDto request) {
+        try {
+            OrderEntity orderEntity = OrderEntity.toOrderEntity(request);
+            OrderEntity savedOrder = orderRepository.save(orderEntity);
+
+            if (savedOrder != null) {
+                String memberId = request.getMemberId();
+
+                List<MemberEntity> members = memberRepository.findAllByMemberId(memberId);
+
+                for (MemberEntity member : members) {
+                    member.setMemberStamp(member.getMemberStamp() + 1); // 스탬프 증가
+                    memberRepository.save(member); // 변경된 스탬프 저장
+                }
+                cartRepository.deleteAll();
+                return ResponseEntity.ok()
+                        .body(ResultDto.builder()
+                                .status("ok")
+                                .result(1)
+                                .build());
+            } else {
+                return ResponseEntity.badRequest()
+                        .body(ResultDto.builder()
+                                .status("error")
+                                .message("주문 저장 중 오류가 발생했습니다.")
+                                .build());
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ResultDto.builder()
+                            .status("error")
+                            .message("주문 저장 중 오류가 발생했습니다.")
+                            .build());
         }
     }
 

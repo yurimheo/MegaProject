@@ -3,8 +3,10 @@ package com.megacoffee.OrderApp.controller;
 import com.megacoffee.OrderApp.dto.*;
 import com.megacoffee.OrderApp.entity.*;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -171,11 +173,53 @@ public class ViewController {
             List<MemberEntity> list = memberRepository.findByMemberId(loginId);
             if( list.size() > 0 ){
                 MemberEntity memberEntity = list.get(0);
+                model.addAttribute("loginId", loginId);
                 model.addAttribute("loginName", memberEntity.getMemberName());
                 model.addAttribute("stamp", memberEntity.getMemberStamp());
             }
         }
+
+        // 주문내역 DB 불러오기
+        List<OrderEntity> orderEntity = orderRepository.findAll();
+
+        List<OrderDto> orderDto = orderEntity
+                .stream()
+                .map(OrderDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("count", orderDto.size());
+        model.addAttribute("list", orderDto);
         return "/userApp/notification";
+    }
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    // 스탬프 적립내역
+    @GetMapping("/stampEarn")
+    public String stampEarn(Model model, HttpServletRequest request){
+        String loginId = (String)request.getSession().getAttribute("loginId");
+        if( loginId != null ){
+            List<MemberEntity> list = memberRepository.findByMemberId(loginId);
+            if( list.size() > 0 ){
+                MemberEntity memberEntity = list.get(0);
+                model.addAttribute("loginId", loginId);
+                model.addAttribute("loginName", memberEntity.getMemberName());
+                model.addAttribute("stamp", memberEntity.getMemberStamp());
+            }
+        }
+
+        // 주문내역 DB 불러오기
+        List<OrderEntity> orderEntity = orderRepository.findAll();
+
+        List<OrderDto> orderDto = orderEntity
+                .stream()
+                .map(OrderDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("count", orderDto.size());
+        model.addAttribute("list", orderDto);
+        return "/userApp/stamp_earnHistory";
     }
 
     // 2. 메인 끝 -----------------------------------------------
@@ -199,8 +243,28 @@ public class ViewController {
         return "/userApp/orderPage";
     }
     // 4. 결제
+    // 4. 결제
     @GetMapping("/order")
-    public String order(Model model){
+    public String order(Model model,HttpServletRequest request){
+        String loginId = (String)request.getSession().getAttribute("loginId");
+        List<CartEntity> listEntity = cartRepository.findAll();
+
+        List<CartDto> listDto = listEntity
+                .stream()
+                .map(CartDto::toCartDto)
+                .collect(Collectors.toList());
+
+        if( loginId != null ){
+            List<MemberEntity> list = memberRepository.findByMemberId(loginId);
+            if( list.size() > 0 ){
+                MemberEntity memberEntity = list.get(0);
+                model.addAttribute("loginId", loginId);
+            }
+        }
+
+        model.addAttribute("count", listDto.size());
+
+        model.addAttribute("list", listDto);
         return "/userApp/orderPage2";
     }
     // 3. 주문/결제하기 끝 ---------------------------------------
@@ -208,11 +272,26 @@ public class ViewController {
     // 4. 더보기 시작 -------------------------------------------
     // 4-(1) 더보기
      @GetMapping("/more")
-    public String more(){
+    public String more(Model model, HttpServletRequest request){
+         String loginId = (String)request.getSession().getAttribute("loginId");
+        if( loginId != null ){
+            List<MemberEntity> list = memberRepository.findByMemberId(loginId);
+            if( list.size() > 0 ){
+                MemberEntity memberEntity = list.get(0);
+                model.addAttribute("loginId", loginId);
+                model.addAttribute("loginName", memberEntity.getMemberName());
+            }
+        }
         return "/userApp/more";
     }
 
+    @GetMapping("/help")
+    public String help(){
+        return "/userApp/help";
+    }
 
+
+    // 이벤트 (메인과 이어짐)
     @GetMapping("/newnews")
     public String news(Model model){
         List<NoticeEntity> listEntity = noticeRepository.findAll();
@@ -226,6 +305,23 @@ public class ViewController {
         model.addAttribute("list", listDto);
         return "/userApp/newnews";
     }
+
+    // 이벤트 (더보기와 이어짐)
+    @GetMapping("/newEvent")
+    public String newEvent(Model model){
+        List<NoticeEntity> listEntity = noticeRepository.findAll();
+
+        List<NoticeDto> listDto = listEntity
+                .stream()
+                .map(NoticeDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("count", listDto.size());
+        model.addAttribute("list", listDto);
+        return "/userApp/newEvent";
+    }
+
+    // 공지사항 (메인과 이어짐)
     @GetMapping("/newnews2")
     public String news2(Model model){
         List<NoticeEntity> listEntity = noticeRepository.findAll();
@@ -239,6 +335,22 @@ public class ViewController {
         model.addAttribute("list", listDto);
         return "/userApp/newnews2";
     }
+
+    // 공지사항 (더보기와 이어짐)
+    @GetMapping("/newNotice")
+    public String newNotice(Model model){
+        List<NoticeEntity> listEntity = noticeRepository.findAll();
+
+        List<NoticeDto> listDto = listEntity
+                .stream()
+                .map(NoticeDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("count", listDto.size());
+        model.addAttribute("list", listDto);
+        return "/userApp/newNotice";
+    }
+
     @GetMapping("/notice/details/{no}")
     public String noticeDetail(@PathVariable long no, Model model) {
 

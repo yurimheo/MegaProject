@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/mobile_layout}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+    />
+    <!-- 아이폰 노치 커버 -->
+    <meta name="viewport" content="viewport-fit=cover" />
+    <title>고객센터</title>
+  </head>
+  <body>
+    <!-- 로그인 화면 페이지 시작 -->
+    <div
+      layout:fragment="mobile"
+      class="container-fluid"
+      style="padding: 20px 50px"
+    >
+      <!-- 헤더 및 뒤로가기 버튼 -->
+      <br />
+      <div style="height: 150px">
+        <div class="memberSettingHeader d-flex align-items-center w-100">
+          <a href="/more"
+            ><img
+              class="backImg"
+              th:src="@{static/images/icons/nav-back.svg}"
+              alt=""
+          /></a>
+        </div>
+      </div>
+      <div>
+        <p class="fw-bold p-0" style="font-size: 48px">안녕하세요</p>
+        <p class="fw-bold p-0" style="font-size: 48px">
+          메가MGC커피 고객센터입니다.
+        </p>
+      </div>
+
+      <br />
+      <br />
+      <br />
+
+      <!-- 전화번호 -->
+      <div>
+        <a href="tel:15888298">
+          <p style="font-size: 64px; color: black" class="fw-bold">1588-8298</p>
+        </a>
+      </div>
+
+      <!-- 운영시간 등 부가 정보 -->
+      <div>
+        <p style="color: #808080; font-size: 30px">
+          운영시간 평일 9:00~18:00 (점심시간 12:00~13:00)
+        </p>
+        <br />
+        <p style="color: #808080; font-size: 30px">
+          운영시간 이외에는 메가MGC커피 고객센터나 <br />모바일 앱(APP) 관련
+          문의를 이용해주세요
+        </p>
+      </div>
+
+      <br />
+      <br />
+      <br />
+      <!-- 버튼 -->
+      <div>
+        <a href="https://www.mega-mgccoffee.com/news/voc/">
+          <button type="button" class="w-100 helpBtn1">
+            메가 MGC커피 고객센터 바로가기
+          </button>
+        </a>
+      </div>
+      <div>
+        <a href="#">
+          <button type="button" class="w-100 helpBtn2">
+            모바일 앱(APP)관련 문의 남기기
+          </button>
+        </a>
+      </div>
+
+      <!-- 헤더 -->
+    </div>
+    <!-- 고객센터 화면 페이지 끝 -->
+    <script layout:fragment="script">
+      //  뒤로가기 버튼 클릭시 이전 페이지로 이동
+      $(document).ready(function () {
+        $("#backBtn").on("click", function (e) {
+          e.preventDefault();
+
+          window.history.back();
+        });
+      });
+    </script>
+  </body>
+</html>

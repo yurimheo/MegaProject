@@ -45,4 +45,22 @@ public class OrderDto {
                 .build();
     }
 
+    public static OrderDto toDto(OrderEntity entity){
+        return OrderDto.builder()
+                .orderNo(entity.getOrderNo())
+                .cartItemCode1(entity.getCartItemCode1())
+                .cartItemCode2(entity.getCartItemCode2())
+                .cartItemCode3(entity.getCartItemCode3())
+                .cartItemCode4(entity.getCartItemCode4())
+                .cartItemCode5(entity.getCartItemCode5())
+                .orderTotalPrice(entity.getOrderTotalPrice())
+                .orderTotalCount(entity.getOrderTotalCount())
+                .orderNumber(entity.getOrderNumber())
+                .memberId(entity.getMemberId())
+                .orderPayType(entity.getOrderPayType())
+                .orderState(entity.getOrderState())
+                .orderDatetime(entity.getOrderDateTime())
+                .build();
+    }
+
 }

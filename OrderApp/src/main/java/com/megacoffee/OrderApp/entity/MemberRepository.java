@@ -39,4 +39,7 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     Optional<MemberEntity> findOptionalByMemberName(String memberName);
 
     void deleteByMemberName(String memberName);
+
+    // 주문하기 (결제) -> 아이디 찾기
+    List<MemberEntity> findAllByMemberId(String memberId);
 }

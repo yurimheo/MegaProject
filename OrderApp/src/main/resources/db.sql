@@ -76,7 +76,7 @@ CREATE TABLE megamega.`order` (
     order_total_count TINYINT NOT NULL, -- 주문 상품 개수(최대 5개)
     -- 주문자/수령자 정보
      order_number INT NOT NULL, -- 주문자 임시번호(0 ~ 999)
-    member_id VARCHAR(255) NOT NULL UNIQUE, -- 
+    member_id VARCHAR(255) NOT NULL, -- 
     -- 결제방법
     order_pay_type INT DEFAULT(1) NOT NULL, -- 01 신용카드 또는 02 간편결제
     -- 주문상태

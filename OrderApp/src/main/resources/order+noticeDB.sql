@@ -48,11 +48,33 @@ INSERT INTO megamega.`order` (
   '12000','1','615','test5','01', 
  '결제완료', DEFAULT
  );
+ INSERT INTO megamega.`order` (
+ order_no, cart_item_code_1, cart_item_code_2, cart_item_code_3, cart_item_code_4, cart_item_code_5,
+ order_total_price, order_total_count, order_number, member_id,  order_pay_type, order_state, order_datetime)
+ VALUES
+ (0, 
+ '9c1f1b05-921c-4807-83be-8c30e54257c7',
+ '9c2f1b05-931c-4827-83be-8c30e57257c7',
+ '9c3f1b45-941c-4867-83be-8c30e57257c7',
+ NULL,
+ NULL,
+  '24000','3','616','test5','01', 
+ '결제완료', DEFAULT
+ );
+ 
  
 -- 공지 데이터
 INSERT INTO megamega.notice (
 notice_no, notice_title, notice_cate, notice_image_url, notice_title_image,notice_datetime
 )VALUES (0,
+'[신메뉴 출시] 귀여운 악당 미니언즈의 우당탕탕 Happy MEGA Party',
+'공지사항','minions.jpg',
+NULL,
+DEFAULT),(0,
+'[이벤트] 메가MGC커피X미니언즈 시즌 출시 기념 이벤트',
+'이벤트','minions2.jpg',
+'minionsT.png',
+DEFAULT),(0,
 '[공지] 손흥민X있지 TVCF 공개! 메가MGC커피와 즐거움이 커진다!',
 '공지사항','2b0ebe136ffa8ac3e6464f1d1e273aa5_1694592428_8809.jpg',
 'add1.jpg',

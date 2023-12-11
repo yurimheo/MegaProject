@@ -915,3 +915,21 @@ a {
 .memberDeleteBtn.active {
   background-color: #462201 !important;
 }
+
+.helpBtn1 {
+  background-color: #ffce21;
+  color: black;
+  margin-bottom: 15px;
+}
+.helpBtn2 {
+  background-color: #462201;
+  color: white;
+}
+.helpBtn1,
+.helpBtn2 {
+  font-size: 34px;
+  font-weight: bold;
+  border-radius: 20px;
+  border: none;
+  height: 130px;
+}

@@ -35,7 +35,7 @@
         /></a>
         <span span class="text-center flex-grow-1 me-5 pe-5">주문하기</span>
       </div>
-      <div class="location fs-1">의정부역점</div>
+      <div class="location fs-1">메가MGC커피</div>
       <div class="p-5"><span class="fs-1 fw-bold w-100">주문상품</span></div>
       <div class="cart-list d-flex" th:each="cart, status:${ list }">
         <img th:src="@{'/static/upload/' + ${cart.itemImageUrl}}" alt="" />
@@ -117,11 +117,7 @@
           </span>
         </div>
         <div class="order-detail-btn">
-          <a
-            class="fs-1 fw-bold"
-            style="color: white"
-            href="/order"
-
+          <a class="fs-1 fw-bold" style="color: white" href="/order"
             >주문하기</a
           >
         </div>
@@ -165,33 +161,37 @@
         });
       });
       //수량변경사항 서버에 반영
-       function updateCartItem(element) {
-    const itemNameElement = element.closest(".cart-list").querySelector(".fw-bold");
-    const itemName = itemNameElement.textContent.trim();
-    const quantityElement = element.closest(".amount-box").querySelector(".number");
-    const newQuantity = parseInt(quantityElement.textContent.trim());
+      function updateCartItem(element) {
+        const itemNameElement = element
+          .closest(".cart-list")
+          .querySelector(".fw-bold");
+        const itemName = itemNameElement.textContent.trim();
+        const quantityElement = element
+          .closest(".amount-box")
+          .querySelector(".number");
+        const newQuantity = parseInt(quantityElement.textContent.trim());
 
-    let params = {
-      itemName: itemName,
-      amount: newQuantity,
-    };
+        let params = {
+          itemName: itemName,
+          amount: newQuantity,
+        };
 
-    fetch("/cart/update", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(params),
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log("json:" + JSON.stringify(json));
+        fetch("/cart/update", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(params),
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            console.log("json:" + JSON.stringify(json));
 
-        // 페이지 새로고침
-          //  window.location.reload();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+            // 페이지 새로고침
+            //  window.location.reload();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
 
       // 아이템의 갯수 * 아이템의 가격
       function updatePrice(element) {

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/mobile_layout}"
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/mobile_layout}"
 >
   <head>
     <meta charset="UTF-8" />
@@ -15,18 +17,20 @@
   </head>
   <body>
     <!-- 로그인 화면 페이지 시작 -->
-    <div layout:fragment="mobile"  class="container-fluid p-0">
+    <div layout:fragment="mobile" class="container-fluid p-0">
       <!-- 간격 생성 시작 -->
-      <div class="emptyBox"></div>
       <br />
       <!-- 간격 생성 끝 -->
       <!-- 스탬프 헤더 및 뒤로가기, 새로고침 버튼-->
       <div>
         <div class="stampHeaderBox d-flex justify-content-between">
           <div class="stampBtnBox">
-            <button type="button" class="stampHeader fw-bold m-0" id="backBtn">
-              &lt;
-            </button>
+            <a href="/stamp"
+              ><img
+                class="backImg ms-3"
+                th:src="@{static/images/icons/nav-back.svg}"
+                alt=""
+            /></a>
           </div>
         </div>
       </div>
@@ -38,106 +42,22 @@
         </div>
       </div>
       <!-- 하단 내역 -->
-      <div style="margin: 0 2vh">
-        <div class="d-flex justify-content-between" style="margin-top: 2vh">
-          <p class="fs-1 fw-bold" style="color: rgb(153, 153, 153)">스탬프</p>
-          <p class="fs-3">2013.11.15.12.55</p>
+      <div
+        th:each="order, status:${ list }"
+        th:if="${order.memberId == loginId}"
+      >
+        <div style="margin: 0 2vh">
+          <div class="d-flex justify-content-between" style="margin-top: 2vh">
+            <p class="fs-1 fw-bold" style="color: rgb(153, 153, 153)">스탬프</p>
+            <p class="fs-3" th:text="${order.orderDatetime}">
+              2013.11.15.12.55
+            </p>
+          </div>
+          <p class="fs-2">스탬프 1개가 적립되었습니다.</p>
         </div>
-        <p class="fs-2">스탬프 1개가 적립되었습니다.</p>
-      </div>
-      <div style="margin: 0 2vh">
-        <div class="d-flex justify-content-between" style="margin-top: 2vh">
-          <p class="fs-1 fw-bold" style="color: rgb(153, 153, 153)">스탬프</p>
-          <p class="fs-3">2013.11.15.12.55</p>
-        </div>
-        <p class="fs-2">스탬프 1개가 적립되었습니다.</p>
-      </div>
-      <div style="margin: 0 2vh">
-        <div class="d-flex justify-content-between" style="margin-top: 2vh">
-          <p class="fs-1 fw-bold" style="color: rgb(153, 153, 153)">스탬프</p>
-          <p class="fs-3">2013.11.15.12.55</p>
-        </div>
-        <p class="fs-2">스탬프 1개가 적립되었습니다.</p>
-      </div>
-      <div style="margin: 0 2vh">
-        <div class="d-flex justify-content-between" style="margin-top: 2vh">
-          <p class="fs-1 fw-bold" style="color: rgb(153, 153, 153)">스탬프</p>
-          <p class="fs-3">2013.11.15.12.55</p>
-        </div>
-        <p class="fs-2">스탬프 1개가 적립되었습니다.</p>
-      </div>
-      <div style="margin: 0 2vh">
-        <div class="d-flex justify-content-between" style="margin-top: 2vh">
-          <p class="fs-1 fw-bold" style="color: rgb(153, 153, 153)">스탬프</p>
-          <p class="fs-3">2013.11.15.12.55</p>
-        </div>
-        <p class="fs-2">스탬프 1개가 적립되었습니다.</p>
-      </div>
-      <div style="margin: 0 2vh">
-        <div class="d-flex justify-content-between" style="margin-top: 2vh">
-          <p class="fs-1 fw-bold" style="color: rgb(153, 153, 153)">스탬프</p>
-          <p class="fs-3">2013.11.15.12.55</p>
-        </div>
-        <p class="fs-2">스탬프 1개가 적립되었습니다.</p>
-      </div>
-      <div style="margin: 0 2vh">
-        <div class="d-flex justify-content-between" style="margin-top: 2vh">
-          <p class="fs-1 fw-bold" style="color: rgb(153, 153, 153)">스탬프</p>
-          <p class="fs-3">2013.11.15.12.55</p>
-        </div>
-        <p class="fs-2">스탬프 1개가 적립되었습니다.</p>
-      </div>
-      <div style="margin: 0 2vh">
-        <div class="d-flex justify-content-between" style="margin-top: 2vh">
-          <p class="fs-1 fw-bold" style="color: rgb(153, 153, 153)">스탬프</p>
-          <p class="fs-3">2013.11.15.12.55</p>
-        </div>
-        <p class="fs-2">스탬프 1개가 적립되었습니다.</p>
-      </div>
-      <div style="margin: 0 2vh">
-        <div class="d-flex justify-content-between" style="margin-top: 2vh">
-          <p class="fs-1 fw-bold" style="color: rgb(153, 153, 153)">스탬프</p>
-          <p class="fs-3">2013.11.15.12.55</p>
-        </div>
-        <p class="fs-2">스탬프 1개가 적립되었습니다.</p>
-      </div>
-      <div style="margin: 0 2vh">
-        <div class="d-flex justify-content-between" style="margin-top: 2vh">
-          <p class="fs-1 fw-bold" style="color: rgb(153, 153, 153)">스탬프</p>
-          <p class="fs-3">2013.11.15.12.55</p>
-        </div>
-        <p class="fs-2">스탬프 1개가 적립되었습니다.</p>
-      </div>
-      <div style="margin: 0 2vh">
-        <div class="d-flex justify-content-between" style="margin-top: 2vh">
-          <p class="fs-1 fw-bold" style="color: rgb(153, 153, 153)">스탬프</p>
-          <p class="fs-3">2013.11.15.12.55</p>
-        </div>
-        <p class="fs-2">스탬프 1개가 적립되었습니다.</p>
-      </div>
-      <div style="margin: 0 2vh">
-        <div class="d-flex justify-content-between" style="margin-top: 2vh">
-          <p class="fs-1 fw-bold" style="color: rgb(153, 153, 153)">스탬프</p>
-          <p class="fs-3">2013.11.15.12.55</p>
-        </div>
-        <p class="fs-2">스탬프 1개가 적립되었습니다.</p>
-      </div>
-      <div style="margin: 0 2vh">
-        <div class="d-flex justify-content-between" style="margin-top: 2vh">
-          <p class="fs-1 fw-bold" style="color: rgb(153, 153, 153)">스탬프</p>
-          <p class="fs-3">2013.11.15.12.55</p>
-        </div>
-        <p class="fs-2">스탬프 1개가 적립되었습니다.</p>
-      </div>
-      <div style="margin: 0 2vh">
-        <div class="d-flex justify-content-between" style="margin-top: 2vh">
-          <p class="fs-1 fw-bold" style="color: rgb(153, 153, 153)">스탬프</p>
-          <p class="fs-3">2013.11.15.12.55</p>
-        </div>
-        <p class="fs-2">스탬프 1개가 적립되었습니다.</p>
       </div>
     </div>
-    <!-- 로그인 화면 페이지 끝 -->
+    <!-- 스탬프 적립내역 화면 페이지 끝 -->
     <script layout:fragment="script">
       //  뒤로가기 버튼 클릭시 이전 페이지로 이동
       $(document).ready(function () {

@@ -28,7 +28,7 @@
         style="position: fixed"
       >
         <div class="d-flex align-items-center m-4 mt-5" style="height: 30px">
-          <a href="" onclick="history.back();"
+          <a href="/main"
             ><img
               class="backImg ms-3"
               th:src="@{static/images/icons/nav-back.svg}"
@@ -65,7 +65,10 @@
           th:each="notice : ${list}"
           th:if="${notice.noticeCate == '이벤트'}"
         >
-          <a th:href="@{/notice/details/{no}(no=${notice.noticeNo})}" style="color: black">
+          <a
+            th:href="@{/notice/details/{no}(no=${notice.noticeNo})}"
+            style="color: black"
+          >
             <img
               class="eventImg w-100"
               th:src="@{'/static/upload/' + ${notice.noticeTitleImg}}"

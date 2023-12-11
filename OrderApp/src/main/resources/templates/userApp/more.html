@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/mobile_layout}"
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/mobile_layout}"
 >
   <head>
     <meta charset="UTF-8" />
@@ -17,20 +19,24 @@
     />
     <!-- 아이폰 노치 커버 -->
     <meta name="viewport" content="viewport-fit=cover" />
-    <title>Document</title>
+    <title>더보기</title>
     <!-- 부트스트랩 CSS -->
   </head>
   <body>
-  <div layout:fragment="mobile" class="container-fluid p-5">
+    <div layout:fragment="mobile" class="container-fluid p-5">
       <!-- 컨텐츠 시작 -->
       <div class="more-headerTop fs-2">
-        <span class="headerTop-content">계정설정</span>
+        <a href="/memberSetting">
+          <span class="headerTop-content">계정설정</span>
+        </a>
         ㅣ
-        <span class="headerTop-content">고객센터</span>
+        <a href="/help">
+          <span class="headerTop-content">고객센터</span>
+        </a>
       </div>
       <!-- 이름표시 -->
       <div class="welcomeText fs-1">
-        <span class="fw-bold" id="nickname" th:text="|${loginNickname}|"
+        <span class="fw-bold" id="nickname" th:text="|${loginName}|"
           >홍길동</span
         >
         <span>님 </span>
@@ -91,8 +97,8 @@
         <br />
         <div class="d-flex flex-column">
           <span class="fs-2 moreContent">새소식</span>
-          <a class="moreContentAnchor fs-1" href="/newnews">이벤트</a>
-          <a class="moreContentAnchor fs-1" href="/newnews2">공지사항</a>
+          <a class="moreContentAnchor fs-1" href="/newEvent">이벤트</a>
+          <a class="moreContentAnchor fs-1" href="/newNotice">공지사항</a>
         </div>
         <br />
         <br />
@@ -101,6 +107,44 @@
           <a class="moreContentAnchor fs-1" href="/userTOU">이용약관</a>
         </div>
       </div>
+
+      <!-- 하단바 시작 -->
+      <footer class="footer">
+        <div class="container d-flex flex-wrap justify-content-center">
+          <!-- 1. 메인 -->
+          <div class="footerInBox footerMain d-flex justify-content-center">
+            <a th:href="@{/main}">
+              <div id="footerMain">
+                <img src="/static/images/icons/house (1).png" alt="" />
+                <p>메인</p>
+              </div>
+            </a>
+          </div>
+          <!-- 2. 메가오더 -->
+          <div
+            class="footerInBox footerMegaOrder d-flex justify-content-center"
+          >
+            <a href="/store">
+              <div id="footerMegaOrder">
+                <div class="footerImg">
+                  <img src="/static/images/icons/coffee-cup (1).png" alt="" />
+                </div>
+                <p>메가오더</p>
+              </div>
+            </a>
+          </div>
+          <!-- 3. 더보기 -->
+          <div class="footerInBox footerMore d-flex justify-content-center">
+            <a href="/more">
+              <div id="footerMore">
+                <img src="/static/images/icons/menu (1).png" alt="" />
+                <p>더보기</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </footer>
+      <!-- 하단바 끝 -->
     </div>
 
     <script layout:fragment="script">
@@ -138,6 +182,49 @@
         // 초기 페이지 번호 설정
         updatePageNumber();
       });
+
+      // 페이지 로드시 '신메뉴' 선택이 기본
+      document.addEventListener("DOMContentLoaded", function () {
+        updateFooter();
+      });
+
+      // 하단 바 업데이트
+      function updateFooter() {
+        var currentPageName = "더보기"; // 현재 페이지 이름 설정
+
+        // 하단 바의 모든 상자에 대해 반복
+        document.querySelectorAll(".footerInBox").forEach(function (box) {
+          var footerImg = box.querySelector("img");
+          var footerText = box.querySelector("p");
+
+          // 각 상자에 대해 현재 페이지에 따라 이미지 및 텍스트 업데이트
+          if (box.classList.contains("footerMain")) {
+            if (currentPageName === "메인") {
+              footerImg.src = "/static/images/icons/house.png";
+              footerText.style.color = "initial";
+            } else {
+              footerImg.src = "/static/images/icons/house (1).png";
+              footerText.style.color = "black";
+            }
+          } else if (box.classList.contains("footerMegaOrder")) {
+            if (currentPageName === "메가오더") {
+              footerImg.src = "/static/images/icons/coffee-cup.png";
+              footerText.style.color = "black";
+            } else {
+              footerImg.src = "/static/images/icons/coffee-cup (1).png";
+              footerText.style.color = "initial";
+            }
+          } else if (box.classList.contains("footerMore")) {
+            if (currentPageName === "더보기") {
+              footerImg.src = "/static/images/icons/menu.png";
+              footerText.style.color = "initial";
+            } else {
+              footerImg.src = "/static/images/icons/menu (1).png";
+              footerText.style.color = "black";
+            }
+          }
+        });
+      }
     </script>
   </body>
 </html>

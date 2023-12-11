@@ -37,7 +37,10 @@ function loginAction() {
       console.log("json:" + json);
       console.log("response:" + JSON.stringify(json));
 
-      if (json.result == 1) {
+     if( json.result == 2 ){
+      //관리자페이지로 이동
+      window.location.href = "/admin/member";
+      } else if (json.result == 1) {
         //로그인 성공
         //다음페이지로 이동
         window.location.href = "/main";

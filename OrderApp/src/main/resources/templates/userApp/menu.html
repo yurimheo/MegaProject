@@ -34,14 +34,14 @@
           <div class="fw-bold" style="font-size: 42px">주문하기</div>
         </div>
         <button class="searchBtn text-end bg-transparent text-body border-0">
-         <a href="/cart">
-           <img
-                   class="cartImg"
-                   style="width: 50px"
-                   src="/static/images/icons/online-shopping.png"
-                   alt=""
-           />
-         </a>
+          <a href="/cart">
+            <img
+              class="cartImg"
+              style="width: 50px"
+              src="/static/images/icons/online-shopping.png"
+              alt=""
+            />
+          </a>
         </button>
       </div>
       <br />
@@ -126,10 +126,12 @@
           </div>
           <!-- 3. 더보기 -->
           <div class="footerInBox footerMore d-flex justify-content-center">
-            <div id="footerMore">
-              <img src="/static/images/icons/menu (1).png" alt="" />
-              <p>더보기</p>
-            </div>
+            <a href="/more">
+              <div id="footerMore">
+                <img src="/static/images/icons/menu (1).png" alt="" />
+                <p>더보기</p>
+              </div>
+            </a>
           </div>
         </div>
       </footer>
@@ -142,7 +144,7 @@
         $("#backBtnImg").on("click", function (e) {
           e.preventDefault();
 
-          window.location.href = "/store/choice";
+          window.location.href = "/store";
         });
       });
 

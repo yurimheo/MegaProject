@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/mobile_layout}"
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/mobile_layout}"
 >
   <head>
     <meta charset="UTF-8" />
@@ -17,16 +19,19 @@
     <!-- 스탬프 화면 페이지 시작 -->
     <div layout:fragment="mobile" class="container-fluid p-0">
       <!-- 간격 생성 시작 -->
-<!--      <div class="emptyBox"></div>-->
+      <!--      <div class="emptyBox"></div>-->
       <br />
       <!-- 간격 생성 끝 -->
       <!-- 스탬프 헤더 및 뒤로가기, 새로고침 버튼-->
       <div>
         <div class="stampHeaderBox d-flex justify-content-between">
           <div class="stampBtnBox">
-            <button type="button" class="stampHeader fw-bold m-0" id="backBtn">
-              &lt;
-            </button>
+            <a href="/main"
+              ><img
+                class="backImg ms-3"
+                th:src="@{static/images/icons/nav-back.svg}"
+                alt=""
+            /></a>
           </div>
           <p class="stampHeader fw-bold text-center m-0">스탬프</p>
           <div class="stampBtnBox">
@@ -57,141 +62,202 @@
       <div class="stamp_detail">
         <ul class="d-flex">
           <li>
-            <div th:if="${stamp >= 1}"
-                 class="inStamp d-flex justify-content-center flex-wrap align-content-center"
+            <div
+              th:if="${stamp >= 1}"
+              class="inStamp d-flex justify-content-center flex-wrap align-content-center"
             >
-               <span>
-          <img src="../../static/images/stamp.png" alt="스탬프 1" style="width: 130px; height: 100%" />
-        </span>
+              <span>
+                <img
+                  src="../../static/images/stamp.png"
+                  alt="스탬프 1"
+                  style="width: 130px; height: 100%"
+                />
+              </span>
             </div>
-            <div  th:unless="${stamp >= 1}"
+            <div
+              th:unless="${stamp >= 1}"
               class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
             >
               <span>1</span>
             </div>
           </li>
-          <<li>
-          <div th:if="${stamp >= 2}"
-               class="inStamp d-flex justify-content-center flex-wrap align-content-center"
-          >
-               <span>
-          <img src="../../static/images/stamp.png" alt="스탬프 2" style="width: 130px; height: 100%" />
-        </span>
-          </div>
-          <div  th:unless="${stamp >= 2}"
-                class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
-          >
-            <span>2</span>
-          </div>
-        </li>
+          <
           <li>
-            <div th:if="${stamp >= 3}"
-                 class="inStamp d-flex justify-content-center flex-wrap align-content-center"
+            <div
+              th:if="${stamp >= 2}"
+              class="inStamp d-flex justify-content-center flex-wrap align-content-center"
             >
-               <span>
-          <img src="../../static/images/stamp.png" alt="스탬프 3" style="width: 130px; height: 100%" />
-        </span>
+              <span>
+                <img
+                  src="../../static/images/stamp.png"
+                  alt="스탬프 2"
+                  style="width: 130px; height: 100%"
+                />
+              </span>
             </div>
-            <div  th:unless="${stamp >= 3}"
-                  class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            <div
+              th:unless="${stamp >= 2}"
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            >
+              <span>2</span>
+            </div>
+          </li>
+          <li>
+            <div
+              th:if="${stamp >= 3}"
+              class="inStamp d-flex justify-content-center flex-wrap align-content-center"
+            >
+              <span>
+                <img
+                  src="../../static/images/stamp.png"
+                  alt="스탬프 3"
+                  style="width: 130px; height: 100%"
+                />
+              </span>
+            </div>
+            <div
+              th:unless="${stamp >= 3}"
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
             >
               <span>3</span>
             </div>
           </li>
           <li>
-            <div th:if="${stamp >= 4}"
-                 class="inStamp d-flex justify-content-center flex-wrap align-content-center"
+            <div
+              th:if="${stamp >= 4}"
+              class="inStamp d-flex justify-content-center flex-wrap align-content-center"
             >
-               <span>
-          <img src="../../static/images/stamp.png" alt="스탬프 4" style="width: 130px; height: 100%" />
-        </span>
+              <span>
+                <img
+                  src="../../static/images/stamp.png"
+                  alt="스탬프 4"
+                  style="width: 130px; height: 100%"
+                />
+              </span>
             </div>
-            <div  th:unless="${stamp >= 4}"
-                  class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            <div
+              th:unless="${stamp >= 4}"
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
             >
               <span>4</span>
             </div>
           </li>
           <li>
-            <div th:if="${stamp >= 5}"
-                 class="inStamp d-flex justify-content-center flex-wrap align-content-center"
+            <div
+              th:if="${stamp >= 5}"
+              class="inStamp d-flex justify-content-center flex-wrap align-content-center"
             >
-               <span>
-          <img src="../../static/images/stamp.png" alt="스탬프 5" style="width: 130px; height: 100%" />
-        </span>
+              <span>
+                <img
+                  src="../../static/images/stamp.png"
+                  alt="스탬프 5"
+                  style="width: 130px; height: 100%"
+                />
+              </span>
             </div>
-            <div  th:unless="${stamp >= 5}"
-                  class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            <div
+              th:unless="${stamp >= 5}"
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
             >
               <span>5</span>
             </div>
           </li>
           <li>
-            <div th:if="${stamp >= 6}"
-                 class="inStamp d-flex justify-content-center flex-wrap align-content-center"
+            <div
+              th:if="${stamp >= 6}"
+              class="inStamp d-flex justify-content-center flex-wrap align-content-center"
             >
-               <span>
-          <img src="../../static/images/stamp.png" alt="스탬프 6" style="width: 130px; height: 100%" />
-        </span>
+              <span>
+                <img
+                  src="../../static/images/stamp.png"
+                  alt="스탬프 6"
+                  style="width: 130px; height: 100%"
+                />
+              </span>
             </div>
-            <div  th:unless="${stamp >= 6}"
-                  class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            <div
+              th:unless="${stamp >= 6}"
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
             >
               <span>6</span>
             </div>
           </li>
           <li>
-            <div th:if="${stamp >= 7}"
-                 class="inStamp d-flex justify-content-center flex-wrap align-content-center"
+            <div
+              th:if="${stamp >= 7}"
+              class="inStamp d-flex justify-content-center flex-wrap align-content-center"
             >
-               <span>
-          <img src="../../static/images/stamp.png" alt="스탬프 7" style="width: 130px; height: 100%" />
-        </span>
+              <span>
+                <img
+                  src="../../static/images/stamp.png"
+                  alt="스탬프 7"
+                  style="width: 130px; height: 100%"
+                />
+              </span>
             </div>
-            <div  th:unless="${stamp >= 7}"
-                  class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            <div
+              th:unless="${stamp >= 7}"
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
             >
               <span>7</span>
             </div>
           </li>
           <li>
-            <div th:if="${stamp >= 8}"
-                 class="inStamp d-flex justify-content-center flex-wrap align-content-center"
+            <div
+              th:if="${stamp >= 8}"
+              class="inStamp d-flex justify-content-center flex-wrap align-content-center"
             >
-               <span>
-          <img src="../../static/images/stamp.png" alt="스탬프 8" style="width: 130px; height: 100%" />
-        </span>
+              <span>
+                <img
+                  src="../../static/images/stamp.png"
+                  alt="스탬프 8"
+                  style="width: 130px; height: 100%"
+                />
+              </span>
             </div>
-            <div  th:unless="${stamp >= 8}"
-                  class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            <div
+              th:unless="${stamp >= 8}"
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
             >
               <span>8</span>
             </div>
           </li>
           <li>
-            <div th:if="${stamp >= 9}"
-                 class="inStamp d-flex justify-content-center flex-wrap align-content-center"
+            <div
+              th:if="${stamp >= 9}"
+              class="inStamp d-flex justify-content-center flex-wrap align-content-center"
             >
-               <span>
-          <img src="../../static/images/stamp.png" alt="스탬프 9" style="width: 130px; height: 100%" />
-        </span>
+              <span>
+                <img
+                  src="../../static/images/stamp.png"
+                  alt="스탬프 9"
+                  style="width: 130px; height: 100%"
+                />
+              </span>
             </div>
-            <div  th:unless="${stamp >= 9}"
-                  class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            <div
+              th:unless="${stamp >= 9}"
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
             >
               <span>9</span>
             </div>
           </li>
           <li>
-            <div th:if="${stamp >= 10}"
-                 class="inStamp d-flex justify-content-center flex-wrap align-content-center"
+            <div
+              th:if="${stamp >= 10}"
+              class="inStamp d-flex justify-content-center flex-wrap align-content-center"
             >
-               <span>
-          <img src="../../static/images/stamp.png" alt="스탬프 10" style="width: 130px; height: 100%" />
-        </span>
+              <span>
+                <img
+                  src="../../static/images/stamp.png"
+                  alt="스탬프 10"
+                  style="width: 130px; height: 100%"
+                />
+              </span>
             </div>
-            <div  th:unless="${stamp >= 10}"
-                  class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
+            <div
+              th:unless="${stamp >= 10}"
+              class="emptyStamp d-flex justify-content-center flex-wrap align-content-center"
             >
               <span>10</span>
             </div>
@@ -255,7 +321,7 @@
         $("#earnStamp").on("click", function (e) {
           e.preventDefault();
 
-          window.location.href = "Stamp_earnHistory.html";
+          window.location.href = "/stampEarn";
         });
       });
     </script>

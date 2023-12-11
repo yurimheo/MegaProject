@@ -14,5 +14,7 @@ public interface OrderRepository extends JpaRepository<OrderEntity,Long> {
 
     List<OrderEntity> findByMemberIdContaining(String searchValue);
 
+    OrderEntity save(OrderEntity orderEntity);
+
 
 }

@@ -64,4 +64,16 @@ INSERT INTO megamega.member (
     'ROLE_USER',
     '2021-09-18',
     5
+),
+(
+    'admin',
+    '1234',
+    '관리자',
+    '1999-03-22',
+    'admin@mega.com',
+    '01012341234',
+    'ROLE_ADMIN',
+    '2021-03-22',
+    0
 );
+
