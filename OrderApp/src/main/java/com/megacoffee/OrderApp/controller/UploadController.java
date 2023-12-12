@@ -16,8 +16,11 @@ import java.util.UUID;
 @Controller
 public class UploadController {
 
-   // private static final String UPLOAD_DIR = "C:/Users/EZEN/Documents/git-blog/MegaProject/OrderApp/src/main/resources/static/upload/";
-    private static final String UPLOAD_DIR = "C:/Users/yurim/OneDrive/문서/GitHub/MegaProject/OrderApp/src/main/resources/static/upload/";
+    //private static final String UPLOAD_DIR = "C:/Users/yurim/OneDrive/문서/GitHub/MegaProject/OrderApp/src/main/resources/static/upload/";
+    //private static final String UPLOAD_DIR = "C:/Users/EZEN/Documents/git-blog/MegaProject/OrderApp/src/main/resources/static/upload/";
+
+    //upload -> 우클륵 절대경로 복사
+   private static final String UPLOAD_DIR = "C:/Users/ezencom/Documents/git-blog/git-collabo/MegaProject/OrderApp/src/main/resources/static/upload";
 
     @PostMapping("/upload")
     @ResponseBody

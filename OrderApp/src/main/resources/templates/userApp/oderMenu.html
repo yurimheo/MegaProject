@@ -16,9 +16,40 @@
   </head>
   <body>
     <div class="container-fluid p-0" layout:fragment="mobile">
+      <!-- 상단바 시작 -->
+      <div
+        class="choiceAndSearch d-flex justify-content-between"
+        style="margin-top: 20px"
+      >
+        <button class="backBtn border-0 bg-white" onclick="goToMenu()">
+          <img
+            id="backBtnImg"
+            src="/static/images/icons/back.png"
+            alt="back"
+            style="width: 30px"
+          />
+        </button>
+
+        <button class="searchBtn text-end bg-transparent text-body border-0">
+          <a href="/cart">
+            <img
+              class="cartImg"
+              style="width: 30px"
+              src="/static/images/icons/online-shopping.png"
+              alt=""
+            />
+          </a>
+        </button>
+      </div>
+      <!-- 상단바 끝 -->
+
       <!-- 메뉴 이미지 시작 -->
       <div class="menuOrderImg">
-        <img alt="" th:src="@{'/static/upload/' + ${item.itemImageUrl}}" />
+        <img
+          alt=""
+          th:src="@{'/static/upload/' + ${item.itemImageUrl}}"
+          style="width: 60%"
+        />
         <input
           type="text"
           th:value="${item.itemImageUrl}"
@@ -66,7 +97,9 @@
             alt=""
           />
         </div>
-        <div class="price g900" th:text="${item.itemPrice}">1,500원</div>
+        <div class="price g900" id="prices" th:text="${item.itemPrice}">
+          1,500원
+        </div>
       </div>
       <!-- 수량 및 가격 끝 -->
 
@@ -104,6 +137,11 @@
     </div>
 
     <script layout:fragment="script">
+      //뒤로가기 버튼
+      function goToMenu() {
+        window.location.href = "/menu";
+      }
+
       // 수량 변경 및 총 상품금액 js 시작
       document.addEventListener("DOMContentLoaded", function () {
         var defaultNo = document.getElementById("defaultNo");
@@ -144,8 +182,7 @@
         const itemCodeValue = document.getElementById("cartItemCode").value;
         const itemNameValue = document.getElementById("nameValue").innerText;
         const itemImageUrlValue = document.getElementById("imageValue").value;
-        const itemPriceValue =
-          document.getElementById("totalPriceId").innerText;
+        const itemPriceValue = document.getElementById("prices").innerText;
         const cartItemAmountValue = parseInt(
           document.getElementById("defaultNo").innerText
         );
@@ -182,7 +219,7 @@
             console.log(error);
           });
       }
-      // 바로주문 클릭시 이동 및 수량과 금액정보를 DB로 전송 기능 시작
+      // 바로주문 클릭시 이동 및 수량과 금액정보를 DB로 전송 기능 끝
 
       // '장바구니' 클릭시 이동 및 수량과 금액정보를 DB로 전송 기능 시작
       function updateCart() {
@@ -190,8 +227,7 @@
         const itemCodeValue = document.getElementById("cartItemCode").value;
         const itemNameValue = document.getElementById("nameValue").innerText;
         const itemImageUrlValue = document.getElementById("imageValue").value;
-        const itemPriceValue =
-          document.getElementById("totalPriceId").innerText;
+        const itemPriceValue = document.getElementById("prices").innerText;
         const cartItemAmountValue = parseInt(
           document.getElementById("defaultNo").innerText
         );
