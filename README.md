@@ -7,8 +7,8 @@
 
 
 
-[메가커피 오더앱- 개발완료보고서.pdf](https://github.com/yurimheo/MegaProject/files/13807721/-.pdf)
+메가커피 오더앱 개발완료보고서 - [메가커피 오더앱- 개발완료보고서.pdf](https://github.com/yurimheo/MegaProject/files/13807721/-.pdf)
 
 
-메가커피 오더앱 - 시현 영상. https://youtu.be/YLVCWSU-zJs?si=gb2FVvj4ueIduXJL
+메가커피 오더앱 시현 영상 - https://youtu.be/YLVCWSU-zJs?si=gb2FVvj4ueIduXJL
 
