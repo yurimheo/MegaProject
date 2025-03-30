@@ -39,12 +39,17 @@ Java Spring Boot 기반으로 구현한 **메가커피 오더앱 클론 프로�
 ```bash
 # 저장소 클론
 git clone https://github.com/yurimheo/MegaProject.git
+```
 
+```bash
 # Gradle 빌드
 ./gradlew build
+```
 
+```bash
 # 애플리케이션 실행
 java -jar build/libs/megaproject-0.0.1-SNAPSHOT.jar
+```
 
 ## 👩‍💻 역할 및 기여 (허유림)
 팀장으로서 전체 일정 관리 및 역할 분배
