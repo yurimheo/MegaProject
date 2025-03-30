@@ -92,5 +92,5 @@ Spring Boot 설정 중 의존성 오류 및 빌드 실패 문제 해결
 ---
 
 ## 📎 기타 자료
-[📄 개발 완료 보고서 PDF 보기](https://github.com/yurimheo/MegaProject/blob/main/OrderApp/2%EC%A1%B0%20%EA%B0%9C%EB%B0%9C%EC%99%84%EB%A3%8C%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf)
+[📄 개발 완료 보고서 PDF 보기](https://github.com/yurimheo/MegaProject/blob/main/2%EC%A1%B0%20%EA%B0%9C%EB%B0%9C%EC%99%84%EB%A3%8C%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf)
 
